@@ -451,14 +451,15 @@
     .product-gallery { position:relative;width:100%;height:100%;overflow:hidden; }
     .product-art .product-gallery-slide { position:absolute;inset:0;width:100%;height:100%;padding:18px 58px 42px;object-fit:contain;opacity:0;transform:scale(.97);transition:opacity .28s ease,transform .34s cubic-bezier(.2,.7,.2,1);pointer-events:none; }
     .product-art .starlink-gallery .product-gallery-slide { padding:0 0 28px; }
-    .product-art .starlink-gallery .product-gallery-slide.is-active { transform:scale(.67925); }
-    .product-gallery-slide.is-active { opacity:1;transform:scale(.6175); }
+    .product-art .starlink-gallery .product-gallery-slide.is-active { transform:scale(.76076); }
+    .product-gallery-slide.is-active { opacity:1;transform:scale(.6916); }
     .product-art.suction-art { height:auto;aspect-ratio:1/1;background:transparent; }
     .product-art.suction-art .suction-gallery .product-gallery-slide { padding:10px 42px 38px;filter:drop-shadow(0 12px 18px rgba(0,0,0,.22));transform:scale(.82); }
-    .product-art.suction-art .suction-gallery .product-gallery-slide.is-active { transform:scale(.688); }
-    .product-art.powerbank-art .product-gallery-slide.is-active { transform:scale(.494); }
-    .product-art.mount-art .product-gallery-slide.is-active { transform:scale(.576); }
-    .product-art.mount-art .mount-scene-slide.is-active { transform:scale(.768); }
+    .product-art.suction-art .suction-gallery .product-gallery-slide.is-active { transform:scale(.77056); }
+    .product-art.powerbank-art .product-gallery-slide.is-active { transform:scale(.41496); }
+    .product-art.mount-art .product-gallery-slide.is-active { transform:scale(.64512); }
+    .product-art.mount-art .mount-scene-slide.is-active { transform:scale(.86016); }
+    .product-art,.product-art.mini-bg,.product-art.standard-bg,.product-art.powerbank-art,.product-art.mount-art,.product-art.suction-art { height:auto;aspect-ratio:16/10; }
     .product-card.powerbank-card > .price-row { margin-top:auto; }
     .product-gallery-arrow { position:absolute;z-index:2;top:50%;display:grid;place-items:center;width:42px;height:42px;padding:0;border:1px solid rgba(190,215,244,.38);border-radius:50%;background:rgba(7,16,31,.68);color:#f4f8ff;box-shadow:inset 0 1px rgba(255,255,255,.12),0 7px 20px rgba(0,0,0,.22);backdrop-filter:blur(12px);cursor:pointer;transform:translateY(-50%);transition:background .2s ease,border-color .2s ease,transform .2s ease; }
     .product-gallery-arrow:hover { background:rgba(46,91,143,.82);border-color:rgba(216,233,255,.68);transform:translateY(-50%) scale(1.06); }
@@ -506,6 +507,14 @@
       .products { grid-template-columns:minmax(0,1fr); }
       .product-card.powerbank-card { grid-column:auto;width:100%;justify-self:stretch; }
     }
+    /* La casilla se ajusta al tamaño real de la imagen activa. */
+    .product-art,.product-art.mini-bg,.product-art.standard-bg,.product-art.powerbank-art,.product-art.mount-art,.product-art.suction-art { width:max-content;max-width:min(100%,260px);height:auto;aspect-ratio:auto;margin:14px auto 16px;overflow:visible; }
+    .product-gallery { display:grid;place-items:center;position:relative;width:max-content;max-width:100%;height:auto;overflow:visible; }
+    .product-art .product-gallery-slide { display:none;position:relative;inset:auto;width:auto;height:auto;max-width:100%;max-height:180px;padding:0;object-fit:contain;opacity:0;transform:none;transition:opacity .22s ease;pointer-events:none; }
+    .product-art .product-gallery-slide.is-active { display:block;opacity:1;transform:none;pointer-events:auto; }
+    .product-art .starlink-gallery .product-gallery-slide,.product-art .starlink-gallery .product-gallery-slide.is-active { padding:0;transform:none; }
+    .product-art.suction-art .suction-gallery .product-gallery-slide,.product-art.suction-art .suction-gallery .product-gallery-slide.is-active { padding:0;filter:none;transform:none; }
+    .product-art.powerbank-art .product-gallery-slide.is-active,.product-art.mount-art .product-gallery-slide.is-active,.product-art.mount-art .mount-scene-slide.is-active { transform:none; }
   </style>
 </head>
 <body>
