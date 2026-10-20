@@ -35,6 +35,7 @@
     .nav { height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
     .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.045em; font-size: 16px; }
     .brand-header { flex-direction:row; align-items:center; gap:10px; color:#fff; }
+    .brand-official { display:inline-block; max-width:88px; margin-left:2px; padding-left:10px; border-left:1px solid rgba(255,255,255,.45); color:#e8e8e8; font-size:9px; font-weight:700; letter-spacing:.06em; line-height:1.25; }
     .starlink-symbol { width:39px;height:39px;flex:none; }
     .starlink-icon { object-fit:contain;filter:invert(1); }
     .brand-mark .starlink-icon { width:28px;height:28px; }
@@ -179,6 +180,7 @@
       .nav { gap:14px; }
       .nav-links { gap:12px;font-size:12px;white-space:nowrap; }
       .brand-header .starlink-wordmark { font-size:17px; }
+      .brand-official { max-width:76px; font-size:8px; }
       .nav > .button { padding:12px 15px;font-size:11px;white-space:nowrap; }
       .hero-grid { gap:22px;grid-template-columns:1fr 1fr; }
       .band-grid { gap:40px; }
@@ -188,6 +190,8 @@
       .wrap { width:min(100% - 32px,var(--max)); }
       .announcement { font-size:10px; }
       .nav { height:66px;gap:6px; }
+      .brand-header { position:relative; }
+      .brand-official { position:absolute; top:calc(100% - 1px); left:49px; max-width:none; margin:0; padding:0; border:0; font-size:7px; letter-spacing:.03em; white-space:nowrap; }
     .nav .button { display:none; }
       .mobile-equipment-link { display:inline-flex;align-items:center;justify-content:center;flex:none;padding:9px 10px;border:1px solid rgba(255,255,255,.46);border-radius:999px;background:#fff;color:#000!important;font-size:10px;font-weight:800;white-space:nowrap; }
       .nav-links .nav-equipment-link { display:none; }
@@ -507,9 +511,10 @@
 <body>
   <header>
     <div class="wrap nav">
-      <a class="brand brand-header" href="#inicio" aria-label="Starlink Colombia, inicio">
+      <a class="brand brand-header" href="#inicio" aria-label="Starlink Colombia, distribuidor oficial, inicio">
         <img class="starlink-symbol starlink-icon" src="./starlink-icon.png" alt="" aria-hidden="true">
         <span class="brand-name"><span class="starlink-wordmark">STARLINK</span><span class="brand-region">COLOMBIA</span></span>
+        <span class="brand-official">Distribuidor oficial</span>
       </a>
       <a class="mobile-equipment-link" href="#equipos" aria-label="Ver Kit Mini-Kit V4">Kit Mini-Kit V4</a>
       <nav class="nav-links" id="navLinks" aria-label="Navegación principal">
