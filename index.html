@@ -459,7 +459,7 @@
     .product-art.mini-bg,.product-art.standard-bg { width:calc(100% + 48px);margin-left:-24px;margin-right:-24px;aspect-ratio:1/1; }
     .product-art.mini-bg .product-photo,.product-art.standard-bg .product-photo { object-fit:contain; }
     .product-art.powerbank-art,.product-art.ethernet-adapter-art { position:relative;background:transparent; }
-    .product-art.apowking-art { position:relative;background:transparent;height:auto;aspect-ratio:16/10; }
+    .product-art.apowking-art,.product-art.ecoflow-art,.product-art.cable-art { position:relative;background:transparent;height:auto;aspect-ratio:16/10; }
     .product-gallery { position:relative;width:100%;height:100%;overflow:hidden; }
     .product-art .product-gallery-slide { position:absolute;inset:0;width:100%;height:100%;padding:18px 58px 42px;object-fit:contain;opacity:0;transform:scale(.97);transition:opacity .28s ease,transform .34s cubic-bezier(.2,.7,.2,1);pointer-events:none; }
     .product-art .starlink-gallery .product-gallery-slide { padding:0 0 28px; }
@@ -470,9 +470,10 @@
     .product-art.suction-art .suction-gallery .product-gallery-slide.is-active { transform:scale(.77056); }
     .product-art.powerbank-art .product-gallery-slide.is-active { transform:scale(.41496); }
     .product-art.apowking-art .product-gallery-slide.is-active { transform:scale(.8); }
+    .product-art.ecoflow-art .product-gallery-slide.is-active,.product-art.cable-art .product-gallery-slide.is-active { transform:scale(.78); }
     .product-art.mount-art .product-gallery-slide.is-active { transform:scale(.64512); }
     .product-art.mount-art .mount-scene-slide.is-active { transform:scale(.86016); }
-    .product-art,.product-art.mini-bg,.product-art.standard-bg,.product-art.powerbank-art,.product-art.mount-art,.product-art.suction-art { height:auto;aspect-ratio:16/10; }
+    .product-art,.product-art.mini-bg,.product-art.standard-bg,.product-art.powerbank-art,.product-art.mount-art,.product-art.suction-art,.product-art.ecoflow-art,.product-art.cable-art { height:auto;aspect-ratio:16/10; }
     .product-card.powerbank-card > .price-row { margin-top:auto; }
     .product-gallery-arrow { position:absolute;z-index:2;top:50%;display:grid;place-items:center;width:42px;height:42px;padding:0;border:1px solid rgba(190,215,244,.38);border-radius:50%;background:rgba(7,16,31,.68);color:#f4f8ff;box-shadow:inset 0 1px rgba(255,255,255,.12),0 7px 20px rgba(0,0,0,.22);backdrop-filter:blur(12px);cursor:pointer;transform:translateY(-50%);transition:background .2s ease,border-color .2s ease,transform .2s ease; }
     .product-gallery-arrow:hover { background:rgba(46,91,143,.82);border-color:rgba(216,233,255,.68);transform:translateY(-50%) scale(1.06); }
@@ -526,13 +527,13 @@
     .product-card h3 { font-size:19px;line-height:1.18; }
     .product-card p { font-size:11px;line-height:1.5;margin-bottom:12px; }
     .product-card.powerbank-card h3 { font-size:19px; }
-    .product-art,.product-art.mini-bg,.product-art.standard-bg,.product-art.powerbank-art,.product-art.mount-art,.product-art.suction-art { width:max-content;max-width:min(78%,187px);height:auto;aspect-ratio:auto;margin:14px auto 16px;overflow:visible; }
+    .product-art,.product-art.mini-bg,.product-art.standard-bg,.product-art.powerbank-art,.product-art.mount-art,.product-art.suction-art,.product-art.ecoflow-art,.product-art.cable-art { width:max-content;max-width:min(78%,187px);height:auto;aspect-ratio:auto;margin:14px auto 16px;overflow:visible; }
     .product-gallery { display:grid;place-items:center;position:relative;width:max-content;max-width:100%;height:auto;overflow:visible; }
     .product-art .product-gallery-slide { display:none;position:relative;inset:auto;width:auto;height:auto;max-width:100%;max-height:130px;padding:0;object-fit:contain;opacity:0;transform:none;transition:opacity .22s ease;pointer-events:none; }
     .product-art .product-gallery-slide.is-active { display:block;opacity:1;transform:none;pointer-events:auto; }
     .product-art .starlink-gallery .product-gallery-slide,.product-art .starlink-gallery .product-gallery-slide.is-active { padding:0;transform:none; }
     .product-art.suction-art .suction-gallery .product-gallery-slide,.product-art.suction-art .suction-gallery .product-gallery-slide.is-active { padding:0;filter:none;transform:none; }
-    .product-art.powerbank-art .product-gallery-slide.is-active,.product-art.mount-art .product-gallery-slide.is-active,.product-art.mount-art .mount-scene-slide.is-active { transform:none; }
+    .product-art.powerbank-art .product-gallery-slide.is-active,.product-art.mount-art .product-gallery-slide.is-active,.product-art.mount-art .mount-scene-slide.is-active,.product-art.ecoflow-art .product-gallery-slide.is-active,.product-art.cable-art .product-gallery-slide.is-active { transform:none; }
     .product-actions { grid-template-columns:1fr;gap:8px;margin-top:11px; }
     .product-actions .button { min-height:39px;padding:9px 10px; }
     @media (max-width:680px) {
@@ -542,18 +543,13 @@
       .product-card p { font-size:10px;line-height:1.45;margin-bottom:10px; }
       .product-top { align-items:flex-start;gap:5px; }
       .product-top .tag { padding:5px 7px;font-size:8px; }
-      .product-art,.product-art.mini-bg,.product-art.standard-bg,.product-art.powerbank-art,.product-art.mount-art,.product-art.suction-art { max-width:min(78%,187px);margin:10px auto 12px; }
+      .product-art,.product-art.mini-bg,.product-art.standard-bg,.product-art.powerbank-art,.product-art.mount-art,.product-art.suction-art,.product-art.ecoflow-art,.product-art.cable-art { max-width:min(78%,187px);margin:10px auto 12px; }
       .product-art .product-gallery-slide { max-height:114px; }
       .product-actions .button { min-height:35px;padding:7px 5px;font-size:9px; }
     }
     .product-gallery-arrow,.product-gallery-meta { display:none!important; }
-    .product-art .product-gallery-slide { cursor:zoom-in; }
+    .product-art .product-gallery-slide { cursor:pointer; }
     .product-art .product-gallery-slide:focus-visible { outline:3px solid #9ec8ff;outline-offset:4px;border-radius:8px; }
-    .product-gallery-zoom { position:absolute;z-index:4;right:-10px;bottom:-12px;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:6px 11px;border:1px solid rgba(214,232,255,.72);border-radius:999px;background:linear-gradient(135deg,rgba(40,91,151,.97),rgba(5,17,34,.96));color:#fff;box-shadow:0 8px 22px rgba(0,0,0,.38),0 0 0 3px rgba(100,161,230,.2);backdrop-filter:blur(8px);cursor:zoom-in;transition:transform .2s ease,box-shadow .2s ease; }
-    .product-gallery-zoom:hover { transform:scale(1.07);box-shadow:0 10px 26px rgba(0,0,0,.45),0 0 0 4px rgba(117,180,249,.28); }
-    .product-gallery-zoom svg { flex:none;width:16px;height:16px; }
-    .product-gallery-zoom span { font-size:10px;font-weight:800;white-space:nowrap; }
-    .product-gallery-zoom:focus-visible { outline:3px solid #b9d8ff;outline-offset:3px; }
     .product-lightbox[hidden] { display:none!important; }
     .product-lightbox { position:fixed;inset:0;z-index:1200;display:grid;place-items:center;padding:24px;background:rgba(3,9,19,.88);backdrop-filter:blur(12px);opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease; }
     .product-lightbox.is-open { opacity:1;visibility:visible; }
@@ -587,9 +583,6 @@
       .product-lightbox-footer { align-items:flex-start;flex-direction:column;gap:8px; }
       .product-lightbox-thumbs { justify-content:flex-start;max-width:100%;width:100%; }
       .product-lightbox-thumb { width:58px;height:48px; }
-      .product-gallery-zoom { right:-8px;bottom:-10px;min-height:40px;gap:5px;padding:5px 8px; }
-      .product-gallery-zoom svg { width:15px;height:15px; }
-      .product-gallery-zoom span { font-size:9px; }
     }
   </style>
 </head>
@@ -710,6 +703,24 @@
             <div class="price-row"><strong>$565.518</strong><span>COP · precio del producto</span></div>
             <div class="product-actions"><button class="button add-to-cart" type="button" data-product-id="apowking-r100"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.1 11.1a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.4L22 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="18" cy="20" r="1.4" fill="currentColor"/></svg>Agregar al carrito</button><button class="button button-light whatsapp-buy" type="button" data-product-id="apowking-r100"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1 11.8a8.1 8.1 0 0 1-11.9 7.1L4 20l1.1-4a8.1 8.1 0 1 1 15-4.2Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.2c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4-.1.6.6 1.1 1.4 1.9 2.5 2.5.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .3-.2 1-.7 1.4-.5.5-1.2.7-1.9.6-1.1-.1-2.6-.8-4-2.1-1.5-1.4-2.4-3.1-2.5-4.1-.1-.8.3-1.5.7-1.9.2-.2.3-.1.5 0Z" fill="currentColor"/></svg>Comprar por WhatsApp</button></div>
           </article>
+          <article class="product-card powerbank-card ecoflow-card">
+            <div class="product-top"><span class="tag">Accesorio · Batería portátil</span><img class="product-logo starlink-icon" src="./starlink-icon.png" alt="" aria-hidden="true"></div>
+            <div class="product-art ecoflow-art">
+              <div class="product-gallery" data-product-gallery role="group" aria-roledescription="carrusel" aria-label="Galería de la estación EcoFlow RIVER 2 Max">
+                <img class="product-gallery-slide is-active" data-gallery-slide src="./ecoflow-river-2-max-view-1.png" alt="Frente de la estación portátil EcoFlow RIVER 2 Max" loading="lazy" decoding="async">
+                <img class="product-gallery-slide" data-gallery-slide src="./ecoflow-river-2-max-view-2.png" alt="Parte posterior de la estación EcoFlow RIVER 2 Max" loading="lazy" decoding="async" aria-hidden="true">
+                <img class="product-gallery-slide" data-gallery-slide src="./ecoflow-river-2-max-view-3.png" alt="Vista lateral de la estación EcoFlow RIVER 2 Max" loading="lazy" decoding="async" aria-hidden="true">
+                <img class="product-gallery-slide" data-gallery-slide src="./ecoflow-river-2-max-view-4.png" alt="Vista en ángulo de la estación portátil EcoFlow RIVER 2 Max" loading="lazy" decoding="async" aria-hidden="true">
+                <button class="product-gallery-arrow product-gallery-prev" type="button" data-gallery-prev aria-label="Ver imagen anterior"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m14.5 5-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="product-gallery-arrow product-gallery-next" type="button" data-gallery-next aria-label="Ver imagen siguiente"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9.5 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <div class="product-gallery-meta"><span class="product-gallery-count" data-gallery-count aria-live="polite">01 / 04</span><div class="product-gallery-dots" data-gallery-dots role="group" aria-label="Seleccionar imagen"></div></div>
+              </div>
+            </div>
+            <h3>Estación de energía portátil EcoFlow RIVER 2 Max 500 W</h3>
+            <p>Batería portátil EcoFlow de 499 Wh y salida de 500 W para alimentar dispositivos y equipos compatibles.</p>
+            <div class="price-row"><strong>$1.500.000</strong><span>COP · precio del producto</span></div>
+            <div class="product-actions"><button class="button add-to-cart" type="button" data-product-id="ecoflow-river-2-max">Agregar al carrito</button><button class="button button-light whatsapp-buy" type="button" data-product-id="ecoflow-river-2-max">Comprar por WhatsApp</button></div>
+          </article>
           <article class="product-card powerbank-card mount-card">
             <div class="product-top"><span class="tag">Accesorio · Soporte</span><img class="product-logo starlink-icon" src="./starlink-icon.png" alt="" aria-hidden="true"></div>
             <div class="product-art mount-art">
@@ -762,6 +773,23 @@
             <p>Soporta velocidades de transmisión de hasta 1 Gbps para la transferencia de datos entre dispositivos de red.</p>
             <div class="price-row"><strong>$115.000</strong><span>COP · precio del producto</span></div>
             <div class="product-actions"><button class="button add-to-cart" type="button" data-product-id="ethernet-adapter"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.1 11.1a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.4L22 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="18" cy="20" r="1.4" fill="currentColor"/></svg>Agregar al carrito</button><button class="button button-light whatsapp-buy" type="button" data-product-id="ethernet-adapter"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1 11.8a8.1 8.1 0 0 1-11.9 7.1L4 20l1.1-4a8.1 8.1 0 1 1 15-4.2Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.2c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4-.1.6.6 1.1 1.4 1.9 2.5 2.5.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .3-.2 1-.7 1.4-.5.5-1.2.7-1.9.6-1.1-.1-2.6-.8-4-2.1-1.5-1.4-2.4-3.1-2.5-4.1-.1-.8.3-1.5.7-1.9.2-.2.4-.1.5 0Z" fill="currentColor"/></svg>Comprar por WhatsApp</button></div>
+          </article>
+          <article class="product-card powerbank-card cable-card">
+            <div class="product-top"><span class="tag">Accesorio · Cable Starlink Mini</span><img class="product-logo starlink-icon" src="./starlink-icon.png" alt="" aria-hidden="true"></div>
+            <div class="product-art cable-art">
+              <div class="product-gallery" data-product-gallery role="group" aria-roledescription="carrusel" aria-label="Galería del cable USB-C a DC para Starlink Mini">
+                <img class="product-gallery-slide is-active" data-gallery-slide src="./mini-usbc-dc-cable-view-1.png" alt="Cable gris USB-C a DC de 5 metros para Starlink Mini" loading="lazy" decoding="async">
+                <img class="product-gallery-slide" data-gallery-slide src="./mini-usbc-dc-cable-view-2.png" alt="Detalle de los conectores USB-C y DC 5.5 mm del cable" loading="lazy" decoding="async" aria-hidden="true">
+                <img class="product-gallery-slide" data-gallery-slide src="./mini-usbc-dc-cable-view-3.png" alt="Cable gris de poder para Starlink Mini enrollado" loading="lazy" decoding="async" aria-hidden="true">
+                <button class="product-gallery-arrow product-gallery-prev" type="button" data-gallery-prev aria-label="Ver imagen anterior"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m14.5 5-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <button class="product-gallery-arrow product-gallery-next" type="button" data-gallery-next aria-label="Ver imagen siguiente"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9.5 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <div class="product-gallery-meta"><span class="product-gallery-count" data-gallery-count aria-live="polite">01 / 03</span><div class="product-gallery-dots" data-gallery-dots role="group" aria-label="Seleccionar imagen"></div></div>
+              </div>
+            </div>
+            <h3>Cable de Poder USB-C a DC 5.5 mm para Starlink Mini 5 m Gris VTA</h3>
+            <p>Cable de poder gris de 5 metros con conexión USB-C a DC 5.5 mm, compatible con Starlink Mini.</p>
+            <div class="price-row"><strong>$88.900</strong><span>COP · precio del producto</span></div>
+            <div class="product-actions"><button class="button add-to-cart" type="button" data-product-id="mini-usbc-dc-cable">Agregar al carrito</button><button class="button button-light whatsapp-buy" type="button" data-product-id="mini-usbc-dc-cable">Comprar por WhatsApp</button></div>
           </article>
         </div>
         <p class="note">La compra del kit y el plan de servicio son conceptos separados. Los equipos, accesorios, planes y condiciones disponibles pueden variar según el país y la dirección de uso. Confirmaremos la compatibilidad y la cobertura antes de tu compra.</p>
@@ -967,9 +995,11 @@
       'mini-travel': { name: 'Kit de viaje Mini', price: null, stock: 99 },
       'power-bank': { name: 'Power Bank Imenso IMS-618S de 60.000 mAh y 100W de potencia', price: 299900, stock: 99 },
       'apowking-r100': { name: 'Generador Solar Apowking de 200 W de Pico, 100 W de Potencia', price: 565518, stock: 99 },
+      'ecoflow-river-2-max': { name: 'Estación de energía portátil EcoFlow RIVER 2 Max 500 W', price: 1500000, stock: 99 },
       'mini-fixed-mount': { name: 'Soporte de montaje fijo Starlink Mini con brazo largo ajustable para canal de acero, adaptador para pared y techo', price: 150000, stock: 99 },
       'ventosa': { name: 'Soporte ventosa para Starlink Mini', price: 120000, stock: 99 },
-      'ethernet-adapter': { name: 'Starlink Ethernet Satelital Red Adapter', price: 115000, stock: 99 }
+      'ethernet-adapter': { name: 'Starlink Ethernet Satelital Red Adapter', price: 115000, stock: 99 },
+      'mini-usbc-dc-cable': { name: 'Cable de Poder USB-C a DC 5.5 mm para Starlink Mini 5 m Gris VTA', price: 88900, stock: 99 }
     };
     const CART_KEY = 'starlinkColombiaCart';
     let cart = [];
@@ -1186,26 +1216,13 @@
           slide.setAttribute('aria-hidden', String(!active));
           slide.tabIndex = active ? 0 : -1;
           slide.setAttribute('role', 'button');
-          slide.setAttribute('aria-label', `Ampliar foto ${slideIndex + 1}: ${slide.alt}`);
+          slide.setAttribute('aria-label', `Abrir ficha del producto: ${slide.alt}`);
         });
         counter.textContent = `${String(current + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
         dots.querySelectorAll('[data-gallery-index]').forEach((dot, dotIndex) => dot.setAttribute('aria-current', String(dotIndex === current)));
         syncProductLightbox(state);
       };
       state.showSlide = showSlide;
-      const zoomButton = document.createElement('button');
-      zoomButton.type = 'button';
-      zoomButton.className = 'product-gallery-zoom';
-      const productTitle = gallery.closest('.product-card')?.querySelector('h3')?.textContent?.trim() || 'producto';
-      zoomButton.setAttribute('aria-label', `Ampliar fotos de ${productTitle}`);
-      zoomButton.title = 'Toca para ampliar y cambiar las fotos';
-      zoomButton.innerHTML = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="2.2"/><path d="m16 16 5 5M10.8 7.5v6.6M7.5 10.8h6.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span>Ampliar</span>';
-      zoomButton.addEventListener('click', event => {
-        event.preventDefault();
-        event.stopPropagation();
-        openProductLightbox(gallery, state, current, zoomButton);
-      });
-      gallery.appendChild(zoomButton);
       slides.forEach((slide, slideIndex) => {
         slide.addEventListener('click', event => {
           if (productDetailUrl) {
