@@ -925,7 +925,7 @@
     const municipalitySelect = document.getElementById('coverageMunicipality');
     let toastTimer;
     let pendingWhatsAppMessage = '';
-    let preparedBoldCheckout = null;
+    let isPreparingBoldPayment = false;
     let boldLibraryPromise = null;
 
     const CATALOG = {
@@ -1200,8 +1200,7 @@
       cartButton.setAttribute('aria-expanded', 'false');
     }
     function renderCart() {
-      preparedBoldCheckout = null;
-      cartPayBoldLabel.textContent = 'Pagar con';
+      cartPayBoldLabel.textContent = isPreparingBoldPayment ? 'Preparando pago…' : 'Pagar con';
       const count = cart.reduce((total, item) => total + item.quantity, 0);
       cartCount.textContent = String(count);
       cartCount.hidden = count === 0;
@@ -1222,7 +1221,7 @@
       const pending = document.getElementById('cartPending');
       pending.hidden = unknownCount === 0;
       pending.textContent = unknownCount ? `${unknownCount} artículo${unknownCount === 1 ? '' : 's'} sin precio publicado: no se pueden incluir en el pago con Bold.` : (count > 0 && knownTotal < 1000 ? 'Bold requiere un pago mínimo de $1.000 COP.' : '');
-      cartPayBold.disabled = count === 0 || unknownCount > 0 || knownTotal < 1000;
+      cartPayBold.disabled = isPreparingBoldPayment || count === 0 || unknownCount > 0 || knownTotal < 1000;
       saveCart();
     }
     function addCartItem(id) {
@@ -1316,21 +1315,12 @@
       }
     }
     cartPayBold.addEventListener('click', async () => {
-      if (preparedBoldCheckout) {
-        try {
-          preparedBoldCheckout.checkout.open();
-          preparedBoldCheckout = null;
-          cartPayBoldLabel.textContent = 'Pagar con';
-          closeCart();
-        } catch (error) {
-          showToast('No pudimos abrir la pasarela de Bold. Inténtalo de nuevo.');
-        }
-        return;
-      }
-      if (!cart.length) return;
+      if (!cart.length || isPreparingBoldPayment) return;
       const items = cart.map(item => ({ id: item.id, quantity: item.quantity }));
+      isPreparingBoldPayment = true;
       cartPayBold.disabled = true;
       cartPayBoldLabel.textContent = 'Preparando pago…';
+      cartItems.querySelectorAll('.cart-qty button').forEach(button => { button.disabled = true; });
       try {
         const response = await fetch('/api/create-bold-checkout', {
           method: 'POST',
@@ -1342,13 +1332,15 @@
         await loadBoldCheckoutLibrary();
         const pendingOrder = { orderId: result.orderId, amount: result.amount, items };
         localStorage.setItem('starlinkPendingBoldOrder', JSON.stringify(pendingOrder));
-        preparedBoldCheckout = { checkout: new window.BoldCheckout(result.checkout), order: pendingOrder };
-        cartPayBold.disabled = false;
-        cartPayBoldLabel.textContent = 'Abrir pasarela segura';
-        showToast('El total quedó preparado. Pulsa “Abrir pasarela segura” para pagar con Bold.');
+        const checkout = new window.BoldCheckout(result.checkout);
+        checkout.open();
+        isPreparingBoldPayment = false;
+        renderCart();
+        closeCart();
       } catch (error) {
-        cartPayBold.disabled = false;
-        cartPayBoldLabel.textContent = 'Pagar con';
+        isPreparingBoldPayment = false;
+        renderCart();
+        openCart();
         showToast(error.message || 'No pudimos conectar con Bold. Verifica la configuración de la tienda.');
       }
     });
@@ -1365,6 +1357,7 @@
     });
     document.querySelectorAll('.add-to-cart').forEach(button => button.addEventListener('click', event => {
       event.stopPropagation();
+      if (isPreparingBoldPayment) return showToast('Estamos preparando el pago con Bold. Espera un momento.');
       const card = button.closest('.product-card');
       const ids = [button.dataset.productId, ...selectedAccessories(card)];
       let added = 0;
@@ -1384,6 +1377,7 @@
     cartButton.addEventListener('click', () => cartPanel.classList.contains('open') ? closeCart() : openCart());
     document.getElementById('cartClose').addEventListener('click', closeCart);
     cartItems.addEventListener('click', event => {
+      if (isPreparingBoldPayment) return;
       const button = event.target.closest('[data-cart-change]');
       if (!button) return;
       const item = cart.find(entry => entry.id === button.dataset.itemId);
