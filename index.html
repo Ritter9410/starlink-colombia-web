@@ -382,8 +382,9 @@
     .cart-total-row { display:flex;justify-content:space-between;gap:14px;align-items:baseline;font-size:11px;color:#c9c9c9; }
     .cart-total-row strong { color:#fff;font-size:20px; }
     .cart-pending { margin:7px 0 13px;color:#bbb;font-size:10px;line-height:1.5; }
-.cart-whatsapp { width:100%;margin-top:10px; }
 .cart-pay-bold { width:100%;margin-top:14px; }
+.cart-pay-bold .cart-pay-label { white-space:nowrap; }
+.cart-pay-bold .bold-payment-logo { display:block;width:auto;height:24px;max-width:82px;object-fit:contain; }
 .cart-payment-status { margin-top:13px;padding:12px;border:1px solid rgba(171,204,243,.28);border-radius:13px;background:rgba(7,18,34,.54);color:#e8f1ff;font-size:11px;line-height:1.55; }
 .cart-payment-status p { margin:0 0 10px; }
 .cart-payment-status .button { width:100%;padding:10px 12px;font-size:11px; }
@@ -606,7 +607,7 @@
     <section class="cart-panel" id="cartPanel" role="dialog" aria-label="Carrito de compras" aria-hidden="true">
       <div class="cart-panel-head"><div><strong>Tu carrito</strong><span id="cartItemCount">0 productos</span></div><button class="cart-close" id="cartClose" type="button" aria-label="Cerrar carrito">×</button></div>
       <div class="cart-items" id="cartItems"><p class="cart-empty">Todavía no has agregado equipos.</p></div>
-<div class="cart-panel-foot"><div class="cart-total-row"><span>Total del carrito</span><strong id="cartTotal">$0</strong></div><p id="cartPending" class="cart-pending" hidden></p><button class="button cart-pay-bold" id="cartPayBold" type="button">Pagar todo con Bold</button><button class="button button-light cart-whatsapp" id="cartWhatsApp" type="button">Consultar por WhatsApp</button><div id="cartPaymentStatus" class="cart-payment-status" role="status" aria-live="polite" hidden><p id="cartPaymentMessage"></p><button class="button button-light" id="cartDeliveryWhatsApp" type="button" hidden>Coordinar entrega por WhatsApp</button></div><small class="cart-note">El pago se confirma con Bold. Los artículos sin precio publicado se cotizan por WhatsApp.</small></div>
+<div class="cart-panel-foot"><div class="cart-total-row"><span>Total del carrito</span><strong id="cartTotal">$0</strong></div><p id="cartPending" class="cart-pending" hidden></p><button class="button cart-pay-bold" id="cartPayBold" type="button"><span class="cart-pay-label" data-pay-label>Pagar con</span><img class="bold-payment-logo" src="https://bold.co/assets/logos/Logotipo%20azul.png" alt="Bold" loading="lazy" decoding="async"></button><div id="cartPaymentStatus" class="cart-payment-status" role="status" aria-live="polite" hidden><p id="cartPaymentMessage"></p><button class="button button-light" id="cartDeliveryWhatsApp" type="button" hidden>Coordinar entrega por WhatsApp</button></div><small class="cart-note">El pago del carrito se procesa con Bold. Los artículos sin precio publicado no se pueden incluir en el pago.</small></div>
     </section>
   </header>
   <main>
@@ -907,6 +908,7 @@
     const cartItems = document.getElementById('cartItems');
     const cartCount = document.getElementById('cartCount');
     const cartPayBold = document.getElementById('cartPayBold');
+    const cartPayBoldLabel = cartPayBold.querySelector('[data-pay-label]');
     const cartPaymentStatus = document.getElementById('cartPaymentStatus');
     const cartPaymentMessage = document.getElementById('cartPaymentMessage');
     const cartDeliveryWhatsApp = document.getElementById('cartDeliveryWhatsApp');
@@ -1199,7 +1201,7 @@
     }
     function renderCart() {
       preparedBoldCheckout = null;
-      cartPayBold.textContent = 'Pagar todo con Bold';
+      cartPayBoldLabel.textContent = 'Pagar con';
       const count = cart.reduce((total, item) => total + item.quantity, 0);
       cartCount.textContent = String(count);
       cartCount.hidden = count === 0;
@@ -1219,8 +1221,7 @@
       document.getElementById('cartTotal').textContent = formatCOP(knownTotal);
       const pending = document.getElementById('cartPending');
       pending.hidden = unknownCount === 0;
-      pending.textContent = unknownCount ? `${unknownCount} artículo${unknownCount === 1 ? '' : 's'} sin precio publicado: confirma su valor por WhatsApp antes de pagar.` : (count > 0 && knownTotal < 1000 ? 'Bold requiere un pago mínimo de $1.000 COP.' : '');
-      document.getElementById('cartWhatsApp').disabled = count === 0;
+      pending.textContent = unknownCount ? `${unknownCount} artículo${unknownCount === 1 ? '' : 's'} sin precio publicado: no se pueden incluir en el pago con Bold.` : (count > 0 && knownTotal < 1000 ? 'Bold requiere un pago mínimo de $1.000 COP.' : '');
       cartPayBold.disabled = count === 0 || unknownCount > 0 || knownTotal < 1000;
       saveCart();
     }
@@ -1319,7 +1320,7 @@
         try {
           preparedBoldCheckout.checkout.open();
           preparedBoldCheckout = null;
-          cartPayBold.textContent = 'Pagar todo con Bold';
+          cartPayBoldLabel.textContent = 'Pagar con';
           closeCart();
         } catch (error) {
           showToast('No pudimos abrir la pasarela de Bold. Inténtalo de nuevo.');
@@ -1329,7 +1330,7 @@
       if (!cart.length) return;
       const items = cart.map(item => ({ id: item.id, quantity: item.quantity }));
       cartPayBold.disabled = true;
-      cartPayBold.textContent = 'Preparando pago…';
+      cartPayBoldLabel.textContent = 'Preparando pago…';
       try {
         const response = await fetch('/api/create-bold-checkout', {
           method: 'POST',
@@ -1343,11 +1344,11 @@
         localStorage.setItem('starlinkPendingBoldOrder', JSON.stringify(pendingOrder));
         preparedBoldCheckout = { checkout: new window.BoldCheckout(result.checkout), order: pendingOrder };
         cartPayBold.disabled = false;
-        cartPayBold.textContent = 'Abrir pasarela segura de Bold';
-        showToast('El total quedó preparado. Pulsa “Abrir pasarela segura de Bold” para pagar.');
+        cartPayBoldLabel.textContent = 'Abrir pasarela segura';
+        showToast('El total quedó preparado. Pulsa “Abrir pasarela segura” para pagar con Bold.');
       } catch (error) {
         cartPayBold.disabled = false;
-        cartPayBold.textContent = 'Pagar todo con Bold';
+        cartPayBoldLabel.textContent = 'Pagar con';
         showToast(error.message || 'No pudimos conectar con Bold. Verifica la configuración de la tienda.');
       }
     });
@@ -1390,11 +1391,6 @@
       item.quantity += Number(button.dataset.cartChange);
       if (item.quantity <= 0) cart = cart.filter(entry => entry.id !== button.dataset.itemId);
       renderCart();
-    });
-    document.getElementById('cartWhatsApp').addEventListener('click', () => {
-      if (!cart.length) return;
-      const ids = cart.flatMap(item => Array(item.quantity).fill(item.id));
-      sendWhatsApp(messageForItems(ids, 'Hola, quiero finalizar la compra y confirmar disponibilidad y entrega de:'));
     });
     document.addEventListener('click', event => {
       if (!cartPanel.contains(event.target) && !cartButton.contains(event.target) && !event.target.closest('.add-to-cart')) closeCart();
