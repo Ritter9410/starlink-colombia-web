@@ -382,7 +382,11 @@
     .cart-total-row { display:flex;justify-content:space-between;gap:14px;align-items:baseline;font-size:11px;color:#c9c9c9; }
     .cart-total-row strong { color:#fff;font-size:20px; }
     .cart-pending { margin:7px 0 13px;color:#bbb;font-size:10px;line-height:1.5; }
-.cart-whatsapp { width:100%;margin-top:14px; }
+.cart-whatsapp { width:100%;margin-top:10px; }
+.cart-pay-bold { width:100%;margin-top:14px; }
+.cart-payment-status { margin-top:13px;padding:12px;border:1px solid rgba(171,204,243,.28);border-radius:13px;background:rgba(7,18,34,.54);color:#e8f1ff;font-size:11px;line-height:1.55; }
+.cart-payment-status p { margin:0 0 10px; }
+.cart-payment-status .button { width:100%;padding:10px 12px;font-size:11px; }
 .cart-note { display:block;margin-top:9px;line-height:1.5; }
     .cart-note { display:block;margin-top:9px;line-height:1.5; }
     .product-actions { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px; }
@@ -507,14 +511,68 @@
       .products { grid-template-columns:minmax(0,1fr); }
       .product-card.powerbank-card { grid-column:auto;width:100%;justify-self:stretch; }
     }
-    /* La casilla se ajusta al tamaño real de la imagen activa. */
-    .product-art,.product-art.mini-bg,.product-art.standard-bg,.product-art.powerbank-art,.product-art.mount-art,.product-art.suction-art { width:max-content;max-width:min(100%,260px);height:auto;aspect-ratio:auto;margin:14px auto 16px;overflow:visible; }
+    /* Tarjetas compactas: el producto y su casilla se reducen juntos. */
+    .products { grid-template-columns:repeat(2,minmax(0,1fr));gap:12px; }
+    .product-card { padding:12px;border-radius:18px; }
+    .product-card h3 { font-size:19px;line-height:1.18; }
+    .product-card p { font-size:11px;line-height:1.5;margin-bottom:12px; }
+    .product-card.powerbank-card h3 { font-size:19px; }
+    .product-art,.product-art.mini-bg,.product-art.standard-bg,.product-art.powerbank-art,.product-art.mount-art,.product-art.suction-art { width:max-content;max-width:min(100%,156px);height:auto;aspect-ratio:auto;margin:14px auto 16px;overflow:visible; }
     .product-gallery { display:grid;place-items:center;position:relative;width:max-content;max-width:100%;height:auto;overflow:visible; }
-    .product-art .product-gallery-slide { display:none;position:relative;inset:auto;width:auto;height:auto;max-width:100%;max-height:180px;padding:0;object-fit:contain;opacity:0;transform:none;transition:opacity .22s ease;pointer-events:none; }
+    .product-art .product-gallery-slide { display:none;position:relative;inset:auto;width:auto;height:auto;max-width:100%;max-height:108px;padding:0;object-fit:contain;opacity:0;transform:none;transition:opacity .22s ease;pointer-events:none; }
     .product-art .product-gallery-slide.is-active { display:block;opacity:1;transform:none;pointer-events:auto; }
     .product-art .starlink-gallery .product-gallery-slide,.product-art .starlink-gallery .product-gallery-slide.is-active { padding:0;transform:none; }
     .product-art.suction-art .suction-gallery .product-gallery-slide,.product-art.suction-art .suction-gallery .product-gallery-slide.is-active { padding:0;filter:none;transform:none; }
     .product-art.powerbank-art .product-gallery-slide.is-active,.product-art.mount-art .product-gallery-slide.is-active,.product-art.mount-art .mount-scene-slide.is-active { transform:none; }
+    .product-actions { grid-template-columns:1fr;gap:8px;margin-top:11px; }
+    .product-actions .button { min-height:39px;padding:9px 10px; }
+    @media (max-width:680px) {
+      .products { grid-template-columns:repeat(2,minmax(0,1fr));gap:9px; }
+      .product-card { padding:10px;border-radius:16px; }
+      .product-card h3,.product-card.powerbank-card h3 { font-size:16px;line-height:1.16; }
+      .product-card p { font-size:10px;line-height:1.45;margin-bottom:10px; }
+      .product-top { align-items:flex-start;gap:5px; }
+      .product-top .tag { padding:5px 7px;font-size:8px; }
+      .product-art,.product-art.mini-bg,.product-art.standard-bg,.product-art.powerbank-art,.product-art.mount-art,.product-art.suction-art { max-width:min(100%,120px);margin:10px auto 12px; }
+      .product-art .product-gallery-slide { max-height:95px; }
+      .product-actions .button { min-height:35px;padding:7px 5px;font-size:9px; }
+    }
+    .product-art .product-gallery-slide { cursor:zoom-in; }
+    .product-art .product-gallery-slide:focus-visible { outline:3px solid #9ec8ff;outline-offset:4px;border-radius:8px; }
+    .product-lightbox[hidden] { display:none!important; }
+    .product-lightbox { position:fixed;inset:0;z-index:1200;display:grid;place-items:center;padding:24px;background:rgba(3,9,19,.88);backdrop-filter:blur(12px);opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease; }
+    .product-lightbox.is-open { opacity:1;visibility:visible; }
+    .product-lightbox-panel { display:flex;flex-direction:column;gap:16px;width:min(100%,1080px);max-height:calc(100vh - 48px);padding:20px;border:1px solid rgba(195,219,247,.28);border-radius:24px;background:radial-gradient(ellipse at 50% 0%,rgba(66,111,168,.22),transparent 55%),linear-gradient(145deg,rgba(14,27,46,.98),rgba(5,12,23,.98));box-shadow:0 28px 90px rgba(0,0,0,.52);color:#f4f8ff; }
+    .product-lightbox-head { display:flex;align-items:center;justify-content:space-between;gap:16px; }
+    .product-lightbox-kicker { margin:0 0 4px;color:#9bbde5;font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase; }
+    .product-lightbox-title { margin:0;font-size:clamp(17px,2.4vw,24px);line-height:1.2; }
+    .product-lightbox-close { display:grid;place-items:center;flex:none;width:42px;height:42px;border:1px solid rgba(199,220,246,.25);border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font-size:29px;line-height:1;cursor:pointer; }
+    .product-lightbox-close:hover { background:rgba(255,255,255,.16); }
+    .product-lightbox-stage { position:relative;display:grid;place-items:center;min-height:180px;height:min(68vh,690px);overflow:hidden;border:1px solid rgba(187,211,239,.15);border-radius:18px;background:radial-gradient(ellipse at center,rgba(61,87,119,.23),rgba(5,11,20,.16) 72%); }
+    .product-lightbox-image { display:block;width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 16px 30px rgba(0,0,0,.27)); }
+    .product-lightbox-arrow { position:absolute;z-index:1;top:50%;display:grid;place-items:center;width:48px;height:48px;border:1px solid rgba(211,229,250,.34);border-radius:50%;background:rgba(5,13,25,.72);color:#fff;backdrop-filter:blur(8px);cursor:pointer;transform:translateY(-50%); }
+    .product-lightbox-arrow:hover { background:rgba(54,97,148,.88); }
+    .product-lightbox-arrow svg { width:20px;height:20px; }
+    .product-lightbox-prev { left:16px; }
+    .product-lightbox-next { right:16px; }
+    .product-lightbox-footer { display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:58px; }
+    .product-lightbox-count { flex:none;color:#dceaff;font-size:12px;font-weight:750;font-variant-numeric:tabular-nums; }
+    .product-lightbox-thumbs { display:flex;align-items:center;justify-content:flex-end;gap:8px;max-width:calc(100% - 80px);overflow-x:auto;padding:4px; }
+    .product-lightbox-thumb { display:grid;place-items:center;flex:none;width:72px;height:56px;padding:4px;border:1px solid rgba(187,211,239,.22);border-radius:10px;background:rgba(255,255,255,.05);cursor:pointer; }
+    .product-lightbox-thumb[aria-current="true"] { border-color:#acd0ff;box-shadow:0 0 0 2px rgba(116,174,240,.24);background:rgba(126,177,235,.14); }
+    .product-lightbox-thumb img { width:100%;height:100%;object-fit:contain; }
+    body.product-lightbox-open { overflow:hidden; }
+    @media(max-width:680px) {
+      .product-lightbox { padding:10px; }
+      .product-lightbox-panel { gap:12px;max-height:calc(100dvh - 20px);padding:13px;border-radius:18px; }
+      .product-lightbox-stage { height:min(64vh,620px);min-height:160px;border-radius:14px; }
+      .product-lightbox-arrow { width:40px;height:40px; }
+      .product-lightbox-prev { left:8px; }
+      .product-lightbox-next { right:8px; }
+      .product-lightbox-footer { align-items:flex-start;flex-direction:column;gap:8px; }
+      .product-lightbox-thumbs { justify-content:flex-start;max-width:100%;width:100%; }
+      .product-lightbox-thumb { width:58px;height:48px; }
+    }
   </style>
 </head>
 <body>
@@ -539,7 +597,7 @@
     <section class="cart-panel" id="cartPanel" role="dialog" aria-label="Carrito de compras" aria-hidden="true">
       <div class="cart-panel-head"><div><strong>Tu carrito</strong><span id="cartItemCount">0 productos</span></div><button class="cart-close" id="cartClose" type="button" aria-label="Cerrar carrito">×</button></div>
       <div class="cart-items" id="cartItems"><p class="cart-empty">Todavía no has agregado equipos.</p></div>
-<div class="cart-panel-foot"><div class="cart-total-row"><span>Total con precio publicado</span><strong id="cartTotal">$0</strong></div><p id="cartPending" class="cart-pending" hidden></p><button class="button cart-whatsapp" id="cartWhatsApp" type="button">Continuar por WhatsApp</button><small class="cart-note">Los accesorios y equipos sin precio se cotizan antes de confirmar.</small></div>
+<div class="cart-panel-foot"><div class="cart-total-row"><span>Total del carrito</span><strong id="cartTotal">$0</strong></div><p id="cartPending" class="cart-pending" hidden></p><button class="button cart-pay-bold" id="cartPayBold" type="button">Pagar todo con Bold</button><button class="button button-light cart-whatsapp" id="cartWhatsApp" type="button">Consultar por WhatsApp</button><div id="cartPaymentStatus" class="cart-payment-status" role="status" aria-live="polite" hidden><p id="cartPaymentMessage"></p><button class="button button-light" id="cartDeliveryWhatsApp" type="button" hidden>Coordinar entrega por WhatsApp</button></div><small class="cart-note">El pago se confirma con Bold. Los artículos sin precio publicado se cotizan por WhatsApp.</small></div>
     </section>
   </header>
   <main>
@@ -808,6 +866,23 @@
   <a class="floating-whatsapp" href="https://wa.me/573159638526?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20comprar%20una%20antena%20Starlink%20y%20accesorios%20compatibles." target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp para consultar antenas y accesorios Starlink" title="Antenas y accesorios Starlink por WhatsApp">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1 11.8a8.1 8.1 0 0 1-11.9 7.1L4 20l1.1-4a8.1 8.1 0 1 1 15-4.2Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.2c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4-.1.6.6 1.1 1.4 1.9 2.5 2.5.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .3-.2 1-.7 1.4-.5.5-1.2.7-1.9.6-1.1-.1-2.6-.8-4-2.1-1.5-1.4-2.4-3.1-2.5-4.1-.1-.8.3-1.5.7-1.9.2-.2.4-.1.5 0Z" fill="currentColor"/></svg>
   </a>
+  <div class="product-lightbox" id="productLightbox" hidden aria-hidden="true">
+    <section class="product-lightbox-panel" role="dialog" aria-modal="true" aria-labelledby="productLightboxTitle" tabindex="-1">
+      <header class="product-lightbox-head">
+        <div><p class="product-lightbox-kicker">Vista ampliada</p><h2 class="product-lightbox-title" id="productLightboxTitle">Imagen del producto</h2></div>
+        <button class="product-lightbox-close" id="productLightboxClose" type="button" aria-label="Cerrar imagen ampliada">×</button>
+      </header>
+      <div class="product-lightbox-stage" id="productLightboxStage">
+        <button class="product-lightbox-arrow product-lightbox-prev" id="productLightboxPrev" type="button" aria-label="Ver imagen anterior"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m14.5 5-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <img class="product-lightbox-image" id="productLightboxImage" alt="">
+        <button class="product-lightbox-arrow product-lightbox-next" id="productLightboxNext" type="button" aria-label="Ver imagen siguiente"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9.5 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <footer class="product-lightbox-footer">
+        <span class="product-lightbox-count" id="productLightboxCount" aria-live="polite"></span>
+        <div class="product-lightbox-thumbs" id="productLightboxThumbs" role="group" aria-label="Elegir foto del producto"></div>
+      </footer>
+    </section>
+  </div>
   <script src="./divipola.js"></script>
   <script>
     // Completa el WhatsApp de la tienda con código de país y solo dígitos (por ejemplo, 57 seguido del número).
@@ -822,11 +897,25 @@
     const cartPanel = document.getElementById('cartPanel');
     const cartItems = document.getElementById('cartItems');
     const cartCount = document.getElementById('cartCount');
+    const cartPayBold = document.getElementById('cartPayBold');
+    const cartPaymentStatus = document.getElementById('cartPaymentStatus');
+    const cartPaymentMessage = document.getElementById('cartPaymentMessage');
+    const cartDeliveryWhatsApp = document.getElementById('cartDeliveryWhatsApp');
     const siteToast = document.getElementById('siteToast');
+    const productLightbox = document.getElementById('productLightbox');
+    const productLightboxPanel = productLightbox.querySelector('.product-lightbox-panel');
+    const productLightboxTitle = document.getElementById('productLightboxTitle');
+    const productLightboxImage = document.getElementById('productLightboxImage');
+    const productLightboxCount = document.getElementById('productLightboxCount');
+    const productLightboxThumbs = document.getElementById('productLightboxThumbs');
+    let activeLightboxGallery = null;
+    let lightboxReturnFocus = null;
     const departmentSelect = document.getElementById('coverageDepartment');
     const municipalitySelect = document.getElementById('coverageMunicipality');
     let toastTimer;
     let pendingWhatsAppMessage = '';
+    let preparedBoldCheckout = null;
+    let boldLibraryPromise = null;
 
     const CATALOG = {
       'standard-v4': { name: 'Starlink Standard v4', price: 1599000, stock: 1 },
@@ -924,6 +1013,102 @@
     departmentSelect.addEventListener('change', updateMunicipalities);
     initializeDepartments();
 
+    function syncProductLightbox(state) {
+      if (activeLightboxGallery !== state) return;
+      const slide = state.slides[state.current];
+      if (!slide) return;
+      productLightboxImage.src = slide.currentSrc || slide.src;
+      productLightboxImage.alt = slide.alt || productLightboxTitle.textContent;
+      productLightboxCount.textContent = `${String(state.current + 1).padStart(2, '0')} / ${String(state.slides.length).padStart(2, '0')}`;
+      productLightboxThumbs.querySelectorAll('button').forEach((button, index) => button.setAttribute('aria-current', String(index === state.current)));
+      const multiple = state.slides.length > 1;
+      document.getElementById('productLightboxPrev').hidden = !multiple;
+      document.getElementById('productLightboxNext').hidden = !multiple;
+      productLightboxThumbs.hidden = !multiple;
+    }
+    function openProductLightbox(gallery, state, index, trigger) {
+      activeLightboxGallery = state;
+      lightboxReturnFocus = trigger;
+      const productTitle = gallery.closest('.product-card')?.querySelector('h3')?.textContent?.trim();
+      productLightboxTitle.textContent = productTitle || gallery.getAttribute('aria-label') || 'Imagen del producto';
+      productLightboxThumbs.replaceChildren();
+      state.slides.forEach((slide, slideIndex) => {
+        const thumbnail = document.createElement('button');
+        thumbnail.type = 'button';
+        thumbnail.className = 'product-lightbox-thumb';
+        thumbnail.setAttribute('aria-label', `Ver foto ${slideIndex + 1}`);
+        thumbnail.setAttribute('aria-current', String(slideIndex === index));
+        const image = document.createElement('img');
+        image.src = slide.currentSrc || slide.src;
+        image.alt = '';
+        image.loading = 'lazy';
+        image.decoding = 'async';
+        thumbnail.appendChild(image);
+        thumbnail.addEventListener('click', () => state.showSlide(slideIndex));
+        productLightboxThumbs.appendChild(thumbnail);
+      });
+      productLightbox.hidden = false;
+      productLightbox.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('product-lightbox-open');
+      requestAnimationFrame(() => productLightbox.classList.add('is-open'));
+      state.showSlide(index);
+      document.getElementById('productLightboxClose').focus();
+    }
+    function closeProductLightbox() {
+      if (productLightbox.hidden) return;
+      productLightbox.classList.remove('is-open');
+      productLightbox.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('product-lightbox-open');
+      activeLightboxGallery = null;
+      const focusTarget = lightboxReturnFocus;
+      lightboxReturnFocus = null;
+      if (focusTarget?.isConnected) focusTarget.focus();
+      window.setTimeout(() => {
+        if (!productLightbox.classList.contains('is-open')) productLightbox.hidden = true;
+      }, 220);
+    }
+    document.getElementById('productLightboxClose').addEventListener('click', closeProductLightbox);
+    document.getElementById('productLightboxPrev').addEventListener('click', () => activeLightboxGallery?.showSlide(activeLightboxGallery.current - 1));
+    document.getElementById('productLightboxNext').addEventListener('click', () => activeLightboxGallery?.showSlide(activeLightboxGallery.current + 1));
+    productLightbox.addEventListener('click', event => {
+      if (event.target === productLightbox) closeProductLightbox();
+    });
+    document.addEventListener('keydown', event => {
+      if (productLightbox.hidden) return;
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeProductLightbox();
+      } else if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        activeLightboxGallery?.showSlide(activeLightboxGallery.current - 1);
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        activeLightboxGallery?.showSlide(activeLightboxGallery.current + 1);
+      } else if (event.key === 'Tab') {
+        const focusable = Array.from(productLightboxPanel.querySelectorAll('button:not([hidden])')).filter(element => !element.disabled);
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (!first || !last) return;
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    });
+    let lightboxTouchStartX = null;
+    document.getElementById('productLightboxStage').addEventListener('touchstart', event => {
+      lightboxTouchStartX = event.touches[0]?.clientX ?? null;
+    }, { passive:true });
+    document.getElementById('productLightboxStage').addEventListener('touchend', event => {
+      if (lightboxTouchStartX === null || !activeLightboxGallery) return;
+      const distance = event.changedTouches[0].clientX - lightboxTouchStartX;
+      if (Math.abs(distance) > 44) activeLightboxGallery.showSlide(activeLightboxGallery.current + (distance < 0 ? 1 : -1));
+      lightboxTouchStartX = null;
+    }, { passive:true });
+
     document.querySelectorAll('[data-product-gallery]').forEach(gallery => {
       const slides = Array.from(gallery.querySelectorAll('[data-gallery-slide]'));
       const previous = gallery.querySelector('[data-gallery-prev]');
@@ -932,18 +1117,34 @@
       const dots = gallery.querySelector('[data-gallery-dots]');
       let current = 0;
       if (!slides.length || !previous || !next || !counter || !dots) return;
+      const state = { slides, current:0, showSlide:null };
 
       dots.innerHTML = slides.map((_, index) => `<button class="product-gallery-dot" type="button" data-gallery-index="${index}" aria-label="Ver imagen ${index + 1}" aria-current="${index === 0 ? 'true' : 'false'}"></button>`).join('');
       const showSlide = index => {
         current = (index + slides.length) % slides.length;
+        state.current = current;
         slides.forEach((slide, slideIndex) => {
           const active = slideIndex === current;
           slide.classList.toggle('is-active', active);
           slide.setAttribute('aria-hidden', String(!active));
+          slide.tabIndex = active ? 0 : -1;
+          slide.setAttribute('role', 'button');
+          slide.setAttribute('aria-label', `Ampliar foto ${slideIndex + 1}: ${slide.alt}`);
         });
         counter.textContent = `${String(current + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
         dots.querySelectorAll('[data-gallery-index]').forEach((dot, dotIndex) => dot.setAttribute('aria-current', String(dotIndex === current)));
+        syncProductLightbox(state);
       };
+      state.showSlide = showSlide;
+      slides.forEach((slide, slideIndex) => {
+        slide.addEventListener('click', () => openProductLightbox(gallery, state, slideIndex, slide));
+        slide.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openProductLightbox(gallery, state, slideIndex, slide);
+          }
+        });
+      });
       previous.addEventListener('click', () => showSlide(current - 1));
       next.addEventListener('click', () => showSlide(current + 1));
       dots.addEventListener('click', event => {
@@ -975,6 +1176,8 @@
       cartButton.setAttribute('aria-expanded', 'false');
     }
     function renderCart() {
+      preparedBoldCheckout = null;
+      cartPayBold.textContent = 'Pagar todo con Bold';
       const count = cart.reduce((total, item) => total + item.quantity, 0);
       cartCount.textContent = String(count);
       cartCount.hidden = count === 0;
@@ -994,8 +1197,9 @@
       document.getElementById('cartTotal').textContent = formatCOP(knownTotal);
       const pending = document.getElementById('cartPending');
       pending.hidden = unknownCount === 0;
-      pending.textContent = unknownCount ? `${unknownCount} artículo${unknownCount === 1 ? '' : 's'} sin precio publicado: se cotizarán por WhatsApp.` : '';
+      pending.textContent = unknownCount ? `${unknownCount} artículo${unknownCount === 1 ? '' : 's'} sin precio publicado: confirma su valor por WhatsApp antes de pagar.` : (count > 0 && knownTotal < 1000 ? 'Bold requiere un pago mínimo de $1.000 COP.' : '');
       document.getElementById('cartWhatsApp').disabled = count === 0;
+      cartPayBold.disabled = count === 0 || unknownCount > 0 || knownTotal < 1000;
       saveCart();
     }
     function addCartItem(id) {
@@ -1022,6 +1226,120 @@
       const includesPending = ids.some(id => CATALOG[id].price === null);
       return `${intro}\n${lines.join('\n')}\nSubtotal con precios publicados: ${formatCOP(subtotal)}${includesPending ? '\nHay artículos cuyo precio está por confirmar.' : ''}`;
     }
+    function loadBoldCheckoutLibrary() {
+      if (window.BoldCheckout) return Promise.resolve();
+      if (boldLibraryPromise) return boldLibraryPromise;
+      boldLibraryPromise = new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://checkout.bold.co/library/boldPaymentButton.js';
+        script.async = true;
+        script.onload = () => window.BoldCheckout ? resolve() : reject(new Error('No se pudo iniciar el checkout de Bold.'));
+        script.onerror = () => reject(new Error('No se pudo cargar el checkout de Bold.'));
+        document.head.appendChild(script);
+      }).catch(error => {
+        boldLibraryPromise = null;
+        throw error;
+      });
+      return boldLibraryPromise;
+    }
+    function readStoredOrder(key) {
+      try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch (error) { return null; }
+    }
+    function showPaymentMessage(message, showDeliveryButton = false) {
+      cartPaymentMessage.textContent = message;
+      cartPaymentStatus.hidden = false;
+      cartDeliveryWhatsApp.hidden = !showDeliveryButton;
+      openCart();
+    }
+    function showCompletedBoldOrder(order) {
+      if (!order) return;
+      showPaymentMessage(`Pago aprobado y verificado con Bold. Referencia ${order.orderId} · ${formatCOP(order.amount)} COP. Coordina ahora la entrega con la tienda.`, true);
+    }
+    async function verifyBoldPaymentReturn() {
+      const params = new URLSearchParams(window.location.search);
+      const orderId = params.get('bold-order-id');
+      if (!orderId) {
+        const completed = readStoredOrder('starlinkCompletedBoldOrder');
+        if (completed?.orderId && Number.isInteger(completed.amount)) showCompletedBoldOrder(completed);
+        if (params.get('pago') === 'cancelado') {
+          showPaymentMessage('No completaste el pago. Tu carrito sigue guardado para que puedas intentarlo de nuevo.');
+        }
+        return;
+      }
+
+      showPaymentMessage('Estamos verificando el resultado directamente con Bold…');
+      try {
+        const response = await fetch(`/api/payment-status?orderId=${encodeURIComponent(orderId)}`, { headers: { Accept: 'application/json' }, cache: 'no-store' });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'No pudimos consultar el estado del pago.');
+
+        const pendingOrder = readStoredOrder('starlinkPendingBoldOrder');
+        const matchingOrder = pendingOrder?.orderId === orderId && pendingOrder.amount === result.total && result.reference_id === orderId;
+        if (result.payment_status === 'APPROVED' && matchingOrder) {
+          const completedOrder = { ...pendingOrder, amount: result.total };
+          localStorage.setItem('starlinkCompletedBoldOrder', JSON.stringify(completedOrder));
+          localStorage.removeItem('starlinkPendingBoldOrder');
+          cart = [];
+          renderCart();
+          showCompletedBoldOrder(completedOrder);
+        } else if (result.payment_status === 'APPROVED') {
+          showPaymentMessage(`Bold reporta un pago aprobado para la referencia ${orderId}, pero no pudimos cotejarlo con el carrito guardado. Conservamos el carrito; contacta a la tienda para confirmar el pedido.`);
+        } else {
+          const statusText = result.payment_status === 'NO_TRANSACTION_FOUND' ? 'Bold aún no refleja la transacción' : `El estado reportado por Bold es ${result.payment_status || 'pendiente'}`;
+          showPaymentMessage(`${statusText}. Tu carrito sigue guardado. Si ya viste el comprobante de pago, vuelve a cargar esta página en unos minutos.`);
+        }
+      } catch (error) {
+        showPaymentMessage(`${error.message} Tu carrito sigue guardado; puedes consultar de nuevo al recargar esta página.`);
+      }
+    }
+    cartPayBold.addEventListener('click', async () => {
+      if (preparedBoldCheckout) {
+        try {
+          preparedBoldCheckout.checkout.open();
+          preparedBoldCheckout = null;
+          cartPayBold.textContent = 'Pagar todo con Bold';
+          closeCart();
+        } catch (error) {
+          showToast('No pudimos abrir la pasarela de Bold. Inténtalo de nuevo.');
+        }
+        return;
+      }
+      if (!cart.length) return;
+      const items = cart.map(item => ({ id: item.id, quantity: item.quantity }));
+      cartPayBold.disabled = true;
+      cartPayBold.textContent = 'Preparando pago…';
+      try {
+        const response = await fetch('/api/create-bold-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ items })
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'No se pudo preparar el pago.');
+        await loadBoldCheckoutLibrary();
+        const pendingOrder = { orderId: result.orderId, amount: result.amount, items };
+        localStorage.setItem('starlinkPendingBoldOrder', JSON.stringify(pendingOrder));
+        preparedBoldCheckout = { checkout: new window.BoldCheckout(result.checkout), order: pendingOrder };
+        cartPayBold.disabled = false;
+        cartPayBold.textContent = 'Abrir pasarela segura de Bold';
+        showToast('El total quedó preparado. Pulsa “Abrir pasarela segura de Bold” para pagar.');
+      } catch (error) {
+        cartPayBold.disabled = false;
+        cartPayBold.textContent = 'Pagar todo con Bold';
+        showToast(error.message || 'No pudimos conectar con Bold. Verifica la configuración de la tienda.');
+      }
+    });
+    cartDeliveryWhatsApp.addEventListener('click', () => {
+      const order = readStoredOrder('starlinkCompletedBoldOrder');
+      if (!order?.orderId) return showToast('No encontramos el resumen de este pedido en el navegador.');
+      const ids = Array.isArray(order.items) ? order.items.flatMap(item => Array(item.quantity).fill(item.id)) : [];
+      const itemSummary = ids.length ? `${messageForItems(ids, 'Hola, ya realicé y Bold aprobó el pago de mi pedido:')}\n` : 'Hola, ya realicé y Bold aprobó mi pago.\n';
+      const message = `${itemSummary}Referencia Bold: ${order.orderId}\nTotal pagado: ${formatCOP(order.amount)} COP\nPor favor, ayúdenme a coordinar la entrega.`;
+      if (sendWhatsApp(message)) {
+        localStorage.removeItem('starlinkCompletedBoldOrder');
+        cartPaymentStatus.hidden = true;
+      }
+    });
     document.querySelectorAll('.add-to-cart').forEach(button => button.addEventListener('click', event => {
       event.stopPropagation();
       const card = button.closest('.product-card');
@@ -1060,6 +1378,7 @@
       if (!cartPanel.contains(event.target) && !cartButton.contains(event.target) && !event.target.closest('.add-to-cart')) closeCart();
     });
     renderCart();
+    verifyBoldPaymentReturn();
 
     function openQuote(product = '') {
       status.classList.remove('show');
