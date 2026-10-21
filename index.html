@@ -1544,6 +1544,12 @@
       if (!cartPanel.contains(event.target) && !cartButton.contains(event.target) && !event.target.closest('.add-to-cart')) closeCart();
     });
     renderCart();
+    if (new URLSearchParams(window.location.search).get('abrirCarrito') === '1') {
+      openCart();
+      const cleanUrl = new URL(window.location.href);
+      cleanUrl.searchParams.delete('abrirCarrito');
+      window.history.replaceState(null, '', cleanUrl);
+    }
     verifyBoldPaymentReturn();
     verifyNequiPaymentReturn();
 

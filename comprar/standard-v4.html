@@ -23,14 +23,16 @@
     body { min-height: 100vh; margin: 0; color: var(--ink); background: radial-gradient(ellipse at 78% 15%, #e9edff 0, transparent 36%), var(--paper); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
     button { font: inherit; }
     .page { width: min(1040px, calc(100% - 40px)); margin: 0 auto; }
-    header { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid rgba(16, 27, 54, .1); }
+    header { position: sticky; top: 0; z-index: 10; min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid rgba(16, 27, 54, .1); background: rgba(247,247,244,.94); backdrop-filter: blur(14px); }
     .brand { display: inline-flex; align-items: center; gap: 10px; color: inherit; font-size: 13px; font-weight: 800; letter-spacing: .13em; text-decoration: none; }
     .brand img { width: 35px; height: 35px; object-fit: contain; }
     .brand-name { display: grid; gap: 3px; }
     .brand small { color: var(--muted); font-size: 9px; letter-spacing: .1em; }
     .brand-official { max-width: 94px; margin-left: 2px; padding-left: 10px; border-left: 1px solid rgba(16, 27, 54, .24); color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .02em; line-height: 1.3; }
-    .secure { display: inline-flex; align-items: center; gap: 7px; color: #4d5b75; font-size: 11px; font-weight: 650; }
-    .secure svg { width: 16px; height: 16px; color: #25916f; }
+    .header-cart { position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid rgba(16,27,54,.14); border-radius: 999px; background: rgba(255,255,255,.78); color: #4d5b75; font-size: 12px; font-weight: 750; text-decoration: none; box-shadow: 0 5px 16px rgba(16,27,54,.06); }
+    .header-cart:hover { color: var(--ink); border-color: rgba(16,27,54,.32); background: white; }
+    .header-cart svg { width: 18px; height: 18px; }
+    .header-cart-count { display: grid; place-items: center; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 999px; background: var(--ink); color: white; font-size: 10px; }
     main { padding: 54px 0 72px; }
     .product { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr); gap: clamp(32px, 6vw, 76px); align-items: center; }
     .gallery { min-width: 0; }
@@ -55,6 +57,9 @@
     .price { display: flex; align-items: baseline; gap: 10px; margin: 28px 0 6px; }
     .price strong { font-size: clamp(30px, 4vw, 38px); letter-spacing: -.05em; }
     .price span { color: var(--muted); font-size: 12px; }
+    .add-cart-inline { display: inline-flex; align-items: center; gap: 6px; min-height: 34px; margin-left: 2px; padding: 0 10px; border: 1px solid rgba(49,85,217,.2); border-radius: 999px; background: #eef1ff; color: #2946bd; font-size: 11px; font-weight: 800; white-space: nowrap; cursor: pointer; }
+    .add-cart-inline:hover { background: #e0e7ff; }
+    .add-cart-inline svg { width: 15px; height: 15px; }
     .price-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: 25px 0 5px; }
     .price-row .price { margin: 0; }
     .quantity { display: grid; gap: 5px; justify-items: end; color: var(--muted); font-size: 10px; font-weight: 700; }
@@ -99,8 +104,11 @@
       .brand { gap: 6px; font-size: 11px; }
       .brand img { width: 27px; height: 27px; }
       .brand-official { max-width: 58px; margin-left: 0; padding-left: 6px; font-size: 7px; }
-      .secure { gap: 5px; font-size: 9px; }
-      .secure svg { width: 14px; height: 14px; }
+      .header-cart { min-height: 36px; gap: 5px; padding: 0 9px; font-size: 10px; }
+      .header-cart svg { width: 16px; height: 16px; }
+      .price-row { flex-wrap: wrap; }
+      .price { gap: 6px; }
+      .add-cart-inline { min-height: 30px; gap: 4px; padding: 0 8px; font-size: 10px; }
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
   </style>
@@ -113,10 +121,10 @@
         <span class="brand-name">STARLINK<small>COLOMBIA</small></span>
         <span class="brand-official">Distribuidor oficial</span>
       </a>
-      <div class="secure">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3m-11 0h12a2 2 0 0 1 2 2v8H4v-8a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Pago seguro con Bold
-      </div>
+      <a class="header-cart" id="headerCartButton" href="../index.html?abrirCarrito=1#equipos" aria-label="Ver carrito de compras">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.1 11.1a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.4L22 8H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="18" cy="20" r="1.4" fill="currentColor"/></svg>
+        <span>Carrito</span><span class="header-cart-count" id="headerCartCount" aria-live="polite">0</span>
+      </a>
     </header>
 
     <main>
@@ -147,7 +155,7 @@
           <h1>Starlink Standard v4</h1>
           <p class="description">Internet satelital de última generación. Alta velocidad y cobertura impecable.</p>
           <div class="price-row">
-            <div class="price"><strong id="totalPrice">$1.599.000</strong><span>COP</span></div>
+            <div class="price"><strong id="totalPrice">$1.599.000</strong><span>COP</span><button class="add-cart-inline" id="addToCartButton" type="button" aria-label="Agregar este producto al carrito"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.1 11.1a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.4L22 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="18" cy="20" r="1.4" fill="currentColor"/></svg>Agregar</button></div>
             <div class="quantity">
               <span>Unidades</span>
               <div class="quantity-control" aria-label="Cantidad disponible">
@@ -198,7 +206,41 @@
       const payButtons = [document.getElementById('payBoldButton'), document.getElementById('payNequiButton')];
       const feedback = document.getElementById('feedback');
       const quantity = 1;
+      const headerCartCount = document.getElementById('headerCartCount');
+      const addToCartButton = document.getElementById('addToCartButton');
+      const CART_KEY = 'starlinkColombiaCart';
       let boldLibraryPromise;
+
+      function readCart() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+          return Array.isArray(saved) ? saved.filter(item => item && typeof item.id === 'string' && Number.isInteger(item.quantity) && item.quantity > 0) : [];
+        } catch (error) { return []; }
+      }
+
+      function updateHeaderCartCount() {
+        const count = readCart().reduce((sum, item) => sum + item.quantity, 0);
+        headerCartCount.textContent = String(count);
+        document.getElementById('headerCartButton').setAttribute('aria-label', `Ver carrito de compras, ${count} ${count === 1 ? 'artículo' : 'artículos'}`);
+      }
+
+      function addCurrentProductToCart() {
+        const cart = readCart();
+        const existing = cart.find(item => item.id === 'standard-v4');
+        if (existing) {
+          feedback.textContent = 'Ya tienes en el carrito la única unidad disponible de Standard v4.';
+          return;
+        }
+        cart.push({ id: 'standard-v4', quantity });
+        try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
+        catch (error) { feedback.textContent = 'No pudimos guardar el carrito en este navegador. Inténtalo de nuevo.'; return; }
+        updateHeaderCartCount();
+        feedback.textContent = 'Agregado al carrito. Puedes seguir mirando productos.';
+      }
+
+      addToCartButton.addEventListener('click', addCurrentProductToCart);
+      window.addEventListener('storage', event => { if (event.key === CART_KEY) updateHeaderCartCount(); });
+      updateHeaderCartCount();
 
       function setPaymentBusy(isBusy) {
         payButtons.forEach(button => { button.disabled = isBusy; });
