@@ -14,6 +14,7 @@ const CATALOG = Object.freeze({
   ventosa: { name: 'Soporte ventosa para Starlink Mini', price: 120000, stock: 99 },
   'ethernet-adapter': { name: 'Starlink Ethernet Satelital Red Adapter', price: 115000, stock: 99 },
   'mini-usbc-dc-cable': { name: 'Cable de Poder USB-C a DC 5.5 mm para Starlink Mini 5 m Gris VTA', price: 88900, stock: 99 },
+  'vantisan-car-charger': { name: 'Vantisan Cargador Coche Cable 12-48v Para Starlink Mini 5mts', price: 46400, stock: 99 },
 });
 
 function getSiteUrl() {
