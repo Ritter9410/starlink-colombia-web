@@ -385,6 +385,10 @@
 .cart-pay-bold { width:100%;margin-top:14px; }
 .cart-pay-bold .cart-pay-label { white-space:nowrap; }
 .cart-pay-bold .bold-payment-logo { display:block;width:auto;height:24px;max-width:82px;object-fit:contain; }
+.cart-pay-nequi { width:100%;margin-top:10px;background:#e6007e;color:#fff;box-shadow:0 8px 18px rgba(230,0,126,.2); }
+.cart-pay-nequi:hover { background:#c9006d;box-shadow:0 12px 24px rgba(230,0,126,.26); }
+.cart-pay-nequi .cart-pay-label { white-space:nowrap; }
+.cart-pay-nequi .nequi-wordmark { color:#fff;font-size:19px;font-weight:850;letter-spacing:-.07em;line-height:1; }
 .cart-payment-status { margin-top:13px;padding:12px;border:1px solid rgba(171,204,243,.28);border-radius:13px;background:rgba(7,18,34,.54);color:#e8f1ff;font-size:11px;line-height:1.55; }
 .cart-payment-status p { margin:0 0 10px; }
 .cart-payment-status .button { width:100%;padding:10px 12px;font-size:11px; }
@@ -609,7 +613,7 @@
     <section class="cart-panel" id="cartPanel" role="dialog" aria-label="Carrito de compras" aria-hidden="true">
       <div class="cart-panel-head"><div><strong>Tu carrito</strong><span id="cartItemCount">0 productos</span></div><button class="cart-close" id="cartClose" type="button" aria-label="Cerrar carrito">×</button></div>
       <div class="cart-items" id="cartItems"><p class="cart-empty">Todavía no has agregado equipos.</p></div>
-<div class="cart-panel-foot"><div class="cart-total-row"><span>Total del carrito</span><strong id="cartTotal">$0</strong></div><p id="cartPending" class="cart-pending" hidden></p><button class="button cart-pay-bold" id="cartPayBold" type="button"><span class="cart-pay-label" data-pay-label>Pagar con</span><img class="bold-payment-logo" src="https://bold.co/assets/logos/Logotipo%20azul.png" alt="Bold" loading="lazy" decoding="async"></button><div id="cartPaymentStatus" class="cart-payment-status" role="status" aria-live="polite" hidden><p id="cartPaymentMessage"></p><button class="button button-light" id="cartDeliveryWhatsApp" type="button" hidden>Coordinar entrega por WhatsApp</button></div><small class="cart-note">El pago del carrito se procesa con Bold. Los artículos sin precio publicado no se pueden incluir en el pago.</small></div>
+<div class="cart-panel-foot"><div class="cart-total-row"><span>Total del carrito</span><strong id="cartTotal">$0</strong></div><p id="cartPending" class="cart-pending" hidden></p><button class="button cart-pay-bold" id="cartPayBold" type="button" aria-label="Pagar con Bold"><span class="cart-pay-label" data-pay-label>Pagar con</span><img class="bold-payment-logo" src="https://bold.co/assets/logos/Logotipo%20azul.png" alt="Bold" loading="lazy" decoding="async"></button><button class="button cart-pay-nequi" id="cartPayNequi" type="button" aria-label="Pagar con Nequi"><span class="cart-pay-label" data-nequi-label>Pagar con</span><span class="nequi-wordmark" aria-hidden="true">nequi</span></button><div id="cartPaymentStatus" class="cart-payment-status" role="status" aria-live="polite" hidden><p id="cartPaymentMessage"></p><button class="button button-light" id="cartDeliveryWhatsApp" type="button" hidden>Coordinar entrega por WhatsApp</button></div><small class="cart-note">Elige Bold o Nequi para pagar el carrito. El pago con Nequi se procesa de forma segura por Bold. Los artículos sin precio publicado no se pueden incluir en el pago.</small></div>
     </section>
   </header>
   <main>
@@ -929,6 +933,8 @@
     const cartCount = document.getElementById('cartCount');
     const cartPayBold = document.getElementById('cartPayBold');
     const cartPayBoldLabel = cartPayBold.querySelector('[data-pay-label]');
+    const cartPayNequi = document.getElementById('cartPayNequi');
+    const cartPayNequiLabel = cartPayNequi.querySelector('[data-nequi-label]');
     const cartPaymentStatus = document.getElementById('cartPaymentStatus');
     const cartPaymentMessage = document.getElementById('cartPaymentMessage');
     const cartDeliveryWhatsApp = document.getElementById('cartDeliveryWhatsApp');
@@ -946,7 +952,9 @@
     let toastTimer;
     let pendingWhatsAppMessage = '';
     let isPreparingBoldPayment = false;
+    let isPreparingNequiPayment = false;
     let boldLibraryPromise = null;
+    const isPreparingPayment = () => isPreparingBoldPayment || isPreparingNequiPayment;
 
     const CATALOG = {
       'standard-v4': { name: 'Starlink Standard v4', price: 1599000, stock: 1 },
@@ -1222,6 +1230,7 @@
     }
     function renderCart() {
       cartPayBoldLabel.textContent = isPreparingBoldPayment ? 'Preparando pago…' : 'Pagar con';
+      cartPayNequiLabel.textContent = isPreparingNequiPayment ? 'Preparando pago…' : 'Pagar con';
       const count = cart.reduce((total, item) => total + item.quantity, 0);
       cartCount.textContent = String(count);
       cartCount.hidden = count === 0;
@@ -1233,16 +1242,18 @@
           const product = CATALOG[item.id];
           const linePrice = product.price === null ? 'Por confirmar' : formatCOP(product.price * item.quantity);
           const max = product.stock || 99;
-          return `<article class="cart-line"><div class="cart-line-top"><div><div class="cart-line-name">${product.name}</div><p class="cart-line-note">${product.price === null ? 'Precio por confirmar' : `${formatCOP(product.price)} COP por unidad`}</p></div><strong class="cart-line-price">${linePrice}</strong></div><div class="cart-qty"><button type="button" data-cart-change="-1" data-item-id="${item.id}" aria-label="Quitar una unidad de ${product.name}">−</button><span>${item.quantity}</span><button type="button" data-cart-change="1" data-item-id="${item.id}" aria-label="Agregar una unidad de ${product.name}" ${item.quantity >= max ? 'disabled' : ''}>+</button></div></article>`;
+          return `<article class="cart-line"><div class="cart-line-top"><div><div class="cart-line-name">${product.name}</div><p class="cart-line-note">${product.price === null ? 'Precio por confirmar' : `${formatCOP(product.price)} COP por unidad`}</p></div><strong class="cart-line-price">${linePrice}</strong></div><div class="cart-qty"><button type="button" data-cart-change="-1" data-item-id="${item.id}" aria-label="Quitar una unidad de ${product.name}" ${isPreparingPayment() ? 'disabled' : ''}>−</button><span>${item.quantity}</span><button type="button" data-cart-change="1" data-item-id="${item.id}" aria-label="Agregar una unidad de ${product.name}" ${item.quantity >= max || isPreparingPayment() ? 'disabled' : ''}>+</button></div></article>`;
         }).join('');
       }
       const knownTotal = cart.reduce((sum, item) => sum + (CATALOG[item.id].price === null ? 0 : CATALOG[item.id].price * item.quantity), 0);
       const unknownCount = cart.reduce((sum, item) => sum + (CATALOG[item.id].price === null ? item.quantity : 0), 0);
       document.getElementById('cartTotal').textContent = formatCOP(knownTotal);
       const pending = document.getElementById('cartPending');
-      pending.hidden = unknownCount === 0;
-      pending.textContent = unknownCount ? `${unknownCount} artículo${unknownCount === 1 ? '' : 's'} sin precio publicado: no se pueden incluir en el pago con Bold.` : (count > 0 && knownTotal < 1000 ? 'Bold requiere un pago mínimo de $1.000 COP.' : '');
-      cartPayBold.disabled = isPreparingBoldPayment || count === 0 || unknownCount > 0 || knownTotal < 1000;
+      pending.hidden = unknownCount === 0 && !(count > 0 && knownTotal > 10000000);
+      pending.textContent = unknownCount ? `${unknownCount} artículo${unknownCount === 1 ? '' : 's'} sin precio publicado: no se pueden incluir en el pago.` : (count > 0 && knownTotal > 10000000 ? 'Nequi permite pagos de hasta $10.000.000 COP por transacción. Puedes pagar este carrito con Bold.' : '');
+      const paymentDisabled = isPreparingPayment() || count === 0 || unknownCount > 0 || knownTotal < 1000;
+      cartPayBold.disabled = paymentDisabled;
+      cartPayNequi.disabled = paymentDisabled || knownTotal > 10000000;
       saveCart();
     }
     function addCartItem(id) {
@@ -1296,10 +1307,12 @@
     }
     function showCompletedBoldOrder(order) {
       if (!order) return;
-      showPaymentMessage(`Pago aprobado y verificado con Bold. Referencia ${order.orderId} · ${formatCOP(order.amount)} COP. Coordina ahora la entrega con la tienda.`, true);
+      const paymentMethod = order.paymentMethod === 'Nequi' ? 'Nequi, procesado por Bold' : 'Bold';
+      showPaymentMessage(`Pago aprobado y verificado con ${paymentMethod}. Referencia ${order.orderId} · ${formatCOP(order.amount)} COP. Coordina ahora la entrega con la tienda.`, true);
     }
     async function verifyBoldPaymentReturn() {
       const params = new URLSearchParams(window.location.search);
+      if (params.get('pago') === 'nequi') return;
       const orderId = params.get('bold-order-id');
       if (!orderId) {
         const completed = readStoredOrder('starlinkCompletedBoldOrder');
@@ -1335,13 +1348,50 @@
         showPaymentMessage(`${error.message} Tu carrito sigue guardado; puedes consultar de nuevo al recargar esta página.`);
       }
     }
+    async function verifyNequiPaymentReturn() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('pago') !== 'nequi') return;
+
+      const pendingOrder = readStoredOrder('starlinkPendingNequiOrder');
+      if (!pendingOrder?.orderId || !pendingOrder?.paymentLink) {
+        const completedOrder = readStoredOrder('starlinkCompletedBoldOrder');
+        if (completedOrder?.paymentMethod === 'Nequi') showCompletedBoldOrder(completedOrder);
+        else showPaymentMessage('Volviste del pago con Nequi, pero no encontramos el pedido pendiente en este navegador. Conservamos cualquier producto que siga en el carrito.');
+        return;
+      }
+
+      showPaymentMessage('Estamos confirmando el pago con Nequi directamente con Bold…');
+      try {
+        const response = await fetch(`/api/nequi-payment-status?paymentLink=${encodeURIComponent(pendingOrder.paymentLink)}`, { headers: { Accept: 'application/json' }, cache: 'no-store' });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'No pudimos consultar el estado del pago con Nequi.');
+
+        const matchingOrder = result.paymentLink === pendingOrder.paymentLink
+          && result.reference === pendingOrder.orderId
+          && result.total === pendingOrder.amount
+          && (!result.paymentMethod || result.paymentMethod === 'NEQUI');
+        if (result.status === 'PAID' && matchingOrder) {
+          const completedOrder = { ...pendingOrder, amount: result.total, paymentMethod: 'Nequi' };
+          localStorage.setItem('starlinkCompletedBoldOrder', JSON.stringify(completedOrder));
+          localStorage.removeItem('starlinkPendingNequiOrder');
+          cart = [];
+          renderCart();
+          showCompletedBoldOrder(completedOrder);
+        } else if (result.status === 'PAID') {
+          showPaymentMessage(`Bold reporta un pago aprobado para la referencia ${pendingOrder.orderId}, pero los datos no coinciden con el carrito guardado. Conservamos el carrito; contacta a la tienda para confirmar el pedido.`);
+        } else {
+          const statusText = result.status === 'NOT_FOUND' ? 'Bold aún no encuentra el link de pago' : `Bold reporta el estado ${result.status || 'pendiente'}`;
+          showPaymentMessage(`${statusText}. Tu carrito sigue guardado. Si ya aprobaste el pago en Nequi, vuelve a cargar esta página en unos minutos.`);
+        }
+      } catch (error) {
+        showPaymentMessage(`${error.message} Tu carrito sigue guardado; puedes consultar de nuevo al recargar esta página.`);
+      }
+    }
     cartPayBold.addEventListener('click', async () => {
-      if (!cart.length || isPreparingBoldPayment) return;
+      if (!cart.length || isPreparingPayment()) return;
       const items = cart.map(item => ({ id: item.id, quantity: item.quantity }));
       isPreparingBoldPayment = true;
-      cartPayBold.disabled = true;
-      cartPayBoldLabel.textContent = 'Preparando pago…';
-      cartItems.querySelectorAll('.cart-qty button').forEach(button => { button.disabled = true; });
+      renderCart();
       try {
         const response = await fetch('/api/create-bold-checkout', {
           method: 'POST',
@@ -1365,12 +1415,36 @@
         showToast(error.message || 'No pudimos conectar con Bold. Verifica la configuración de la tienda.');
       }
     });
+    cartPayNequi.addEventListener('click', async () => {
+      if (!cart.length || isPreparingPayment()) return;
+      const items = cart.map(item => ({ id: item.id, quantity: item.quantity }));
+      isPreparingNequiPayment = true;
+      renderCart();
+      try {
+        const response = await fetch('/api/create-nequi-payment-link', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ items })
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'No se pudo preparar el pago con Nequi.');
+        const pendingOrder = { orderId: result.orderId, paymentLink: result.paymentLink, amount: result.amount, items };
+        localStorage.setItem('starlinkPendingNequiOrder', JSON.stringify(pendingOrder));
+        window.location.assign(result.url);
+      } catch (error) {
+        isPreparingNequiPayment = false;
+        renderCart();
+        openCart();
+        showToast(error.message || 'No pudimos conectar con Nequi. Verifica la configuración de Bold.');
+      }
+    });
     cartDeliveryWhatsApp.addEventListener('click', () => {
       const order = readStoredOrder('starlinkCompletedBoldOrder');
       if (!order?.orderId) return showToast('No encontramos el resumen de este pedido en el navegador.');
       const ids = Array.isArray(order.items) ? order.items.flatMap(item => Array(item.quantity).fill(item.id)) : [];
-      const itemSummary = ids.length ? `${messageForItems(ids, 'Hola, ya realicé y Bold aprobó el pago de mi pedido:')}\n` : 'Hola, ya realicé y Bold aprobó mi pago.\n';
-      const message = `${itemSummary}Referencia Bold: ${order.orderId}\nTotal pagado: ${formatCOP(order.amount)} COP\nPor favor, ayúdenme a coordinar la entrega.`;
+      const paymentMethod = order.paymentMethod === 'Nequi' ? 'Nequi a través de Bold' : 'Bold';
+      const itemSummary = ids.length ? `${messageForItems(ids, `Hola, ${paymentMethod} confirmó el pago de mi pedido:`)}\n` : `Hola, ${paymentMethod} confirmó mi pago.\n`;
+      const message = `${itemSummary}Referencia de pago: ${order.orderId}\nTotal pagado: ${formatCOP(order.amount)} COP\nPor favor, ayúdenme a coordinar la entrega.`;
       if (sendWhatsApp(message)) {
         localStorage.removeItem('starlinkCompletedBoldOrder');
         cartPaymentStatus.hidden = true;
@@ -1378,7 +1452,7 @@
     });
     document.querySelectorAll('.add-to-cart').forEach(button => button.addEventListener('click', event => {
       event.stopPropagation();
-      if (isPreparingBoldPayment) return showToast('Estamos preparando el pago con Bold. Espera un momento.');
+      if (isPreparingPayment()) return showToast('Estamos preparando el pago. Espera un momento.');
       const card = button.closest('.product-card');
       const ids = [button.dataset.productId, ...selectedAccessories(card)];
       let added = 0;
@@ -1398,7 +1472,7 @@
     cartButton.addEventListener('click', () => cartPanel.classList.contains('open') ? closeCart() : openCart());
     document.getElementById('cartClose').addEventListener('click', closeCart);
     cartItems.addEventListener('click', event => {
-      if (isPreparingBoldPayment) return;
+      if (isPreparingPayment()) return;
       const button = event.target.closest('[data-cart-change]');
       if (!button) return;
       const item = cart.find(entry => entry.id === button.dataset.itemId);
@@ -1412,6 +1486,7 @@
     });
     renderCart();
     verifyBoldPaymentReturn();
+    verifyNequiPaymentReturn();
 
     function openQuote(product = '') {
       status.classList.remove('show');
