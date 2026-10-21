@@ -512,14 +512,14 @@
       .product-card.powerbank-card { grid-column:auto;width:100%;justify-self:stretch; }
     }
     /* Tarjetas compactas: el producto y su casilla se reducen juntos. */
-    .products { grid-template-columns:repeat(2,minmax(0,1fr));gap:12px; }
+    .products { grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:16px; }
     .product-card { padding:12px;border-radius:18px; }
     .product-card h3 { font-size:19px;line-height:1.18; }
     .product-card p { font-size:11px;line-height:1.5;margin-bottom:12px; }
     .product-card.powerbank-card h3 { font-size:19px; }
-    .product-art,.product-art.mini-bg,.product-art.standard-bg,.product-art.powerbank-art,.product-art.mount-art,.product-art.suction-art { width:max-content;max-width:min(100%,156px);height:auto;aspect-ratio:auto;margin:14px auto 16px;overflow:visible; }
+    .product-art,.product-art.mini-bg,.product-art.standard-bg,.product-art.powerbank-art,.product-art.mount-art,.product-art.suction-art { width:max-content;max-width:min(78%,187px);height:auto;aspect-ratio:auto;margin:14px auto 16px;overflow:visible; }
     .product-gallery { display:grid;place-items:center;position:relative;width:max-content;max-width:100%;height:auto;overflow:visible; }
-    .product-art .product-gallery-slide { display:none;position:relative;inset:auto;width:auto;height:auto;max-width:100%;max-height:108px;padding:0;object-fit:contain;opacity:0;transform:none;transition:opacity .22s ease;pointer-events:none; }
+    .product-art .product-gallery-slide { display:none;position:relative;inset:auto;width:auto;height:auto;max-width:100%;max-height:130px;padding:0;object-fit:contain;opacity:0;transform:none;transition:opacity .22s ease;pointer-events:none; }
     .product-art .product-gallery-slide.is-active { display:block;opacity:1;transform:none;pointer-events:auto; }
     .product-art .starlink-gallery .product-gallery-slide,.product-art .starlink-gallery .product-gallery-slide.is-active { padding:0;transform:none; }
     .product-art.suction-art .suction-gallery .product-gallery-slide,.product-art.suction-art .suction-gallery .product-gallery-slide.is-active { padding:0;filter:none;transform:none; }
@@ -527,18 +527,24 @@
     .product-actions { grid-template-columns:1fr;gap:8px;margin-top:11px; }
     .product-actions .button { min-height:39px;padding:9px 10px; }
     @media (max-width:680px) {
-      .products { grid-template-columns:repeat(2,minmax(0,1fr));gap:9px; }
+      .products { grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:9px; }
       .product-card { padding:10px;border-radius:16px; }
       .product-card h3,.product-card.powerbank-card h3 { font-size:16px;line-height:1.16; }
       .product-card p { font-size:10px;line-height:1.45;margin-bottom:10px; }
       .product-top { align-items:flex-start;gap:5px; }
       .product-top .tag { padding:5px 7px;font-size:8px; }
-      .product-art,.product-art.mini-bg,.product-art.standard-bg,.product-art.powerbank-art,.product-art.mount-art,.product-art.suction-art { max-width:min(100%,120px);margin:10px auto 12px; }
-      .product-art .product-gallery-slide { max-height:95px; }
+      .product-art,.product-art.mini-bg,.product-art.standard-bg,.product-art.powerbank-art,.product-art.mount-art,.product-art.suction-art { max-width:min(78%,187px);margin:10px auto 12px; }
+      .product-art .product-gallery-slide { max-height:114px; }
       .product-actions .button { min-height:35px;padding:7px 5px;font-size:9px; }
     }
+    .product-gallery-arrow,.product-gallery-meta { display:none!important; }
     .product-art .product-gallery-slide { cursor:zoom-in; }
     .product-art .product-gallery-slide:focus-visible { outline:3px solid #9ec8ff;outline-offset:4px;border-radius:8px; }
+    .product-gallery-zoom { position:absolute;z-index:4;right:-10px;bottom:-12px;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:6px 11px;border:1px solid rgba(214,232,255,.72);border-radius:999px;background:linear-gradient(135deg,rgba(40,91,151,.97),rgba(5,17,34,.96));color:#fff;box-shadow:0 8px 22px rgba(0,0,0,.38),0 0 0 3px rgba(100,161,230,.2);backdrop-filter:blur(8px);cursor:zoom-in;transition:transform .2s ease,box-shadow .2s ease; }
+    .product-gallery-zoom:hover { transform:scale(1.07);box-shadow:0 10px 26px rgba(0,0,0,.45),0 0 0 4px rgba(117,180,249,.28); }
+    .product-gallery-zoom svg { flex:none;width:16px;height:16px; }
+    .product-gallery-zoom span { font-size:10px;font-weight:800;white-space:nowrap; }
+    .product-gallery-zoom:focus-visible { outline:3px solid #b9d8ff;outline-offset:3px; }
     .product-lightbox[hidden] { display:none!important; }
     .product-lightbox { position:fixed;inset:0;z-index:1200;display:grid;place-items:center;padding:24px;background:rgba(3,9,19,.88);backdrop-filter:blur(12px);opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease; }
     .product-lightbox.is-open { opacity:1;visibility:visible; }
@@ -572,6 +578,9 @@
       .product-lightbox-footer { align-items:flex-start;flex-direction:column;gap:8px; }
       .product-lightbox-thumbs { justify-content:flex-start;max-width:100%;width:100%; }
       .product-lightbox-thumb { width:58px;height:48px; }
+      .product-gallery-zoom { right:-8px;bottom:-10px;min-height:40px;gap:5px;padding:5px 8px; }
+      .product-gallery-zoom svg { width:15px;height:15px; }
+      .product-gallery-zoom span { font-size:9px; }
     }
   </style>
 </head>
@@ -1136,6 +1145,19 @@
         syncProductLightbox(state);
       };
       state.showSlide = showSlide;
+      const zoomButton = document.createElement('button');
+      zoomButton.type = 'button';
+      zoomButton.className = 'product-gallery-zoom';
+      const productTitle = gallery.closest('.product-card')?.querySelector('h3')?.textContent?.trim() || 'producto';
+      zoomButton.setAttribute('aria-label', `Ampliar fotos de ${productTitle}`);
+      zoomButton.title = 'Toca para ampliar y cambiar las fotos';
+      zoomButton.innerHTML = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="2.2"/><path d="m16 16 5 5M10.8 7.5v6.6M7.5 10.8h6.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span>Ampliar</span>';
+      zoomButton.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
+        openProductLightbox(gallery, state, current, zoomButton);
+      });
+      gallery.appendChild(zoomButton);
       slides.forEach((slide, slideIndex) => {
         slide.addEventListener('click', () => openProductLightbox(gallery, state, slideIndex, slide));
         slide.addEventListener('keydown', event => {
