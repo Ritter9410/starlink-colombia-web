@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101b36">
+  <meta name="description" content="Compra kits y accesorios Starlink en Colombia. Paga con Bold o Nequi.">
+  <meta property="og:title" content="Comprar producto Starlink | Starlink Colombia">
+  <meta property="og:description" content="Fotos, precio y pago directo de productos Starlink en Colombia.">
+  <meta property="og:image" content="../starlink-icon.png">
+  <title>Comprar producto Starlink | Starlink Colombia</title>
+  <link rel="icon" type="image/png" href="../starlink-icon.png">
+  <style>
+    :root {
+      --ink: #101b36;
+      --muted: #68738b;
+      --blue: #3155d9;
+      --paper: #f7f7f4;
+      --line: #e5e8ee;
+      --white: #fff;
+    }
+    * { box-sizing: border-box; }
+    body { min-height: 100vh; margin: 0; color: var(--ink); background: radial-gradient(ellipse at 78% 15%, #e9edff 0, transparent 36%), var(--paper); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    button { font: inherit; }
+    .page { width: min(1040px, calc(100% - 40px)); margin: 0 auto; }
+    header { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid rgba(16, 27, 54, .1); }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-size: 13px; font-weight: 800; letter-spacing: .13em; }
+    .brand img { width: 31px; height: 31px; object-fit: contain; filter: invert(1); }
+    .brand span { display: grid; gap: 3px; }
+    .brand small { color: var(--muted); font-size: 9px; letter-spacing: .1em; }
+    .secure { display: inline-flex; align-items: center; gap: 7px; color: #4d5b75; font-size: 11px; font-weight: 650; }
+    .secure svg { width: 16px; height: 16px; color: #25916f; }
+    main { padding: 54px 0 72px; }
+    .product { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr); gap: clamp(32px, 6vw, 76px); align-items: center; }
+    .gallery { min-width: 0; }
+    .main-image { position: relative; display: grid; place-items: center; min-height: 390px; padding: 36px; border: 1px solid rgba(16, 27, 54, .08); border-radius: 28px; background: rgba(255, 255, 255, .76); box-shadow: 0 24px 70px rgba(16, 27, 54, .08); overflow: hidden; }
+    .main-image img { display: none; width: 100%; max-height: 450px; object-fit: contain; }
+    .main-image img.active { display: block; animation: appear .22s ease-out; }
+    @keyframes appear { from { opacity: .5; transform: scale(.985); } to { opacity: 1; transform: scale(1); } }
+    .gallery-arrow { position: absolute; top: 50%; display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: rgba(255,255,255,.94); color: var(--ink); cursor: pointer; transform: translateY(-50%); }
+    .gallery-arrow:hover { background: var(--ink); color: white; }
+    .gallery-arrow svg { width: 19px; height: 19px; }
+    .gallery-prev { left: 14px; }
+    .gallery-next { right: 14px; }
+    .thumbs { display: flex; justify-content: center; gap: 10px; margin-top: 16px; }
+    .thumb { width: 64px; height: 64px; padding: 5px; border: 1px solid var(--line); border-radius: 13px; background: white; cursor: pointer; }
+    .thumb[aria-current="true"] { border: 2px solid var(--blue); box-shadow: 0 0 0 3px rgba(49,85,217,.1); }
+    .thumb img { width: 100%; height: 100%; object-fit: contain; }
+    .copy { padding: 10px 0; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--blue); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .eyebrow::before { width: 7px; height: 7px; border-radius: 50%; background: #46c49d; content: ""; }
+    h1 { max-width: 520px; margin: 16px 0 13px; font-size: clamp(36px, 5vw, 54px); line-height: 1; letter-spacing: -.06em; }
+    .description { max-width: 440px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.75; }
+    .price { display: flex; align-items: baseline; gap: 10px; margin: 28px 0 6px; }
+    .price strong { font-size: clamp(30px, 4vw, 38px); letter-spacing: -.05em; }
+    .price span { color: var(--muted); font-size: 12px; }
+    .price-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: 25px 0 5px; }
+    .price-row .price { margin: 0; }
+    .quantity { display: grid; gap: 5px; justify-items: end; color: var(--muted); font-size: 10px; font-weight: 700; }
+    .quantity-control { display: inline-flex; align-items: center; gap: 8px; padding: 4px; border: 1px solid var(--line); border-radius: 999px; background: white; color: var(--ink); }
+    .quantity-control button { display: grid; place-items: center; width: 27px; height: 27px; padding: 0; border: 0; border-radius: 50%; background: #f0f2f7; color: var(--ink); font-size: 18px; line-height: 1; }
+    .quantity-control button:disabled { opacity: .42; }
+    .quantity-control output { min-width: 16px; text-align: center; font-size: 12px; font-weight: 800; }
+    .price-note { color: var(--muted); font-size: 11px; }
+    .payment-options { display: grid; gap: 10px; margin-top: 24px; }
+    .pay { width: 100%; min-height: 54px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 0; border-radius: 999px; color: white; box-shadow: 0 10px 24px rgba(16, 27, 54, .16); font-size: 14px; font-weight: 800; cursor: pointer; transition: transform .2s, background .2s, opacity .2s; }
+    .pay:hover:not(:disabled) { transform: translateY(-2px); }
+    .pay:disabled { cursor: wait; opacity: .7; }
+    .pay-bold { background: var(--ink); }
+    .pay-bold:hover:not(:disabled) { background: #24345a; }
+    .pay img { width: 43px; height: auto; padding: 4px 6px; border-radius: 5px; background: white; }
+    .pay-nequi { background: #e6007e; box-shadow: 0 9px 22px rgba(230,0,126,.16); }
+    .pay-nequi:hover:not(:disabled) { background: #c9006d; }
+    .nequi-wordmark { color: white; font-size: 20px; font-weight: 850; letter-spacing: -.07em; line-height: 1; }
+    .feedback { min-height: 22px; margin: 12px 2px 0; color: #a13333; font-size: 12px; line-height: 1.5; }
+    .afterpay { display: flex; gap: 11px; align-items: flex-start; margin-top: 16px; padding: 15px; border: 1px solid var(--line); border-radius: 15px; background: rgba(255,255,255,.58); color: #56627a; font-size: 11px; line-height: 1.6; }
+    .afterpay svg { width: 17px; height: 17px; flex: none; color: var(--blue); }
+    .afterpay p { margin: 0; }
+    .back { display: inline-flex; margin-top: 23px; color: #5b6680; font-size: 11px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+    :focus-visible { outline: 3px solid #85a0ff; outline-offset: 3px; }
+    @media (max-width: 720px) {
+      .page { width: min(560px, calc(100% - 28px)); }
+      header { min-height: 68px; }
+      main { padding: 28px 0 45px; }
+      .product { grid-template-columns: 1fr; gap: 27px; }
+      .main-image { min-height: 0; aspect-ratio: 1 / .86; padding: 24px; border-radius: 22px; }
+      .main-image img { max-height: 340px; }
+      .thumbs { margin-top: 12px; }
+      .thumb { width: 56px; height: 56px; }
+      .copy { padding: 0 3px; }
+      h1 { max-width: 460px; font-size: clamp(34px, 10vw, 46px); }
+      .price { margin-top: 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand" aria-label="Starlink Colombia">
+        <img src="../starlink-icon.png" alt="">
+        <span>STARLINK<small>COLOMBIA</small></span>
+      </div>
+      <div class="secure">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3m-11 0h12a2 2 0 0 1 2 2v8H4v-8a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Pago seguro con Bold
+      </div>
+    </header>
+
+    <main>
+      <article class="product">
+        <div class="gallery" aria-label="Fotos del producto">
+          <div class="main-image" id="mainImage" aria-live="polite">
+            <button class="gallery-arrow gallery-prev" type="button" aria-label="Foto anterior">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m14.5 5-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="gallery-arrow gallery-next" type="button" aria-label="Foto siguiente">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9.5 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <div class="thumbs" id="thumbs" role="group" aria-label="Elegir foto">
+          </div>
+        </div>
+
+        <div class="copy">
+          <span class="eyebrow" id="productTag">Producto Starlink</span>
+          <h1 id="productTitle">Cargando producto…</h1>
+          <p class="description" id="productDescription"></p>
+          <div class="price-row">
+            <div class="price"><strong id="totalPrice">$1.599.000</strong><span>COP</span></div>
+            <div class="quantity">
+              <span>Cantidad</span>
+              <div class="quantity-control" aria-label="Cantidad del producto">
+                <button id="quantityMinus" type="button" aria-label="Quitar una unidad">−</button>
+                <output id="quantityOutput" aria-live="polite">1</output>
+                <button id="quantityPlus" type="button" aria-label="Agregar una unidad">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="price-note" id="priceNote"></div>
+          <div class="payment-options">
+            <button class="pay pay-bold" id="payBoldButton" type="button" aria-label="Pagar con Bold">
+              Pagar con <img src="https://bold.co/assets/logos/Logotipo%20azul.png" alt="Bold">
+            </button>
+            <button class="pay pay-nequi" id="payNequiButton" type="button" aria-label="Pagar con Nequi">
+              Pagar con <span class="nequi-wordmark" aria-hidden="true">nequi</span>
+            </button>
+          </div>
+          <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+          <div class="afterpay">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 2.9 8.4 7 10 4.1-1.6 7-5.4 7-10V6l-7-3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <p>Bold recibe el pago con Bold. Nequi abre un link de pago seguro gestionado por Bold. Al terminar, volverás al sitio para verificarlo y coordinar la entrega con la tienda.</p>
+          </div>
+          <a class="back" href="/">Volver a Starlink Colombia</a>
+        </div>
+      </article>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const products = {
+        'mini-x': {
+          name: 'Starlink Mini X', tag: 'Kit móvil y fijo',
+          description: 'Internet satelital portátil y de alta velocidad. Conéctate desde cualquier lugar.',
+          price: 459900, stock: 99, unitLabel: 'Precio del Kit',
+          images: [
+            ['../starlink-mini-kit-transparent.png', 'Kit Starlink Mini X con antena, soportes y cables'],
+            ['../starlink-mini-x-view-1.png', 'Starlink Mini X visto en ángulo frontal sobre su soporte'],
+            ['../starlink-mini-x-view-2.png', 'Vista lateral delgada de la antena Starlink Mini X'],
+            ['../starlink-mini-x-view-3.png', 'Parte trasera de la antena Starlink Mini X con puntos de montaje']
+          ]
+        },
+        'power-bank': {
+          name: 'Power Bank Imenso IMS-618S de 60.000 mAh y 100W de potencia', tag: 'Accesorio · Batería',
+          description: 'Power Bank portátil de 60.000 mAh y 100W de potencia. Escríbenos para confirmar compatibilidad y disponibilidad para tu instalación.',
+          price: 299900, stock: 99, unitLabel: 'precio del producto',
+          images: [
+            ['../powerbank-imenso-view-1.png', 'Power Bank Imenso IMS-618S con asa naranja y puertos USB'],
+            ['../powerbank-imenso-view-2.png', 'Vista frontal del Power Bank Imenso IMS-618S'],
+            ['../powerbank-imenso-view-3.png', 'Vista lateral del Power Bank Imenso IMS-618S con pantalla']
+          ]
+        },
+        'apowking-r100': {
+          name: 'Generador Solar Apowking de 200 W de Pico, 100 W de Potencia', tag: 'Accesorio · Batería solar',
+          description: 'Estación portátil de energía con batería de 146 Wh y panel solar plegable de 40 W. Potencia nominal de 100 W y pico de 200 W.',
+          price: 565518, stock: 99, unitLabel: 'precio del producto',
+          images: [
+            ['../apowking-r100-view-1.png', 'Generador solar Apowking con su panel solar plegable'],
+            ['../apowking-r100-view-2.png', 'Vista cercana de la batería portátil Apowking con pantalla y puertos'],
+            ['../apowking-r100-view-3.png', 'Batería Apowking conectada al panel solar plegable'],
+            ['../apowking-r100-view-4.png', 'Vista amplia del panel solar Apowking junto a su batería']
+          ]
+        },
+        'mini-fixed-mount': {
+          name: 'Soporte de montaje fijo Starlink Mini con brazo largo ajustable para canal de acero, adaptador para pared y techo', tag: 'Accesorio · Soporte',
+          description: 'Soporte de brazo largo ajustable para instalar tu Starlink Mini en pared o techo. Incluye adaptador y herrajes de montaje.',
+          price: 150000, stock: 99, unitLabel: 'precio del producto',
+          images: [
+            ['../starlink-mini-mount-kit-transparent.png', 'Piezas del soporte fijo Starlink Mini con brazo ajustable, adaptadores y tornillos'],
+            ['../starlink-mini-mount-roof-view.jpg', 'Starlink Mini con brazo de montaje instalado en la parte alta de un techo'],
+            ['../starlink-mini-mount-wall-view.jpg', 'Starlink Mini con soporte ajustable instalado en un frontón de madera'],
+            ['../starlink-mini-mount-roof-reference.jpg', 'Starlink Mini instalada con el soporte de brazo largo ajustable en el borde de un techo']
+          ]
+        },
+        ventosa: {
+          name: 'Soporte ventosa para Starlink Mini', tag: 'Accesorio Starlink',
+          description: 'Soporte interior de brazo ajustable y doble ventosa para fijar tu Starlink Mini en vidrio, acrílico u otra superficie lisa.',
+          price: 120000, stock: 99, unitLabel: 'precio del producto',
+          images: [
+            ['../soporte-ventosa-mini-1.png', 'Starlink Mini sostenida por el soporte ajustable con sus dos ventosas'],
+            ['../soporte-ventosa-mini-2.png', 'Starlink Mini montada sobre el soporte de doble ventosa desde otro ángulo'],
+            ['../soporte-ventosa-mini-3.png', 'Vista diagonal del brazo y las dos ventosas del soporte para Starlink Mini'],
+            ['../soporte-ventosa-mini-4.png', 'Vista diagonal de la variante blanca del soporte con doble ventosa']
+          ]
+        },
+        'ethernet-adapter': {
+          name: 'Starlink Ethernet Satelital Red Adapter', tag: 'Accesorio Starlink',
+          description: 'Soporta velocidades de transmisión de hasta 1 Gbps para la transferencia de datos entre dispositivos de red.',
+          price: 115000, stock: 99, unitLabel: 'precio del producto',
+          images: [
+            ['../starlink-ethernet-adapter-view-1.png', 'Adaptador Ethernet Starlink con sus cables y conectores'],
+            ['../starlink-ethernet-adapter-view-2.png', 'Vista cercana del adaptador Ethernet Starlink'],
+            ['../starlink-ethernet-adapter-view-3.png', 'Adaptador Ethernet Starlink con el cable enrollado']
+          ]
+        }
+      };
+      const params = new URLSearchParams(window.location.search);
+      const productId = params.get('producto');
+      const product = products[productId];
+      const mainImage = document.getElementById('mainImage');
+      const thumbsContainer = document.getElementById('thumbs');
+      const payButtons = [document.getElementById('payBoldButton'), document.getElementById('payNequiButton')];
+      const feedback = document.getElementById('feedback');
+      const quantityOutput = document.getElementById('quantityOutput');
+      const totalPrice = document.getElementById('totalPrice');
+      const quantityMinus = document.getElementById('quantityMinus');
+      const quantityPlus = document.getElementById('quantityPlus');
+      let quantity = 1;
+      let slides = [];
+      let thumbs = [];
+      const previous = document.querySelector('.gallery-prev');
+      const next = document.querySelector('.gallery-next');
+      let activeIndex = 0;
+
+      if (!product) {
+        document.getElementById('productTitle').textContent = 'Producto no encontrado';
+        document.getElementById('productDescription').textContent = 'Regresa a la tienda para elegir un producto disponible.';
+        document.querySelector('.payment-options').hidden = true;
+        feedback.textContent = 'Este enlace de producto no es válido.';
+        return;
+      }
+
+      document.title = `Comprar ${product.name} | Starlink Colombia`;
+      document.querySelector('meta[name="description"]').content = `${product.name} por ${formatCOP(product.price)} COP. Paga con Bold o Nequi.`;
+      document.querySelector('meta[property="og:title"]').content = `${product.name} | Starlink Colombia`;
+      document.querySelector('meta[property="og:description"]').content = `${product.name} por ${formatCOP(product.price)} COP. Paga con Bold o Nequi.`;
+      document.querySelector('meta[property="og:image"]').content = new URL(product.images[0][0], window.location.href).href;
+      document.getElementById('productTag').textContent = product.tag;
+      document.getElementById('productTitle').textContent = product.name;
+      document.getElementById('productDescription').textContent = product.description;
+      document.getElementById('priceNote').textContent = `${formatCOP(product.price)} COP por unidad · ${product.stock === 1 ? '1 unidad disponible' : 'elige la cantidad que deseas'}`;
+
+      slides = product.images.map(([src, alt], index) => {
+        const image = document.createElement('img');
+        image.src = src;
+        image.alt = alt;
+        image.loading = index === 0 ? 'eager' : 'lazy';
+        image.decoding = 'async';
+        image.classList.toggle('active', index === 0);
+        mainImage.insertBefore(image, previous);
+        return image;
+      });
+      thumbs = product.images.map(([src, alt], index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'thumb';
+        button.setAttribute('aria-label', `Mostrar foto ${index + 1}`);
+        button.setAttribute('aria-current', String(index === 0));
+        const image = document.createElement('img');
+        image.src = src;
+        image.alt = '';
+        button.appendChild(image);
+        button.addEventListener('click', () => showSlide(index));
+        thumbsContainer.appendChild(button);
+        return button;
+      });
+
+      function formatCOP(value) {
+        return '$' + new Intl.NumberFormat('es-CO', { maximumFractionDigits: 0 }).format(value);
+      }
+
+      function showSlide(index) {
+        activeIndex = (index + slides.length) % slides.length;
+        slides.forEach((slide, i) => slide.classList.toggle('active', i === activeIndex));
+        thumbs.forEach((thumb, i) => thumb.setAttribute('aria-current', String(i === activeIndex)));
+      }
+
+      function updateQuantity() {
+        quantityOutput.textContent = String(quantity);
+        totalPrice.textContent = formatCOP(product.price * quantity);
+        quantityMinus.disabled = quantity <= 1;
+        quantityPlus.disabled = quantity >= product.stock;
+      }
+
+      previous.addEventListener('click', () => showSlide(activeIndex - 1));
+      next.addEventListener('click', () => showSlide(activeIndex + 1));
+      quantityMinus.addEventListener('click', () => { quantity = Math.max(1, quantity - 1); updateQuantity(); });
+      quantityPlus.addEventListener('click', () => { quantity = Math.min(product.stock, quantity + 1); updateQuantity(); });
+      let boldLibraryPromise;
+
+      function setPaymentBusy(isBusy) {
+        payButtons.forEach(button => { button.disabled = isBusy; });
+      }
+
+      async function createPayment(method) {
+        if (payButtons.some(button => button.disabled)) return;
+        setPaymentBusy(true);
+        feedback.textContent = method === 'nequi' ? 'Preparando el pago con Nequi…' : 'Preparando el pago seguro…';
+        const items = [{ id: productId, quantity }];
+        try {
+          if (method === 'nequi') {
+            const response = await fetch('/api/create-nequi-payment-link', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+              body: JSON.stringify({ items })
+            });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'No se pudo preparar el pago con Nequi.');
+            localStorage.setItem('starlinkPendingNequiOrder', JSON.stringify({ orderId: result.orderId, paymentLink: result.paymentLink, amount: result.amount, items }));
+            window.location.assign(result.url);
+            return;
+          }
+
+          const response = await fetch('/api/create-bold-checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ items })
+          });
+          const result = await response.json();
+          if (!response.ok) throw new Error(result.error || 'No se pudo preparar el pago.');
+
+          await loadBoldCheckoutLibrary();
+          localStorage.setItem('starlinkPendingBoldOrder', JSON.stringify({ orderId: result.orderId, amount: result.amount, items }));
+          new window.BoldCheckout(result.checkout).open();
+          feedback.textContent = '';
+        } catch (error) {
+          feedback.textContent = error.message || 'No pudimos conectar con la pasarela. Inténtalo nuevamente.';
+          setPaymentBusy(false);
+        }
+      }
+
+      function loadBoldCheckoutLibrary() {
+        if (window.BoldCheckout) return Promise.resolve();
+        if (boldLibraryPromise) return boldLibraryPromise;
+        boldLibraryPromise = new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = 'https://checkout.bold.co/library/boldPaymentButton.js';
+          script.async = true;
+          script.onload = () => window.BoldCheckout ? resolve() : reject(new Error('No se pudo iniciar el checkout de Bold.'));
+          script.onerror = () => reject(new Error('No se pudo cargar el checkout de Bold.'));
+          document.head.appendChild(script);
+        }).catch(error => {
+          boldLibraryPromise = null;
+          throw error;
+        });
+        return boldLibraryPromise;
+      }
+
+      document.getElementById('payBoldButton').addEventListener('click', () => createPayment('bold'));
+      document.getElementById('payNequiButton').addEventListener('click', () => createPayment('nequi'));
+      updateQuantity();
+    })();
+  </script>
+</body>
+</html>
