@@ -644,7 +644,7 @@
     }
     /* Catálogo y secciones inferiores: diseño editorial en blanco y negro. */
     header { position:relative;z-index:20; }
-    main > section:not(.hero),footer { background:#fff!important;color:#111; }
+    main > section:not(.hero),footer { background:radial-gradient(ellipse at 13% 0%,rgba(0,0,0,.035),transparent 42%),radial-gradient(ellipse at 92% 78%,rgba(0,0,0,.028),transparent 40%),linear-gradient(135deg,#f5f6f7 0%,#eceff1 48%,#fafafa 100%)!important;color:#111; }
     main > section:not(.hero) *,footer * { color:#111!important;text-shadow:none!important; }
     main > section:not(.hero) { border-top:1px solid #ededed; }
     #equipos { padding-top:76px;padding-bottom:78px; }
@@ -747,6 +747,84 @@
       .catalog-result-count { margin:10px 0 13px; }
       main > section:not(.hero) .product-card { padding:14px;border-radius:18px; }
     }
+    /* Catálogo premium: inspiración editorial en navegación por categoría y producto. */
+    #equipos { position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse 58% 42% at 82% 8%,rgba(91,133,177,.22),transparent 72%),radial-gradient(ellipse 44% 40% at 4% 74%,rgba(59,79,105,.18),transparent 72%),linear-gradient(135deg,#09111d 0%,#111d2a 48%,#0b1420 100%)!important;border-top:1px solid rgba(255,255,255,.12); }
+    #equipos::before { content:"";position:absolute;z-index:0;inset:0;pointer-events:none;background-image:radial-gradient(rgba(226,239,255,.48) .65px,transparent .8px);background-size:25px 25px;opacity:.2;mask-image:linear-gradient(180deg,#000,transparent 72%); }
+    #equipos::after { content:"";position:absolute;z-index:0;top:-420px;right:-245px;width:850px;height:850px;border:1px solid rgba(218,232,250,.09);border-radius:50%;box-shadow:0 0 0 42px rgba(218,232,250,.022),0 0 0 102px rgba(218,232,250,.018),0 0 0 180px rgba(218,232,250,.012);pointer-events:none; }
+    #equipos > .wrap { position:relative;z-index:1; }
+    #equipos .catalog-head { align-items:flex-end;margin-bottom:34px; }
+    #equipos .catalog-kicker { padding:8px 13px;border:1px solid rgba(255,255,255,.24);background:#111;box-shadow:0 5px 15px rgba(0,0,0,.12);letter-spacing:.15em; }
+    #equipos .catalog-head h2 { max-width:15ch;margin-top:17px;color:#f7f9fc!important;font-size:clamp(36px,5vw,58px);line-height:.98;letter-spacing:-.067em; }
+    #equipos .catalog-head p { max-width:370px;padding:4px 0 4px 19px;border-left:1px solid rgba(235,243,252,.25);color:#c3cfdd!important;font-size:14px;line-height:1.8; }
+    #equipos .catalog-toolbar { padding:11px;border:1px solid rgba(229,239,251,.16);border-radius:20px;background:rgba(255,255,255,.065);box-shadow:0 16px 36px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.11);backdrop-filter:blur(18px) saturate(125%); }
+    #equipos .catalog-filters,#equipos .catalog-controls { gap:7px; }
+    #equipos .catalog-filter { min-height:40px;padding:7px 12px;border-color:rgba(233,242,253,.18);background:rgba(255,255,255,.055);color:#edf3fa!important;box-shadow:inset 0 1px rgba(255,255,255,.08); }
+    #equipos .catalog-filter span { background:rgba(255,255,255,.14);color:#edf3fa!important; }
+    #equipos .catalog-filter:hover { border-color:rgba(255,255,255,.75);background:rgba(255,255,255,.13); }
+    #equipos .catalog-filter.is-active { background:#fff;border-color:#fff;color:#111!important;box-shadow:0 5px 16px rgba(0,0,0,.18); }
+    #equipos .catalog-filter.is-active span { background:#ededed;color:#111!important; }
+    #equipos .catalog-search,#equipos .catalog-sort { min-height:40px;border-color:rgba(233,242,253,.18);background:rgba(4,10,18,.42);color:#f4f7fb;box-shadow:inset 0 1px 2px rgba(0,0,0,.13); }
+    #equipos .catalog-search svg { color:#d0dce9; }
+    #equipos .catalog-search input { color:#f4f7fb; }
+    #equipos .catalog-search input::placeholder { color:#9baabd; }
+    #equipos .catalog-sort-label { color:#b7c4d3!important; }
+    #equipos .catalog-search:focus-within { border-color:rgba(255,255,255,.7);box-shadow:0 0 0 4px rgba(219,234,252,.1); }
+    #equipos .catalog-result-count { display:flex;align-items:center;gap:8px;margin:15px 4px 16px;color:#c1cddd!important;font-size:11px; }
+    #equipos .catalog-result-count::before { content:"";width:6px;height:6px;border-radius:50%;background:#f1f5fa;box-shadow:0 0 0 4px rgba(241,245,250,.12); }
+    #equipos .products { gap:20px; }
+    #equipos .product-card { position:relative;overflow:hidden;padding:20px;border-radius:24px;background:linear-gradient(155deg,rgba(255,255,255,.96),rgba(250,251,252,.88))!important;border:1px solid rgba(255,255,255,.98)!important;box-shadow:0 14px 34px rgba(34,45,57,.075),inset 0 1px 0 #fff;backdrop-filter:blur(16px) saturate(120%); }
+    #equipos .product-card::before { content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(20,20,20,.16),transparent);pointer-events:none; }
+    #equipos .product-card:hover { transform:translateY(-5px);border-color:rgba(35,42,50,.2)!important;box-shadow:0 22px 46px rgba(34,45,57,.13),inset 0 1px 0 #fff; }
+    #equipos .product-card .tag { letter-spacing:.1em; }
+    #equipos .product-art { border:1px solid rgba(25,33,41,.045);border-radius:19px;background:radial-gradient(ellipse at 50% 42%,#fff 0%,#f8f9fa 56%,#edf0f2 100%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.98),inset 0 -12px 28px rgba(42,55,69,.025); }
+    #equipos .product-art img { filter:drop-shadow(0 13px 14px rgba(18,27,36,.09)); }
+    #equipos .product-card h3 { margin-bottom:10px;font-size:clamp(18px,1.55vw,22px);line-height:1.18;letter-spacing:-.05em; }
+    #equipos .product-card p { color:#59616a!important;font-size:12px;line-height:1.7; }
+    #equipos .price-row { min-height:66px;padding-top:15px;border-color:rgba(25,33,41,.1); }
+    #equipos .product-card .price-row strong { font-size:clamp(25px,2.1vw,31px); }
+    #equipos .product-card .product-actions { margin-top:15px;gap:9px; }
+    #equipos .product-card .product-actions .button { min-height:45px;box-shadow:0 7px 15px rgba(0,0,0,.1); }
+    #equipos .product-card .product-actions .button-light { box-shadow:inset 0 1px 0 #fff; }
+    #equipos .product-card .product-gallery-arrow { width:36px;height:36px;opacity:.9;transition:transform .18s ease,opacity .18s ease; }
+    #equipos .product-card .product-gallery-arrow:hover { transform:translateY(-50%) scale(1.06);opacity:1; }
+    #equipos .product-card .product-gallery-meta { bottom:9px; }
+    #equipos .catalog-empty { border-color:rgba(20,25,31,.18);background:rgba(255,255,255,.55); }
+    @media(min-width:1100px) {
+      #equipos .products { grid-template-columns:repeat(4,minmax(0,1fr)); }
+      #equipos .products > .featured-product-card { grid-column:span 2;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(230px,.92fr);grid-template-rows:auto auto 1fr auto auto;align-content:start;gap:12px 24px;min-height:420px;padding:23px; }
+      #equipos .featured-product-card > .product-top { grid-column:1 / -1;grid-row:1; }
+      #equipos .featured-product-card > .product-art { grid-column:1;grid-row:2 / 6;width:100%;max-width:none;min-width:0;min-height:310px;height:100%;aspect-ratio:auto;margin:0;overflow:hidden; }
+      #equipos .featured-product-card > .product-art .product-gallery { width:100%;max-width:100%;height:100%;overflow:hidden; }
+      #equipos .featured-product-card > .product-art .product-gallery-slide.is-active { width:100%;max-width:100%;max-height:320px;height:100%;object-fit:contain;transform:none; }
+      #equipos .featured-product-card > h3 { grid-column:2;grid-row:2;align-self:end;font-size:clamp(25px,2.5vw,34px); }
+      #equipos .featured-product-card > p { grid-column:2;grid-row:3;font-size:14px; }
+      #equipos .featured-product-card > .price-row { grid-column:2;grid-row:4; }
+      #equipos .featured-product-card > .product-actions { grid-column:2;grid-row:5; }
+    }
+    @media(max-width:900px) {
+      #equipos .catalog-toolbar { align-items:stretch;flex-direction:column; }
+      #equipos .catalog-controls { justify-content:flex-end; }
+      #equipos .catalog-search { width:min(100%,380px); }
+    }
+    @media(max-width:680px) {
+      #equipos { padding-top:58px;padding-bottom:62px; }
+      #equipos .catalog-head { margin-bottom:25px; }
+      #equipos .catalog-head h2 { max-width:12ch;font-size:clamp(36px,10vw,48px); }
+      #equipos .catalog-head p { margin-top:15px;padding-left:14px;font-size:13px; }
+      #equipos .catalog-toolbar { display:grid;gap:10px;padding:10px;border-radius:17px; }
+      #equipos .catalog-filters { gap:6px; }
+      #equipos .catalog-filter { min-height:37px;padding:6px 10px;font-size:10px; }
+      #equipos .catalog-controls { display:grid;grid-template-columns:minmax(0,1fr) auto;justify-content:stretch;gap:7px; }
+      #equipos .catalog-search { width:auto; }
+      #equipos .catalog-sort-label { display:none; }
+      #equipos .catalog-sort { max-width:138px; }
+      #equipos .products { gap:12px; }
+      #equipos .product-card { padding:14px;border-radius:19px; }
+      #equipos .product-art { border-radius:15px; }
+    }
+    @media(prefers-reduced-motion:reduce) {
+      #equipos .product-card,#equipos .product-gallery-arrow { transition:none; }
+    }
   </style>
 </head>
 <body>
@@ -821,7 +899,7 @@
         </div>
         <p class="catalog-result-count" id="catalogResultCount" aria-live="polite">Mostrando productos</p>
         <div class="products">
-          <article class="product-card">
+          <article class="product-card featured-product-card">
             <div class="product-top"><span class="tag" style="color:#9de8cc;background:rgba(47,166,123,.16)">Kit móvil y fijo</span><img class="product-logo starlink-icon" src="./starlink-icon.png" alt="" aria-hidden="true"></div>
             <div class="product-art mini-bg">
               <div class="product-gallery starlink-gallery" data-product-gallery role="group" aria-roledescription="carrusel" aria-label="Galería de Starlink Mini X">
@@ -871,7 +949,7 @@
             </div>
             <h3>Power Bank Imenso IMS-618S de 60.000 mAh y 100W de potencia</h3>
             <p>Power Bank portátil de 60.000 mAh y 100W de potencia. Escríbenos para confirmar compatibilidad y disponibilidad para tu instalación.</p>
-            <div class="price-row"><strong>$299.900</strong><span>COP · precio del producto</span></div>
+            <div class="price-row"><strong>$299.900</strong><span>COP</span></div>
             <div class="product-actions"><button class="button add-to-cart" type="button" data-product-id="power-bank"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.1 11.1a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.4L22 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="18" cy="20" r="1.4" fill="currentColor"/></svg>Agregar al carrito</button><button class="button button-light whatsapp-buy" type="button" data-product-id="power-bank"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1 11.8a8.1 8.1 0 0 1-11.9 7.1L4 20l1.1-4a8.1 8.1 0 1 1 15-4.2Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.2c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4-.1.6.6 1.1 1.4 1.9 2.5 2.5.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .3-.2 1-.7 1.4-.5.5-1.2.7-1.9.6-1.1-.1-2.6-.8-4-2.1-1.5-1.4-2.4-3.1-2.5-4.1-.1-.8.3-1.5.7-1.9.2-.2.4-.1.5 0Z" fill="currentColor"/></svg>Comprar por WhatsApp</button></div>
           </article>
           <article class="product-card powerbank-card apowking-card">
@@ -889,7 +967,7 @@
             </div>
             <h3>Generador Solar Apowking de 200 W de Pico, 100 W de Potencia</h3>
             <p>Estación portátil de energía con batería de 146 Wh y panel solar plegable de 40 W. Potencia nominal de 100 W y pico de 200 W.</p>
-            <div class="price-row"><strong>$565.518</strong><span>COP · precio del producto</span></div>
+            <div class="price-row"><strong>$565.518</strong><span>COP</span></div>
             <div class="product-actions"><button class="button add-to-cart" type="button" data-product-id="apowking-r100"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.1 11.1a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.4L22 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="18" cy="20" r="1.4" fill="currentColor"/></svg>Agregar al carrito</button><button class="button button-light whatsapp-buy" type="button" data-product-id="apowking-r100"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1 11.8a8.1 8.1 0 0 1-11.9 7.1L4 20l1.1-4a8.1 8.1 0 1 1 15-4.2Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.2c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4-.1.6.6 1.1 1.4 1.9 2.5 2.5.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .3-.2 1-.7 1.4-.5.5-1.2.7-1.9.6-1.1-.1-2.6-.8-4-2.1-1.5-1.4-2.4-3.1-2.5-4.1-.1-.8.3-1.5.7-1.9.2-.2.3-.1.5 0Z" fill="currentColor"/></svg>Comprar por WhatsApp</button></div>
           </article>
           <article class="product-card powerbank-card ecoflow-card">
@@ -907,7 +985,7 @@
             </div>
             <h3>Estación de energía portátil EcoFlow RIVER 2 Max 500 W</h3>
             <p>Batería portátil EcoFlow de 499 Wh y salida de 500 W para alimentar dispositivos y equipos compatibles.</p>
-            <div class="price-row"><strong>$1.500.000</strong><span>COP · precio del producto</span></div>
+            <div class="price-row"><strong>$1.500.000</strong><span>COP</span></div>
             <div class="product-actions"><button class="button add-to-cart" type="button" data-product-id="ecoflow-river-2-max">Agregar al carrito</button><button class="button button-light whatsapp-buy" type="button" data-product-id="ecoflow-river-2-max">Comprar por WhatsApp</button></div>
           </article>
           <article class="product-card powerbank-card mount-card">
@@ -925,7 +1003,7 @@
             </div>
             <h3>Soporte de montaje fijo Starlink Mini con brazo largo ajustable para canal de acero, adaptador para pared y techo</h3>
             <p>Soporte de brazo largo ajustable para instalar tu Starlink Mini en pared o techo. Incluye adaptador y herrajes de montaje.</p>
-            <div class="price-row"><strong>$150.000</strong><span>COP · precio del producto</span></div>
+            <div class="price-row"><strong>$150.000</strong><span>COP</span></div>
             <div class="product-actions"><button class="button add-to-cart" type="button" data-product-id="mini-fixed-mount"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.1 11.1a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.4L22 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="18" cy="20" r="1.4" fill="currentColor"/></svg>Agregar al carrito</button><button class="button button-light whatsapp-buy" type="button" data-product-id="mini-fixed-mount"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1 11.8a8.1 8.1 0 0 1-11.9 7.1L4 20l1.1-4a8.1 8.1 0 1 1 15-4.2Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.2c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4-.1.6.6 1.1 1.4 1.9 2.5 2.5.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .3-.2 1-.7 1.4-.5.5-1.2.7-1.9.6-1.1-.1-2.6-.8-4-2.1-1.5-1.4-2.4-3.1-2.5-4.1-.1-.8.3-1.5.7-1.9.2-.2.4-.1.5 0Z" fill="currentColor"/></svg>Comprar por WhatsApp</button></div>
           </article>
           <article class="product-card powerbank-card suction-card">
@@ -943,7 +1021,7 @@
             </div>
             <h3>Soporte ventosa para Starlink Mini</h3>
             <p>Soporte interior de brazo ajustable y doble ventosa para fijar tu Starlink Mini en vidrio, acrílico u otra superficie lisa.</p>
-            <div class="price-row"><strong>$120.000</strong><span>COP · precio del producto</span></div>
+            <div class="price-row"><strong>$120.000</strong><span>COP</span></div>
             <div class="product-actions"><button class="button add-to-cart" type="button" data-product-id="ventosa"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.1 11.1a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.4L22 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="18" cy="20" r="1.4" fill="currentColor"/></svg>Agregar al carrito</button><button class="button button-light whatsapp-buy" type="button" data-product-id="ventosa"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1 11.8a8.1 8.1 0 0 1-11.9 7.1L4 20l1.1-4a8.1 8.1 0 1 1 15-4.2Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.2c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4-.1.6.6 1.1 1.4 1.9 2.5 2.5.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .3-.2 1-.7 1.4-.5.5-1.2.7-1.9.6-1.1-.1-2.6-.8-4-2.1-1.5-1.4-2.4-3.1-2.5-4.1-.1-.8.3-1.5.7-1.9.2-.2.4-.1.5 0Z" fill="currentColor"/></svg>Comprar por WhatsApp</button></div>
           </article>
           <article class="product-card powerbank-card ethernet-adapter-card">
@@ -960,7 +1038,7 @@
             </div>
             <h3>Starlink Ethernet Satelital Red Adapter</h3>
             <p>Soporta velocidades de transmisión de hasta 1 Gbps para la transferencia de datos entre dispositivos de red.</p>
-            <div class="price-row"><strong>$115.000</strong><span>COP · precio del producto</span></div>
+            <div class="price-row"><strong>$115.000</strong><span>COP</span></div>
             <div class="product-actions"><button class="button add-to-cart" type="button" data-product-id="ethernet-adapter"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.1 11.1a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.4L22 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="18" cy="20" r="1.4" fill="currentColor"/></svg>Agregar al carrito</button><button class="button button-light whatsapp-buy" type="button" data-product-id="ethernet-adapter"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1 11.8a8.1 8.1 0 0 1-11.9 7.1L4 20l1.1-4a8.1 8.1 0 1 1 15-4.2Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.2c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4-.1.6.6 1.1 1.4 1.9 2.5 2.5.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .3-.2 1-.7 1.4-.5.5-1.2.7-1.9.6-1.1-.1-2.6-.8-4-2.1-1.5-1.4-2.4-3.1-2.5-4.1-.1-.8.3-1.5.7-1.9.2-.2.4-.1.5 0Z" fill="currentColor"/></svg>Comprar por WhatsApp</button></div>
           </article>
           <article class="product-card powerbank-card router-mini-card">
@@ -979,7 +1057,7 @@
             </div>
             <h3>Starlink Router Mini G4 Doble Banda 2.4 Y 5 Ghz Blanco</h3>
             <p>Router Starlink Mini compacto color blanco, con Wi‑Fi de doble banda de 2,4 GHz y 5 GHz y soporte metálico.</p>
-            <div class="price-row"><strong>$259.900</strong><span>COP · precio del producto</span></div>
+            <div class="price-row"><strong>$259.900</strong><span>COP</span></div>
             <div class="product-actions"><button class="button add-to-cart" type="button" data-product-id="starlink-router-mini-g4">Agregar al carrito</button><button class="button button-light whatsapp-buy" type="button" data-product-id="starlink-router-mini-g4">Comprar por WhatsApp</button></div>
           </article>
           <article class="product-card powerbank-card cable-card">
@@ -996,7 +1074,7 @@
             </div>
             <h3>Cable de Poder USB-C a DC 5.5 mm para Starlink Mini 5 m Gris VTA</h3>
             <p>Cable de poder gris de 5 metros con conexión USB-C a DC 5.5 mm, compatible con Starlink Mini.</p>
-            <div class="price-row"><strong>$88.900</strong><span>COP · precio del producto</span></div>
+            <div class="price-row"><strong>$88.900</strong><span>COP</span></div>
             <div class="product-actions"><button class="button add-to-cart" type="button" data-product-id="mini-usbc-dc-cable">Agregar al carrito</button><button class="button button-light whatsapp-buy" type="button" data-product-id="mini-usbc-dc-cable">Comprar por WhatsApp</button></div>
           </article>
           <article class="product-card powerbank-card cable-card">
@@ -1014,7 +1092,7 @@
             </div>
             <h3>Cable Para Starlink Estándar V4 Gen 3 Y Mini 5 Metros</h3>
             <p>Cable gris de 5 metros compatible con Starlink Estándar V4, Gen 3 y Mini.</p>
-            <div class="price-row"><strong>$105.000</strong><span>COP · precio del producto</span></div>
+            <div class="price-row"><strong>$105.000</strong><span>COP</span></div>
             <div class="product-actions"><button class="button add-to-cart" type="button" data-product-id="starlink-v4-gen3-mini-cable">Agregar al carrito</button><button class="button button-light whatsapp-buy" type="button" data-product-id="starlink-v4-gen3-mini-cable">Comprar por WhatsApp</button></div>
           </article>
           <article class="product-card powerbank-card cable-card" data-product-detail="./comprar/producto.html?producto=starlink-v4-gen3-mini-cable-15m" aria-label="Cable para Starlink Estándar V4, Gen 3 y Mini de 15 metros. Haz clic para ver el producto y comprar">
@@ -1032,7 +1110,7 @@
             </div>
             <h3>Cable Para Starlink Estándar V4 Gen 3 Y Mini 15 Metros</h3>
             <p>Cable gris de 15 metros con conectores sellados para instalaciones Starlink. Compatible con Estándar V4, Gen 3 y Mini.</p>
-            <div class="price-row"><strong>$250.000</strong><span>COP · precio del producto</span></div>
+            <div class="price-row"><strong>$250.000</strong><span>COP</span></div>
             <div class="product-actions"><button class="button add-to-cart" type="button" data-product-id="starlink-v4-gen3-mini-cable-15m">Agregar al carrito</button><button class="button button-light whatsapp-buy" type="button" data-product-id="starlink-v4-gen3-mini-cable-15m">Comprar por WhatsApp</button></div>
           </article>
           <article class="product-card powerbank-card cable-card">
@@ -1050,7 +1128,7 @@
             </div>
             <h3>Vantisan Cargador Coche Cable 12-48v Para Starlink Mini 5mts</h3>
             <p>Cargador vehicular con cable DC de 5 metros para Starlink Mini, pantalla de voltaje y puertos USB-A y USB-C para carga adicional.</p>
-            <div class="price-row"><strong>$46.400</strong><span>COP · precio del producto</span></div>
+            <div class="price-row"><strong>$46.400</strong><span>COP</span></div>
             <div class="product-actions"><button class="button add-to-cart" type="button" data-product-id="vantisan-car-charger">Agregar al carrito</button><button class="button button-light whatsapp-buy" type="button" data-product-id="vantisan-car-charger">Comprar por WhatsApp</button></div>
           </article>
         </div>
