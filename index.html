@@ -642,37 +642,80 @@
       body::before { background-position:38% center; }
       .product-card,.product-card:hover { background:#000; }
     }
-    /* Desde el catálogo hacia abajo, el fondo de página y sus textos usan blanco y negro. */
+    /* Catálogo y secciones inferiores: diseño editorial en blanco y negro. */
     header { position:relative;z-index:20; }
     main > section:not(.hero),footer { background:#fff!important;color:#111; }
     main > section:not(.hero) *,footer * { color:#111!important;text-shadow:none!important; }
+    main > section:not(.hero) { border-top:1px solid #ededed; }
+    #equipos { padding-top:76px;padding-bottom:78px; }
+    .catalog-head { display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:30px; }
+    .catalog-kicker { display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border-radius:999px;background:#111;color:#fff!important;font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase; }
+    main > section:not(.hero) .catalog-kicker { color:#fff!important; }
+    .catalog-kicker::before { content:"";width:6px;height:6px;border-radius:50%;background:#fff; }
+    .catalog-head h2 { margin-top:14px;font-size:clamp(30px,4vw,44px);letter-spacing:-.06em; }
+    .catalog-head p { max-width:390px;margin:0;color:#606060!important;font-size:13px;line-height:1.7; }
+    .products { gap:18px; }
     main > section:not(.hero) .product-card,
     main > section:not(.hero) .fit-card,
     main > section:not(.hero) .service-guide-card,
     main > section:not(.hero) .service-guide-note,
     main > section:not(.hero) .step,
     main > section:not(.hero) .blog-card,
-    main > section:not(.hero) .cta-box { background:#fff!important;color:#111!important;border-color:#d5d5d5!important;box-shadow:0 12px 32px rgba(0,0,0,.08);backdrop-filter:none; }
-    .service-guide-card::before,.cta-box::after { display:none; }
+    main > section:not(.hero) .cta-box { background:#fff!important;color:#111!important;border:1px solid #e5e5e5!important;box-shadow:0 8px 28px rgba(0,0,0,.055);backdrop-filter:none; }
+    main > section:not(.hero) .product-card { padding:20px;border-radius:22px;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease; }
+    main > section:not(.hero) .product-card:hover { transform:translateY(-4px);border-color:#111!important;box-shadow:0 18px 36px rgba(0,0,0,.1); }
+    .product-top { align-items:center; }
     main > section:not(.hero) .product-card .tag,
-    main > section:not(.hero) .product-card .product-top .tag[style] { color:#111!important;background:#fff!important;border-color:#111;box-shadow:none; }
+    main > section:not(.hero) .product-card .product-top .tag[style] { color:#fff!important;background:#111!important;border-color:#111;box-shadow:none; }
+    main > section:not(.hero) .product-card h3 { margin-bottom:9px;font-size:clamp(18px,1.6vw,22px);line-height:1.2;letter-spacing:-.045em; }
+    main > section:not(.hero) .product-card p { color:#555!important;font-size:12px;line-height:1.65; }
+    .product-art { margin-top:18px;margin-bottom:20px; }
+    .product-art .product-gallery-slide.is-active { filter:drop-shadow(0 10px 12px rgba(0,0,0,.12)); }
+    .price-row { display:flex;align-items:baseline;gap:9px;margin-top:auto;padding-top:14px;border-top:1px solid #ededed; }
+    main > section:not(.hero) .product-card .price-row strong { color:#111!important;font-size:clamp(24px,2.2vw,30px);letter-spacing:-.055em; }
+    main > section:not(.hero) .product-card .price-row span,
+    main > section:not(.hero) .product-card .product-foot small { color:#666!important;font-size:10px; }
+    .features { border-color:#e8e8e8; }
+    main > section:not(.hero) .features span { color:#444!important; }
+    main > section:not(.hero) .features svg { color:#111!important; }
+    .product-actions { gap:8px;margin-top:14px; }
     main > section:not(.hero) .product-card .product-actions .button,
-    main > section:not(.hero) .button:not(.button-light) { color:#fff!important;background:#111!important;border-color:#111;box-shadow:none; }
+    main > section:not(.hero) .button:not(.button-light) { min-height:46px;color:#fff!important;background:#111!important;border:1px solid #111;border-radius:999px;box-shadow:none; }
     main > section:not(.hero) .product-card .product-actions .button:hover,
     main > section:not(.hero) .button:not(.button-light):hover { color:#fff!important;background:#333!important; }
     main > section:not(.hero) .product-card .product-actions .button-light,
-    main > section:not(.hero) .button.button-light { color:#111!important;background:#fff!important;border:1px solid #111; }
+    main > section:not(.hero) .button.button-light { color:#111!important;background:#fff!important;border:1px solid #cfcfcf; }
     main > section:not(.hero) .product-card .product-actions .button-light:hover,
-    main > section:not(.hero) .button.button-light:hover { color:#fff!important;background:#111!important; }
+    main > section:not(.hero) .button.button-light:hover { color:#fff!important;background:#111!important;border-color:#111; }
     main > section:not(.hero) .service-guide-icon,
     main > section:not(.hero) .fit-symbol,
     main > section:not(.hero) .step-num { color:#fff!important;background:#111!important;border-color:#111; }
     main > section:not(.hero) .product-gallery-arrow,
     main > section:not(.hero) .product-gallery-meta { color:#fff!important;background:#111!important;border-color:#111; }
     main > section:not(.hero) .product-gallery-meta * { color:#fff!important; }
-    main > section:not(.hero) .product-gallery-dot { background:#888; }
+    main > section:not(.hero) .product-gallery-arrow { box-shadow:none;backdrop-filter:none; }
+    main > section:not(.hero) .product-gallery-dot { background:#aaa; }
     main > section:not(.hero) .product-gallery-dot[aria-current="true"] { background:#111;box-shadow:none; }
+    .service-guide-card::before,.cta-box::after { display:none; }
+    .service-guide-grid,.blog-grid { gap:18px; }
+    main > section:not(.hero) .service-guide-card { min-height:230px;border-radius:22px; }
+    main > section:not(.hero) .service-guide-card p,
+    main > section:not(.hero) .service-guide-note p,
+    main > section:not(.hero) .blog-card p { color:#555!important; }
+    main > section:not(.hero) .guide-kicker,
+    main > section:not(.hero) .blog-category { color:#555!important; }
+    main > section:not(.hero) .faq-list { border-top:0; }
+    main > section:not(.hero) details { margin-bottom:9px;padding:15px 18px;border:1px solid #e5e5e5;border-radius:14px;background:#fff; }
     main > section:not(.hero) summary::after { color:#111!important; }
+    main > section:not(.hero) .cta-box { border-radius:24px;box-shadow:0 16px 38px rgba(0,0,0,.07); }
+    footer { border-top:1px solid #e8e8e8!important; }
+    footer .brand-mark { background:#111!important; }
+    @media(max-width:680px) {
+      #equipos { padding-top:54px;padding-bottom:58px; }
+      .catalog-head { display:block;margin-bottom:23px; }
+      .catalog-head p { margin-top:12px; }
+      main > section:not(.hero) .product-card { padding:14px;border-radius:18px; }
+    }
   </style>
 </head>
 <body>
@@ -720,6 +763,10 @@
     </section>
     <section class="section" id="equipos">
       <div class="wrap">
+        <div class="catalog-head">
+          <div><span class="catalog-kicker">Equipos · kits · accesorios</span><h2>Conéctate desde donde estés.</h2></div>
+          <p>Explora equipos Starlink y accesorios para tu hogar, negocio o próxima aventura. Elige lo que necesitas y agrégalo al carrito.</p>
+        </div>
         <div class="products">
           <article class="product-card">
             <div class="product-top"><span class="tag" style="color:#9de8cc;background:rgba(47,166,123,.16)">Kit móvil y fijo</span><img class="product-logo starlink-icon" src="./starlink-icon.png" alt="" aria-hidden="true"></div>
