@@ -1,6 +1,6 @@
 # Starlink Colombia — sitio web
 
-El sitio se publica en Vercel. La página es estática y adaptable a móviles; las funciones de `api/` preparan el checkout de Bold y consultan el estado de una transacción. Conserva `fondo-galaxia.jpg`, `fondo-barra-satelites.jpeg` y `divipola.js` junto a `index.html`: las dos imágenes son los fondos y el archivo JavaScript contiene la lista territorial del DANE que alimenta el selector de departamento y municipio.
+El sitio se publica en Vercel. La página es estática y adaptable a móviles; las funciones de `api/` preparan el checkout de Bold y consultan el estado de una transacción. Conserva `fondo-cabana-starlink.jpg` y `divipola.js` junto a `index.html`: la imagen se usa como fondo principal y el archivo JavaScript contiene la lista territorial del DANE que alimenta el selector de departamento y municipio.
 
 ## Antes de publicarlo
 
