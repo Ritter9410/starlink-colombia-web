@@ -15,6 +15,7 @@ const CATALOG = Object.freeze({
   'ethernet-adapter': { name: 'Starlink Ethernet Satelital Red Adapter', price: 115000, stock: 99 },
   'starlink-router-mini-g4': { name: 'Starlink Router Mini G4 Doble Banda 2.4 Y 5 Ghz Blanco', price: 259900, stock: 99 },
   'mini-usbc-dc-cable': { name: 'Cable de Poder USB-C a DC 5.5 mm para Starlink Mini 5 m Gris VTA', price: 88900, stock: 99 },
+  'starlink-v4-gen3-mini-cable': { name: 'Cable Para Starlink Estándar V4 Gen 3 Y Mini 5 Metros', price: 105000, stock: 99 },
   'vantisan-car-charger': { name: 'Vantisan Cargador Coche Cable 12-48v Para Starlink Mini 5mts', price: 46400, stock: 99 },
 });
 
