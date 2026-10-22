@@ -654,6 +654,27 @@
     .catalog-kicker::before { content:"";width:6px;height:6px;border-radius:50%;background:#fff; }
     .catalog-head h2 { margin-top:14px;font-size:clamp(30px,4vw,44px);letter-spacing:-.06em; }
     .catalog-head p { max-width:390px;margin:0;color:#606060!important;font-size:13px;line-height:1.7; }
+    .catalog-toolbar { display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 0;border-top:1px solid #e9e9e9;border-bottom:1px solid #e9e9e9; }
+    .catalog-filters,.catalog-controls { display:flex;align-items:center;gap:8px; }
+    .catalog-filter { display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:8px 13px;border:1px solid #dedede;border-radius:999px;background:rgba(255,255,255,.72);color:#222!important;font-size:11px;font-weight:750;white-space:nowrap;cursor:pointer;transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease; }
+    .catalog-filter:hover { border-color:#111;transform:translateY(-1px); }
+    .catalog-filter span { display:grid;place-items:center;min-width:19px;height:19px;padding:0 5px;border-radius:99px;background:#efefef;color:#555!important;font-size:9px;line-height:1; }
+    .catalog-filter.is-active { border-color:#111;background:#111;color:#fff!important; }
+    .catalog-filter.is-active span { background:#3a3a3a;color:#fff!important; }
+    main > section:not(.hero) .catalog-filter.is-active,
+    main > section:not(.hero) .catalog-filter.is-active span { color:#fff!important; }
+    .catalog-filter:focus-visible,.catalog-sort:focus-visible { outline:2px solid #111;outline-offset:3px; }
+    .catalog-search { display:flex;align-items:center;gap:9px;width:min(280px,30vw);min-height:40px;padding:0 13px;border:1px solid #dedede;border-radius:999px;background:rgba(255,255,255,.72);transition:border-color .18s ease,box-shadow .18s ease; }
+    .catalog-search:focus-within { border-color:#111;box-shadow:0 0 0 3px rgba(0,0,0,.06); }
+    .catalog-search svg { width:16px;height:16px;flex:none;color:#555; }
+    .catalog-search input { width:100%;min-width:0;padding:0;border:0;outline:0;background:transparent;color:#111;font:inherit;font-size:11px; }
+    .catalog-search input::placeholder { color:#888; }
+    .catalog-sort-label { color:#777!important;font-size:10px;font-weight:700;white-space:nowrap; }
+    .catalog-sort { min-height:40px;padding:0 28px 0 12px;border:1px solid #dedede;border-radius:999px;background-color:rgba(255,255,255,.72);color:#222;font:inherit;font-size:11px;font-weight:700;cursor:pointer; }
+    .catalog-result-count { margin:13px 0 17px;color:#777!important;font-size:10px;font-weight:650;letter-spacing:.025em; }
+    .catalog-empty { margin:0 0 18px;padding:32px 20px;border:1px dashed #cfcfcf;border-radius:18px;color:#555!important;text-align:center;font-size:13px; }
+    .catalog-empty[hidden] { display:none; }
+    .products > .product-card[hidden] { display:none!important; }
     .products { gap:18px; }
     main > section:not(.hero) .product-card,
     main > section:not(.hero) .fit-card,
@@ -715,6 +736,15 @@
       #equipos { padding-top:54px;padding-bottom:58px; }
       .catalog-head { display:block;margin-bottom:23px; }
       .catalog-head p { margin-top:12px; }
+      .catalog-toolbar { display:grid;gap:12px;padding:12px 0; }
+      .catalog-filters { max-width:100%;overflow-x:auto;padding:1px 1px 5px;scrollbar-width:none; }
+      .catalog-filters::-webkit-scrollbar { display:none; }
+      .catalog-controls { display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px; }
+      .catalog-search { width:auto;min-width:0;padding-inline:10px; }
+      .catalog-search input { font-size:10px; }
+      .catalog-sort-label { font-size:9px; }
+      .catalog-sort { max-width:132px;min-height:38px;padding:0 24px 0 9px;font-size:10px; }
+      .catalog-result-count { margin:10px 0 13px; }
       main > section:not(.hero) .product-card { padding:14px;border-radius:18px; }
     }
   </style>
@@ -768,6 +798,28 @@
           <div><span class="catalog-kicker">Equipos · kits · accesorios</span><h2>Conéctate desde donde estés.</h2></div>
           <p>Explora equipos Starlink y accesorios para tu hogar, negocio o próxima aventura. Elige lo que necesitas y agrégalo al carrito.</p>
         </div>
+        <div class="catalog-toolbar">
+          <div class="catalog-filters" role="group" aria-label="Filtrar productos por categoría">
+            <button class="catalog-filter is-active" type="button" data-catalog-filter="todos" aria-pressed="true">Todos <span data-catalog-count>0</span></button>
+            <button class="catalog-filter" type="button" data-catalog-filter="kits" aria-pressed="false">Kits <span data-catalog-count>0</span></button>
+            <button class="catalog-filter" type="button" data-catalog-filter="baterias" aria-pressed="false">Baterías <span data-catalog-count>0</span></button>
+            <button class="catalog-filter" type="button" data-catalog-filter="accesorios" aria-pressed="false">Accesorios <span data-catalog-count>0</span></button>
+          </div>
+          <div class="catalog-controls">
+            <label class="catalog-search">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.7"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              <input id="catalogSearch" type="search" placeholder="Buscar equipos y accesorios" aria-label="Buscar productos en el catálogo">
+            </label>
+            <label class="catalog-sort-label" for="catalogSort">Ordenar</label>
+            <select id="catalogSort" class="catalog-sort" aria-label="Ordenar productos">
+              <option value="recommended">Recomendados</option>
+              <option value="price-asc">Menor precio</option>
+              <option value="price-desc">Mayor precio</option>
+              <option value="name">Nombre A-Z</option>
+            </select>
+          </div>
+        </div>
+        <p class="catalog-result-count" id="catalogResultCount" aria-live="polite">Mostrando productos</p>
         <div class="products">
           <article class="product-card">
             <div class="product-top"><span class="tag" style="color:#9de8cc;background:rgba(47,166,123,.16)">Kit móvil y fijo</span><img class="product-logo starlink-icon" src="./starlink-icon.png" alt="" aria-hidden="true"></div>
@@ -1002,6 +1054,7 @@
             <div class="product-actions"><button class="button add-to-cart" type="button" data-product-id="vantisan-car-charger">Agregar al carrito</button><button class="button button-light whatsapp-buy" type="button" data-product-id="vantisan-car-charger">Comprar por WhatsApp</button></div>
           </article>
         </div>
+        <p class="catalog-empty" id="catalogEmpty" hidden>No encontramos productos con esa búsqueda. Prueba otro término o categoría.</p>
         <p class="note">La compra del kit y el plan de servicio son conceptos separados. Los equipos, accesorios, planes y condiciones disponibles pueden variar según el país y la dirección de uso. Confirmaremos la compatibilidad y la cobertura antes de tu compra.</p>
       </div>
     </section>
@@ -1219,6 +1272,70 @@
       'starlink-v4-gen3-mini-cable-15m': { name: 'Cable Para Starlink Estándar V4 Gen 3 Y Mini 15 Metros', price: 250000, stock: 99 },
       'vantisan-car-charger': { name: 'Vantisan Cargador Coche Cable 12-48v Para Starlink Mini 5mts', price: 46400, stock: 99 }
     };
+    const catalogGrid = document.querySelector('#equipos .products');
+    const catalogCards = Array.from(catalogGrid.querySelectorAll('.product-card'));
+    const catalogFilterButtons = Array.from(document.querySelectorAll('[data-catalog-filter]'));
+    const catalogSearch = document.getElementById('catalogSearch');
+    const catalogSort = document.getElementById('catalogSort');
+    const catalogResultCount = document.getElementById('catalogResultCount');
+    const catalogEmpty = document.getElementById('catalogEmpty');
+    let activeCatalogFilter = 'todos';
+    const normalizeCatalogText = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+    catalogCards.forEach((card, index) => {
+      const tag = normalizeCatalogText(card.querySelector('.tag')?.textContent || '');
+      card.dataset.catalogCategory = tag.includes('kit') ? 'kits' : tag.includes('bateria') ? 'baterias' : 'accesorios';
+      card.dataset.catalogOrder = String(index);
+    });
+    const updateCatalog = () => {
+      const query = normalizeCatalogText(catalogSearch.value);
+      let visibleCount = 0;
+      catalogCards.forEach(card => {
+        const matchesCategory = activeCatalogFilter === 'todos' || card.dataset.catalogCategory === activeCatalogFilter;
+        const matchesSearch = !query || normalizeCatalogText(card.textContent).includes(query);
+        card.hidden = !(matchesCategory && matchesSearch);
+        if (!card.hidden) visibleCount += 1;
+      });
+      catalogResultCount.textContent = `Mostrando ${visibleCount} de ${catalogCards.length} productos`;
+      catalogEmpty.hidden = visibleCount > 0;
+    };
+    const sortCatalog = () => {
+      const mode = catalogSort.value;
+      const sortedCards = [...catalogCards].sort((cardA, cardB) => {
+        if (mode === 'recommended') return Number(cardA.dataset.catalogOrder) - Number(cardB.dataset.catalogOrder);
+        const nameA = cardA.querySelector('h3')?.textContent.trim() || '';
+        const nameB = cardB.querySelector('h3')?.textContent.trim() || '';
+        if (mode === 'name') return nameA.localeCompare(nameB, 'es');
+        const idA = cardA.querySelector('.add-to-cart')?.dataset.productId;
+        const idB = cardB.querySelector('.add-to-cart')?.dataset.productId;
+        const priceA = CATALOG[idA]?.price;
+        const priceB = CATALOG[idB]?.price;
+        if (priceA === null) return 1;
+        if (priceB === null) return -1;
+        return mode === 'price-asc' ? priceA - priceB : priceB - priceA;
+      });
+      sortedCards.forEach(card => catalogGrid.append(card));
+      updateCatalog();
+    };
+    catalogFilterButtons.forEach(button => button.addEventListener('click', () => {
+      activeCatalogFilter = button.dataset.catalogFilter;
+      catalogFilterButtons.forEach(filter => {
+        const isActive = filter === button;
+        filter.classList.toggle('is-active', isActive);
+        filter.setAttribute('aria-pressed', String(isActive));
+      });
+      updateCatalog();
+    }));
+    catalogSearch.addEventListener('input', updateCatalog);
+    catalogSort.addEventListener('change', sortCatalog);
+    const catalogCounts = catalogCards.reduce((counts, card) => {
+      counts.todos += 1;
+      counts[card.dataset.catalogCategory] += 1;
+      return counts;
+    }, { todos:0, kits:0, baterias:0, accesorios:0 });
+    catalogFilterButtons.forEach(button => {
+      button.querySelector('[data-catalog-count]').textContent = String(catalogCounts[button.dataset.catalogFilter]);
+    });
+    updateCatalog();
     const CART_KEY = 'starlinkColombiaCart';
     let cart = [];
     try {
