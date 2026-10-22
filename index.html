@@ -642,15 +642,37 @@
       body::before { background-position:38% center; }
       .product-card,.product-card:hover { background:#000; }
     }
-    /* Desde el catálogo hacia abajo, el fondo de página queda negro y las tarjetas usan solo blanco y negro. */
+    /* Desde el catálogo hacia abajo, el fondo de página y sus textos usan blanco y negro. */
     header { position:relative;z-index:20; }
-    main > section:not(.hero) { background:#000 !important; }
-    .product-card,.product-card:hover { background:#000; color:#fff; }
-    .product-card .tag,.product-card .product-top .tag[style] { color:#000!important;background:#fff!important;border-color:#fff;box-shadow:none; }
-    .product-card .product-actions .button { color:#000;background:#fff;box-shadow:none; }
-    .product-card .product-actions .button:hover { color:#000;background:#e8e8e8; }
-    .product-card .product-actions .button-light { color:#fff;background:#000;border-color:#fff; }
-    .product-card .product-actions .button-light:hover { color:#000;background:#fff; }
+    main > section:not(.hero),footer { background:#fff!important;color:#111; }
+    main > section:not(.hero) *,footer * { color:#111!important;text-shadow:none!important; }
+    main > section:not(.hero) .product-card,
+    main > section:not(.hero) .fit-card,
+    main > section:not(.hero) .service-guide-card,
+    main > section:not(.hero) .service-guide-note,
+    main > section:not(.hero) .step,
+    main > section:not(.hero) .blog-card,
+    main > section:not(.hero) .cta-box { background:#fff!important;color:#111!important;border-color:#d5d5d5!important;box-shadow:0 12px 32px rgba(0,0,0,.08);backdrop-filter:none; }
+    .service-guide-card::before,.cta-box::after { display:none; }
+    main > section:not(.hero) .product-card .tag,
+    main > section:not(.hero) .product-card .product-top .tag[style] { color:#111!important;background:#fff!important;border-color:#111;box-shadow:none; }
+    main > section:not(.hero) .product-card .product-actions .button,
+    main > section:not(.hero) .button:not(.button-light) { color:#fff!important;background:#111!important;border-color:#111;box-shadow:none; }
+    main > section:not(.hero) .product-card .product-actions .button:hover,
+    main > section:not(.hero) .button:not(.button-light):hover { color:#fff!important;background:#333!important; }
+    main > section:not(.hero) .product-card .product-actions .button-light,
+    main > section:not(.hero) .button.button-light { color:#111!important;background:#fff!important;border:1px solid #111; }
+    main > section:not(.hero) .product-card .product-actions .button-light:hover,
+    main > section:not(.hero) .button.button-light:hover { color:#fff!important;background:#111!important; }
+    main > section:not(.hero) .service-guide-icon,
+    main > section:not(.hero) .fit-symbol,
+    main > section:not(.hero) .step-num { color:#fff!important;background:#111!important;border-color:#111; }
+    main > section:not(.hero) .product-gallery-arrow,
+    main > section:not(.hero) .product-gallery-meta { color:#fff!important;background:#111!important;border-color:#111; }
+    main > section:not(.hero) .product-gallery-meta * { color:#fff!important; }
+    main > section:not(.hero) .product-gallery-dot { background:#888; }
+    main > section:not(.hero) .product-gallery-dot[aria-current="true"] { background:#111;box-shadow:none; }
+    main > section:not(.hero) summary::after { color:#111!important; }
   </style>
 </head>
 <body>
