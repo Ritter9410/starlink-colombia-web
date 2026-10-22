@@ -642,6 +642,15 @@
       body::before { background-position:38% center; }
       .product-card,.product-card:hover { background:#000; }
     }
+    /* Desde el catálogo hacia abajo, el fondo de página queda negro y las tarjetas usan solo blanco y negro. */
+    header { position:relative;z-index:20; }
+    main > section:not(.hero) { background:#000 !important; }
+    .product-card,.product-card:hover { background:#000; color:#fff; }
+    .product-card .tag,.product-card .product-top .tag[style] { color:#000!important;background:#fff!important;border-color:#fff;box-shadow:none; }
+    .product-card .product-actions .button { color:#000;background:#fff;box-shadow:none; }
+    .product-card .product-actions .button:hover { color:#000;background:#e8e8e8; }
+    .product-card .product-actions .button-light { color:#fff;background:#000;border-color:#fff; }
+    .product-card .product-actions .button-light:hover { color:#000;background:#fff; }
   </style>
 </head>
 <body>
