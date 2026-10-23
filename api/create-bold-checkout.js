@@ -17,6 +17,7 @@ const CATALOG = Object.freeze({
   'mini-usbc-dc-cable': { name: 'Cable de Poder USB-C a DC 5.5 mm para Starlink Mini 5 m Gris VTA', price: 88900, stock: 99 },
   'starlink-v4-gen3-mini-cable': { name: 'Cable Para Starlink Estándar V4 Gen 3 Y Mini 5 Metros', price: 105000, stock: 99 },
   'starlink-v4-gen3-mini-cable-15m': { name: 'Cable Para Starlink Estándar V4 Gen 3 Y Mini 15 Metros', price: 250000, stock: 99 },
+  'cable-starlink-gen3-100m': { name: 'Cable Starlink Gen 3 100m estándar 4/4X/V3/V4/V5/Mini', price: 495000, stock: 99 },
   'vantisan-car-charger': { name: 'Vantisan Cargador Coche Cable 12-48v Para Starlink Mini 5mts', price: 46400, stock: 99 },
 });
 
