@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101b36">
-  <meta name="description" content="Compra kits y accesorios Starlink en Colombia. Paga con Bold o Nequi.">
+  <meta name="description" content="Compra kits y accesorios Starlink en Colombia y recibe asesoría personalizada por WhatsApp.">
   <meta property="og:title" content="Comprar producto Starlink | Starlink Colombia">
-  <meta property="og:description" content="Fotos, precio y pago directo de productos Starlink en Colombia.">
+  <meta property="og:description" content="Fotos, precio y asesoría personalizada para comprar productos Starlink en Colombia.">
   <meta property="og:image" content="../starlink-icon.png">
   <title>Comprar producto Starlink | Starlink Colombia</title>
   <link rel="icon" type="image/png" href="../starlink-icon.png">
@@ -69,18 +69,12 @@
     .quantity-control output { min-width: 16px; text-align: center; font-size: 12px; font-weight: 800; }
     .price-note { color: var(--muted); font-size: 11px; }
     .payment-options { display: grid; gap: 10px; margin-top: 24px; }
-    .pay { width: 100%; min-height: 54px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 0; border-radius: 999px; color: white; box-shadow: 0 10px 24px rgba(16, 27, 54, .16); font-size: 14px; font-weight: 800; cursor: pointer; transition: transform .2s, background .2s, opacity .2s; }
-    .pay:hover:not(:disabled) { transform: translateY(-2px); }
-    .pay:disabled { cursor: wait; opacity: .7; }
-    .pay-bold { background: var(--ink); }
-    .pay-bold:hover:not(:disabled) { background: #24345a; }
-    .pay img { width: 43px; height: auto; padding: 4px 6px; border-radius: 5px; background: white; }
-    .pay-nequi { background: #e6007e; box-shadow: 0 9px 22px rgba(230,0,126,.16); }
-    .pay-nequi:hover:not(:disabled) { background: #c9006d; }
-    .nequi-wordmark { color: white; font-size: 20px; font-weight: 850; letter-spacing: -.07em; line-height: 1; }
+    .pay { width: 100%; min-height: 58px; display: inline-flex; align-items: center; justify-content: center; gap: 11px; border: 0; border-radius: 999px; background: #101b36; color: white; box-shadow: 0 12px 26px rgba(16, 27, 54, .2); font-size: 15px; font-weight: 800; text-decoration: none; cursor: pointer; transition: transform .2s, background .2s, box-shadow .2s; }
+    .pay:hover { transform: translateY(-2px); background: #24345a; box-shadow: 0 15px 30px rgba(16, 27, 54, .24); }
+    .pay svg { width: 21px; height: 21px; flex: none; }
     .feedback { min-height: 22px; margin: 12px 2px 0; color: #a13333; font-size: 12px; line-height: 1.5; }
-    .afterpay { display: flex; gap: 11px; align-items: flex-start; margin-top: 16px; padding: 15px; border: 1px solid var(--line); border-radius: 15px; background: rgba(255,255,255,.58); color: #56627a; font-size: 11px; line-height: 1.6; }
-    .afterpay svg { width: 17px; height: 17px; flex: none; color: var(--blue); }
+    .afterpay { display: flex; gap: 11px; align-items: flex-start; margin-top: 14px; padding: 13px 15px; border: 1px solid var(--line); border-radius: 15px; background: rgba(255,255,255,.58); color: #56627a; font-size: 11px; line-height: 1.6; }
+    .afterpay svg { width: 17px; height: 17px; flex: none; color: #18865b; }
     .afterpay p { margin: 0; }
     .back { display: inline-flex; margin-top: 23px; color: #5b6680; font-size: 11px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
     :focus-visible { outline: 3px solid #85a0ff; outline-offset: 3px; }
@@ -159,17 +153,15 @@
           </div>
           <div class="price-note" id="priceNote"></div>
           <div class="payment-options">
-            <button class="pay pay-bold" id="payBoldButton" type="button" aria-label="Pagar con Bold">
-              Pagar con <img src="https://bold.co/assets/logos/Logotipo%20azul.png" alt="Bold">
-            </button>
-            <button class="pay pay-nequi" id="payNequiButton" type="button" aria-label="Pagar con Nequi">
-              Pagar con <span class="nequi-wordmark" aria-hidden="true">nequi</span>
-            </button>
+            <a class="pay" id="advisorButton" href="https://wa.me/573159638526" target="_blank" rel="noopener noreferrer" aria-label="Hablar con un asesor por WhatsApp">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 9.2c.3 1.8 1.8 3.3 3.7 4l1.2-1 2 .9c-.2 1.2-1.1 1.8-2.2 1.8-2.8-.2-5.8-3.1-6-5.7 0-1.1.7-2 1.8-2.2l.9 2-1.4 1.2Z" fill="currentColor"/></svg>
+              Hablar con un asesor
+            </a>
           </div>
           <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
           <div class="afterpay">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 2.9 8.4 7 10 4.1-1.6 7-5.4 7-10V6l-7-3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <p>Bold recibe el pago con Bold. Nequi abre un link de pago seguro gestionado por Bold. Al terminar, volverás al sitio para verificarlo y coordinar la entrega con la tienda.</p>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <p>Confirma con nuestro equipo la disponibilidad, compatibilidad y opciones de entrega para este producto.</p>
           </div>
           <a class="back" href="/">Volver a Starlink Colombia</a>
         </div>
@@ -324,7 +316,7 @@
       const product = products[productId];
       const mainImage = document.getElementById('mainImage');
       const thumbsContainer = document.getElementById('thumbs');
-      const payButtons = [document.getElementById('payBoldButton'), document.getElementById('payNequiButton')];
+      const advisorButton = document.getElementById('advisorButton');
       const feedback = document.getElementById('feedback');
       const quantityOutput = document.getElementById('quantityOutput');
       const totalPrice = document.getElementById('totalPrice');
@@ -349,9 +341,9 @@
       }
 
       document.title = `Comprar ${product.name} | Starlink Colombia`;
-      document.querySelector('meta[name="description"]').content = `${product.name} por ${formatCOP(product.price)} COP. Paga con Bold o Nequi.`;
+      document.querySelector('meta[name="description"]').content = `${product.name} por ${formatCOP(product.price)} COP. Consulta disponibilidad y compra con asesoría por WhatsApp.`;
       document.querySelector('meta[property="og:title"]').content = `${product.name} | Starlink Colombia`;
-      document.querySelector('meta[property="og:description"]').content = `${product.name} por ${formatCOP(product.price)} COP. Paga con Bold o Nequi.`;
+      document.querySelector('meta[property="og:description"]').content = `${product.name} por ${formatCOP(product.price)} COP. Consulta disponibilidad y compra con asesoría por WhatsApp.`;
       document.querySelector('meta[property="og:image"]').content = new URL(product.images[0][0], window.location.href).href;
       document.getElementById('productTag').textContent = product.tag;
       document.getElementById('productTitle').textContent = product.name;
@@ -398,6 +390,8 @@
         totalPrice.textContent = formatCOP(product.price * quantity);
         quantityMinus.disabled = quantity <= 1;
         quantityPlus.disabled = quantity >= product.stock;
+        const message = `Hola, quiero hablar con un asesor sobre ${product.name}. Cantidad: ${quantity}. Total: ${formatCOP(product.price * quantity)} COP. ¿Me ayudan a confirmar disponibilidad y entrega?`;
+        advisorButton.href = `https://wa.me/573159638526?text=${encodeURIComponent(message)}`;
       }
 
       function readCart() {
@@ -436,68 +430,6 @@
       quantityPlus.addEventListener('click', () => { quantity = Math.min(product.stock, quantity + 1); updateQuantity(); });
       addToCartButton.addEventListener('click', addCurrentProductToCart);
       window.addEventListener('storage', event => { if (event.key === CART_KEY) updateHeaderCartCount(); });
-      let boldLibraryPromise;
-
-      function setPaymentBusy(isBusy) {
-        payButtons.forEach(button => { button.disabled = isBusy; });
-      }
-
-      async function createPayment(method) {
-        if (payButtons.some(button => button.disabled)) return;
-        setPaymentBusy(true);
-        feedback.textContent = method === 'nequi' ? 'Preparando el pago con Nequi…' : 'Preparando el pago seguro…';
-        const items = [{ id: productId, quantity }];
-        try {
-          if (method === 'nequi') {
-            const response = await fetch('/api/create-nequi-payment-link', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-              body: JSON.stringify({ items })
-            });
-            const result = await response.json();
-            if (!response.ok) throw new Error(result.error || 'No se pudo preparar el pago con Nequi.');
-            localStorage.setItem('starlinkPendingNequiOrder', JSON.stringify({ orderId: result.orderId, paymentLink: result.paymentLink, amount: result.amount, items }));
-            window.location.assign(result.url);
-            return;
-          }
-
-          const response = await fetch('/api/create-bold-checkout', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify({ items })
-          });
-          const result = await response.json();
-          if (!response.ok) throw new Error(result.error || 'No se pudo preparar el pago.');
-
-          await loadBoldCheckoutLibrary();
-          localStorage.setItem('starlinkPendingBoldOrder', JSON.stringify({ orderId: result.orderId, amount: result.amount, items }));
-          new window.BoldCheckout(result.checkout).open();
-          feedback.textContent = '';
-        } catch (error) {
-          feedback.textContent = error.message || 'No pudimos conectar con la pasarela. Inténtalo nuevamente.';
-          setPaymentBusy(false);
-        }
-      }
-
-      function loadBoldCheckoutLibrary() {
-        if (window.BoldCheckout) return Promise.resolve();
-        if (boldLibraryPromise) return boldLibraryPromise;
-        boldLibraryPromise = new Promise((resolve, reject) => {
-          const script = document.createElement('script');
-          script.src = 'https://checkout.bold.co/library/boldPaymentButton.js';
-          script.async = true;
-          script.onload = () => window.BoldCheckout ? resolve() : reject(new Error('No se pudo iniciar el checkout de Bold.'));
-          script.onerror = () => reject(new Error('No se pudo cargar el checkout de Bold.'));
-          document.head.appendChild(script);
-        }).catch(error => {
-          boldLibraryPromise = null;
-          throw error;
-        });
-        return boldLibraryPromise;
-      }
-
-      document.getElementById('payBoldButton').addEventListener('click', () => createPayment('bold'));
-      document.getElementById('payNequiButton').addEventListener('click', () => createPayment('nequi'));
       updateHeaderCartCount();
       updateQuantity();
     })();
