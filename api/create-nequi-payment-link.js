@@ -11,6 +11,7 @@ const CATALOG = Object.freeze({
   'apowking-r100': { name: 'Generador Solar Apowking de 200 W de Pico, 100 W de Potencia', price: 565518, stock: 99 },
   'ecoflow-river-2-max': { name: 'Estación de energía portátil EcoFlow RIVER 2 Max 500 W', price: 1500000, stock: 99 },
   'mini-fixed-mount': { name: 'Soporte de montaje fijo Starlink Mini con brazo largo ajustable para canal de acero, adaptador para pared y techo', price: 150000, stock: 99 },
+  'starlink-pivot-mount': { name: 'Soporte Giratorio Metálico Pivot Starlink V4 Gen 3 Gris Oscuro', price: 239900, stock: 99 },
   ventosa: { name: 'Soporte ventosa para Starlink Mini', price: 120000, stock: 99 },
   'ethernet-adapter': { name: 'Starlink Ethernet Satelital Red Adapter', price: 115000, stock: 99 },
   'starlink-router-mini-g4': { name: 'Starlink Router Mini G4 Doble Banda 2.4 Y 5 Ghz Blanco', price: 259900, stock: 99 },
