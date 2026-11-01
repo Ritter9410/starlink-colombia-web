@@ -766,6 +766,10 @@
     #equipos .catalog-result-count { display:flex;align-items:center;gap:8px;margin:15px 4px 16px;color:#c1cddd!important;font-size:11px; }
     #equipos .catalog-result-count::before { content:"";width:6px;height:6px;border-radius:50%;background:#f1f5fa;box-shadow:0 0 0 4px rgba(241,245,250,.12); }
     #equipos .products { gap:20px; }
+    #equipos .catalog-category-heading { grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;margin:8px 0 0;padding:9px 14px;border:1px solid rgba(255,255,255,.13);border-radius:13px;background:linear-gradient(110deg,#111 0%,#26292d 100%);box-shadow:0 8px 18px rgba(0,0,0,.13);color:#fff!important;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase; }
+    #equipos .catalog-category-heading[hidden] { display:none!important; }
+    #equipos .catalog-category-heading span { color:#fff!important; }
+    #equipos .catalog-category-count { display:inline-flex;align-items:center;justify-content:center;min-height:24px;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.13);font-size:9px;letter-spacing:.04em;white-space:nowrap; }
     #equipos .product-card { position:relative;overflow:hidden;padding:20px;border-radius:24px;background:linear-gradient(155deg,rgba(255,255,255,.96),rgba(250,251,252,.88))!important;border:1px solid rgba(255,255,255,.98)!important;box-shadow:0 14px 34px rgba(34,45,57,.075),inset 0 1px 0 #fff;backdrop-filter:blur(16px) saturate(120%); }
     #equipos .product-card::before { content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,rgba(20,20,20,.16),transparent);pointer-events:none; }
     #equipos .product-card:hover { transform:translateY(-5px);border-color:rgba(35,42,50,.2)!important;box-shadow:0 22px 46px rgba(34,45,57,.13),inset 0 1px 0 #fff; }
@@ -1732,19 +1736,48 @@
     const catalogEmpty = document.getElementById('catalogEmpty');
     let activeCatalogFilter = 'todos';
     const normalizeCatalogText = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+    const catalogCategoryOrder = ['kits', 'baterias', 'accesorios'];
+    const catalogCategoryLabels = { kits:'Kits Starlink', baterias:'Baterías y energía', accesorios:'Accesorios Starlink' };
     catalogCards.forEach((card, index) => {
       const tag = normalizeCatalogText(card.querySelector('.tag')?.textContent || '');
       card.dataset.catalogCategory = tag.includes('kit') ? 'kits' : tag.includes('bateria') ? 'baterias' : 'accesorios';
       card.dataset.catalogOrder = String(index);
     });
+    const catalogCategoryHeadings = new Map(catalogCategoryOrder.map(category => {
+      const heading = document.createElement('div');
+      heading.className = 'catalog-category-heading';
+      heading.dataset.catalogHeading = category;
+      heading.setAttribute('role', 'heading');
+      heading.setAttribute('aria-level', '3');
+      heading.innerHTML = `<span>${catalogCategoryLabels[category]}</span><span class="catalog-category-count" data-category-count>0 productos</span>`;
+      return [category, heading];
+    }));
+    const renderCatalogGroups = cards => {
+      const cardsByCategory = new Map(catalogCategoryOrder.map(category => [category, []]));
+      cards.forEach(card => cardsByCategory.get(card.dataset.catalogCategory).push(card));
+      const children = [];
+      catalogCategoryOrder.forEach(category => children.push(catalogCategoryHeadings.get(category), ...cardsByCategory.get(category)));
+      catalogGrid.replaceChildren(...children);
+    };
+    renderCatalogGroups(catalogCards);
     const updateCatalog = () => {
       const query = normalizeCatalogText(catalogSearch.value);
       let visibleCount = 0;
+      const visibleByCategory = { kits:0, baterias:0, accesorios:0 };
       catalogCards.forEach(card => {
         const matchesCategory = activeCatalogFilter === 'todos' || card.dataset.catalogCategory === activeCatalogFilter;
         const matchesSearch = !query || normalizeCatalogText(card.textContent).includes(query);
         card.hidden = !(matchesCategory && matchesSearch);
-        if (!card.hidden) visibleCount += 1;
+        if (!card.hidden) {
+          visibleCount += 1;
+          visibleByCategory[card.dataset.catalogCategory] += 1;
+        }
+      });
+      catalogCategoryOrder.forEach(category => {
+        const heading = catalogCategoryHeadings.get(category);
+        const count = visibleByCategory[category];
+        heading.hidden = count === 0;
+        heading.querySelector('[data-category-count]').textContent = `${count} ${count === 1 ? 'producto' : 'productos'}`;
       });
       catalogResultCount.textContent = `Mostrando ${visibleCount} de ${catalogCards.length} productos`;
       catalogEmpty.hidden = visibleCount > 0;
@@ -1752,6 +1785,8 @@
     const sortCatalog = () => {
       const mode = catalogSort.value;
       const sortedCards = [...catalogCards].sort((cardA, cardB) => {
+        const categoryDifference = catalogCategoryOrder.indexOf(cardA.dataset.catalogCategory) - catalogCategoryOrder.indexOf(cardB.dataset.catalogCategory);
+        if (categoryDifference !== 0) return categoryDifference;
         if (mode === 'recommended') return Number(cardA.dataset.catalogOrder) - Number(cardB.dataset.catalogOrder);
         const nameA = cardA.querySelector('h3')?.textContent.trim() || '';
         const nameB = cardB.querySelector('h3')?.textContent.trim() || '';
@@ -1764,7 +1799,7 @@
         if (priceB === null) return -1;
         return mode === 'price-asc' ? priceA - priceB : priceB - priceA;
       });
-      sortedCards.forEach(card => catalogGrid.append(card));
+      renderCatalogGroups(sortedCards);
       updateCatalog();
     };
     catalogFilterButtons.forEach(button => button.addEventListener('click', () => {
