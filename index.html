@@ -959,6 +959,171 @@
       #equipos .product-card .price-row span { font-size:8px; }
       #equipos .product-card .product-actions .button { min-height:39px;padding:8px 6px;font-size:10px; }
     }
+    /* Catálogo compacto inspirado en los marketplaces: fondo claro y fichas ligeras. */
+    #equipos {
+      background:linear-gradient(180deg,#f4f4f4 0%,#eeeeef 58%,#f7f7f7 100%)!important;
+      border-top:1px solid #dedfe1;
+    }
+    #equipos::before,#equipos::after { display:none; }
+    #equipos .catalog-head h2 { color:#111!important;text-shadow:none; }
+    #equipos .catalog-head p { color:#5e6369!important;border-left-color:#d0d2d4; }
+    #equipos .catalog-toolbar {
+      border:1px solid #dedfe2;
+      border-radius:16px;
+      background:rgba(255,255,255,.92);
+      box-shadow:0 4px 16px rgba(18,26,35,.055);
+      backdrop-filter:none;
+    }
+    #equipos .catalog-filter { border-color:#dedfe2;background:#fff;color:#272a2d!important;box-shadow:none; }
+    #equipos .catalog-filter span { background:#f0f1f2;color:#52565b!important; }
+    #equipos .catalog-filter:hover { border-color:#aeb3b8;background:#f8f8f8; }
+    #equipos .catalog-filter.is-active { border-color:#111;background:#111;color:#fff!important; }
+    #equipos .catalog-filter.is-active span { background:#393939;color:#fff!important; }
+    #equipos .catalog-search,#equipos .catalog-sort { border-color:#d9dcdf;background:#fff;color:#202326;box-shadow:none; }
+    #equipos .catalog-search svg { color:#656b71; }
+    #equipos .catalog-search input { color:#202326; }
+    #equipos .catalog-search input::placeholder { color:#868b91; }
+    #equipos .catalog-sort-label,#equipos .catalog-result-count { color:#666c72!important; }
+    #equipos .catalog-search:focus-within { border-color:#777e84;box-shadow:0 0 0 3px rgba(0,0,0,.05); }
+    #equipos .products { gap:14px; }
+    #equipos .product-card {
+      border-color:#e2e4e6!important;
+      background:#fff!important;
+      box-shadow:0 4px 14px rgba(20,28,36,.065);
+      backdrop-filter:none;
+    }
+    #equipos .product-card:hover {
+      transform:translateY(-3px);
+      border-color:#c9cdd1!important;
+      box-shadow:0 10px 24px rgba(20,28,36,.11);
+    }
+    #equipos .product-card[data-catalog-category="accesorios"],
+    #equipos .product-card[data-catalog-category="baterias"] {
+      padding:13px;
+      border-radius:18px;
+    }
+    #equipos .product-card[data-catalog-category="accesorios"] .product-top,
+    #equipos .product-card[data-catalog-category="baterias"] .product-top { min-height:27px; }
+    #equipos .product-card[data-catalog-category="accesorios"] .tag,
+    #equipos .product-card[data-catalog-category="baterias"] .tag {
+      padding:6px 8px;
+      border-radius:999px;
+      font-size:8px;
+      letter-spacing:.07em;
+    }
+    #equipos .product-card[data-catalog-category="accesorios"] .product-art,
+    #equipos .product-card[data-catalog-category="baterias"] .product-art {
+      width:100%;
+      max-width:none;
+      min-width:0;
+      height:auto;
+      aspect-ratio:1.7;
+      margin:9px 0 11px;
+      border-radius:13px;
+      overflow:hidden;
+    }
+    #equipos .product-card[data-catalog-category="accesorios"] .product-gallery,
+    #equipos .product-card[data-catalog-category="baterias"] .product-gallery {
+      display:block;
+      position:relative;
+      width:100%;
+      max-width:100%;
+      height:100%;
+      overflow:hidden;
+    }
+    #equipos .product-card[data-catalog-category="accesorios"] .product-art .product-gallery-slide.is-active,
+    #equipos .product-card[data-catalog-category="baterias"] .product-art .product-gallery-slide.is-active {
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      max-width:100%;
+      max-height:none;
+      padding:6px;
+      object-fit:contain;
+      transform:none;
+    }
+    #equipos .product-card[data-catalog-category="accesorios"] h3,
+    #equipos .product-card[data-catalog-category="baterias"] h3 {
+      display:-webkit-box;
+      min-height:2.36em;
+      overflow:hidden;
+      margin:0 0 6px;
+      color:#171a1d!important;
+      font-size:clamp(15px,1.15vw,18px);
+      line-height:1.18;
+      letter-spacing:-.035em;
+      -webkit-box-orient:vertical;
+      -webkit-line-clamp:2;
+    }
+    #equipos .product-card[data-catalog-category="accesorios"] p,
+    #equipos .product-card[data-catalog-category="baterias"] p {
+      display:-webkit-box;
+      min-height:2.9em;
+      overflow:hidden;
+      margin:0 0 9px;
+      color:#666d73!important;
+      font-size:10px;
+      line-height:1.45;
+      -webkit-box-orient:vertical;
+      -webkit-line-clamp:2;
+    }
+    #equipos .product-card[data-catalog-category="accesorios"] .price-row,
+    #equipos .product-card[data-catalog-category="baterias"] .price-row {
+      min-height:49px;
+      gap:7px;
+      padding:8px 9px;
+      border:0;
+      border-radius:12px;
+      background:#f5f6f7;
+    }
+    #equipos .product-card[data-catalog-category="accesorios"] .price-row strong,
+    #equipos .product-card[data-catalog-category="baterias"] .price-row strong {
+      color:#171a1d!important;
+      font-size:clamp(18px,1.55vw,23px);
+    }
+    #equipos .product-card[data-catalog-category="accesorios"] .price-row span,
+    #equipos .product-card[data-catalog-category="baterias"] .price-row span { color:#747a80!important;font-size:9px; }
+    #equipos .product-card[data-catalog-category="accesorios"] .product-actions,
+    #equipos .product-card[data-catalog-category="baterias"] .product-actions { gap:6px;margin-top:8px; }
+    #equipos .product-card[data-catalog-category="accesorios"] .product-actions .button,
+    #equipos .product-card[data-catalog-category="baterias"] .product-actions .button {
+      min-height:35px;
+      border-radius:11px;
+      font-size:10px;
+      box-shadow:none;
+    }
+    @media(min-width:1100px) {
+      #equipos .products { grid-template-columns:repeat(5,minmax(0,1fr)); }
+    }
+    @media(max-width:680px) {
+      #equipos { padding-top:50px;padding-bottom:54px; }
+      #equipos .products { grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:8px; }
+      #equipos .product-card[data-catalog-category="accesorios"],
+      #equipos .product-card[data-catalog-category="baterias"] { padding:9px;border-radius:14px; }
+      #equipos .product-card[data-catalog-category="accesorios"] .product-art,
+      #equipos .product-card[data-catalog-category="baterias"] .product-art { margin:7px 0 9px;aspect-ratio:1.55; }
+      #equipos .product-card[data-catalog-category="accesorios"] .product-art .product-gallery-slide.is-active,
+      #equipos .product-card[data-catalog-category="baterias"] .product-art .product-gallery-slide.is-active {
+        position:absolute;
+        inset:0;
+        display:block;
+        width:100%;
+        height:100%;
+        max-height:none;
+        padding:4px;
+      }
+      #equipos .product-card[data-catalog-category="accesorios"] h3,
+      #equipos .product-card[data-catalog-category="baterias"] h3 { min-height:2.32em;font-size:14px; }
+      #equipos .product-card[data-catalog-category="accesorios"] p,
+      #equipos .product-card[data-catalog-category="baterias"] p { min-height:2.8em;font-size:9px; }
+      #equipos .product-card[data-catalog-category="accesorios"] .price-row,
+      #equipos .product-card[data-catalog-category="baterias"] .price-row { min-height:42px;padding:6px 7px; }
+      #equipos .product-card[data-catalog-category="accesorios"] .price-row strong,
+      #equipos .product-card[data-catalog-category="baterias"] .price-row strong { font-size:17px; }
+      #equipos .product-card[data-catalog-category="accesorios"] .product-actions .button,
+      #equipos .product-card[data-catalog-category="baterias"] .product-actions .button { min-height:31px;padding:6px 4px;font-size:8px; }
+    }
   </style>
 </head>
 <body>
