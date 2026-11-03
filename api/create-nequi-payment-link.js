@@ -22,6 +22,8 @@ const CATALOG = Object.freeze({
   'vantisan-car-charger': { name: 'Vantisan Cargador Coche Cable 12-48v Para Starlink Mini 5mts', price: 46400, stock: 99 },
   'starlink-mini-backpack': { name: 'Mini mochila Starlink, estuche protector de carcasa dura y organizador de accesorios con cerradura TSA y puertos de carga', price: 240000, stock: 99 },
   'starlink-mini-magnetic-mount': { name: 'Soporte Magnético para Starlink Mini, accesorios para montaje en techo de auto, kit de montaje para techo solar', price: 240000, stock: 99 },
+  'starlink-mini-battery-cable-5m': { name: 'Cable de Alimentación para Batería Starlink Mini de 5 m, adaptador 12–24 V con anillo de sellado, fusible e interruptor', price: 70000, stock: 99 },
+  'starlink-mini-battery-cable-10m': { name: 'Cable de Alimentación para Batería Starlink Mini de 10 m, adaptador 12–24 V con anillo de sellado, fusible e interruptor', price: 130000, stock: 99 },
 });
 
 function getSiteUrl() {

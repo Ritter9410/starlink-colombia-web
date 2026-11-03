@@ -54,6 +54,10 @@
     .eyebrow::before { width: 7px; height: 7px; border-radius: 50%; background: #46c49d; content: ""; }
     h1 { max-width: 520px; margin: 16px 0 13px; font-size: clamp(36px, 5vw, 54px); line-height: 1; letter-spacing: -.06em; }
     .description { max-width: 440px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.75; }
+    .variant-picker { display:grid;gap:7px;max-width:280px;margin-top:20px;padding:12px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.72); }
+    .variant-picker[hidden] { display:none; }
+    .variant-picker label { color:var(--ink);font-size:11px;font-weight:800; }
+    .variant-picker select { width:100%;min-height:42px;padding:0 12px;border:1px solid #d6dce5;border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:13px;font-weight:700; }
     .price { display: flex; align-items: baseline; gap: 10px; margin: 28px 0 6px; }
     .price strong { font-size: clamp(30px, 4vw, 38px); letter-spacing: -.05em; }
     .price span { color: var(--muted); font-size: 12px; }
@@ -140,6 +144,10 @@
           <span class="eyebrow" id="productTag">Producto Starlink</span>
           <h1 id="productTitle">Cargando producto…</h1>
           <p class="description" id="productDescription"></p>
+          <div class="variant-picker" id="productVariantPicker" hidden>
+            <label for="productVariantSelect">Longitud del cable</label>
+            <select id="productVariantSelect" aria-label="Selecciona la longitud del cable"></select>
+          </div>
           <div class="price-row">
             <div class="price"><strong id="totalPrice">$1.599.000</strong><span>COP</span><button class="add-cart-inline" id="addToCartButton" type="button" aria-label="Agregar este producto al carrito"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.1 11.1a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 1.9-1.4L22 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="18" cy="20" r="1.4" fill="currentColor"/></svg>Agregar</button></div>
             <div class="quantity">
@@ -344,6 +352,20 @@
             ['../starlink-mini-magnetic-mount-black.png', 'Versión negra del soporte magnético para Starlink Mini, vista frontal sobre fondo transparente'],
             ['../starlink-mini-magnetic-mount-rear.png', 'Vista inferior del soporte magnético y sus fijaciones sobre fondo transparente']
           ]
+        },
+        'starlink-mini-battery-cable': {
+          name: 'Cable de Alimentación para Batería Starlink Mini', tag: 'Accesorio · Batería Starlink Mini',
+          description: 'Adaptador de batería Starlink Mini de 12–24 V, con anillo de sellado, fusible e interruptor. Selecciona la longitud del cable para ver el precio correspondiente.',
+          price: 70000, stock: 99,
+          variants: [
+            { id: 'starlink-mini-battery-cable-5m', label: '5 metros', price: 70000, stock: 99, name: 'Cable de Alimentación para Batería Starlink Mini de 5 m, adaptador 12–24 V con anillo de sellado, fusible e interruptor' },
+            { id: 'starlink-mini-battery-cable-10m', label: '10 metros', price: 130000, stock: 99, name: 'Cable de Alimentación para Batería Starlink Mini de 10 m, adaptador 12–24 V con anillo de sellado, fusible e interruptor' }
+          ],
+          images: [
+            ['../starlink-mini-battery-cable-kit.png', 'Cable de alimentación para batería Starlink Mini con interruptor, fusible y terminales de anillo, sin fondo'],
+            ['../starlink-mini-battery-cable-fuse.png', 'Detalle de los cables, terminales de anillo y portafusible, sin fondo'],
+            ['../starlink-mini-battery-cable-switch.png', 'Detalle del interruptor de encendido y apagado, sin fondo']
+          ]
         }
       };
       const params = new URLSearchParams(window.location.search);
@@ -359,8 +381,12 @@
       const quantityPlus = document.getElementById('quantityPlus');
       const headerCartCount = document.getElementById('headerCartCount');
       const addToCartButton = document.getElementById('addToCartButton');
+      const variantPicker = document.getElementById('productVariantPicker');
+      const variantSelect = document.getElementById('productVariantSelect');
       const CART_KEY = 'starlinkColombiaCart';
       let quantity = 1;
+      let selectedVariant = null;
+      let activeProductId = productId;
       let slides = [];
       let thumbs = [];
       const previous = document.querySelector('.gallery-prev');
@@ -375,15 +401,37 @@
         return;
       }
 
-      document.title = `Comprar ${product.name} | Starlink Colombia`;
-      document.querySelector('meta[name="description"]').content = `${product.name} por ${formatCOP(product.price)} COP. Consulta disponibilidad y compra con asesoría por WhatsApp.`;
-      document.querySelector('meta[property="og:title"]').content = `${product.name} | Starlink Colombia`;
-      document.querySelector('meta[property="og:description"]').content = `${product.name} por ${formatCOP(product.price)} COP. Consulta disponibilidad y compra con asesoría por WhatsApp.`;
+      if (Array.isArray(product.variants) && product.variants.length) {
+        product.variants.forEach(variant => {
+          const option = document.createElement('option');
+          option.value = variant.id;
+          option.textContent = `${variant.label} · ${formatCOP(variant.price)}`;
+          variantSelect.appendChild(option);
+        });
+        selectedVariant = product.variants[0];
+        activeProductId = selectedVariant.id;
+        variantSelect.value = selectedVariant.id;
+        variantPicker.hidden = false;
+      }
+
+      function currentName() { return selectedVariant?.name || product.name; }
+      function currentPrice() { return selectedVariant?.price ?? product.price; }
+      function currentStock() { return selectedVariant?.stock ?? product.stock; }
+
+      function updateProductMetadata() {
+        const name = currentName();
+        const price = currentPrice();
+        document.title = `Comprar ${name} | Starlink Colombia`;
+        document.querySelector('meta[name="description"]').content = `${name} por ${formatCOP(price)} COP. Consulta disponibilidad y compra con asesoría por WhatsApp.`;
+        document.querySelector('meta[property="og:title"]').content = `${name} | Starlink Colombia`;
+        document.querySelector('meta[property="og:description"]').content = `${name} por ${formatCOP(price)} COP. Consulta disponibilidad y compra con asesoría por WhatsApp.`;
+        document.getElementById('productTitle').textContent = name;
+      }
+
+      updateProductMetadata();
       document.querySelector('meta[property="og:image"]').content = new URL(product.images[0][0], window.location.href).href;
       document.getElementById('productTag').textContent = product.tag;
-      document.getElementById('productTitle').textContent = product.name;
       document.getElementById('productDescription').textContent = product.description;
-      document.getElementById('priceNote').textContent = `${formatCOP(product.price)} COP por unidad · ${product.stock === 1 ? '1 unidad disponible' : 'elige la cantidad que deseas'}`;
 
       slides = product.images.map(([src, alt], index) => {
         const image = document.createElement('img');
@@ -421,11 +469,14 @@
       }
 
       function updateQuantity() {
+        const price = currentPrice();
+        const stock = currentStock();
         quantityOutput.textContent = String(quantity);
-        totalPrice.textContent = formatCOP(product.price * quantity);
+        totalPrice.textContent = formatCOP(price * quantity);
         quantityMinus.disabled = quantity <= 1;
-        quantityPlus.disabled = quantity >= product.stock;
-        const message = `Hola, quiero hablar con un asesor sobre ${product.name}. Cantidad: ${quantity}. Total: ${formatCOP(product.price * quantity)} COP. ¿Me ayudan a confirmar disponibilidad y entrega?`;
+        quantityPlus.disabled = quantity >= stock;
+        document.getElementById('priceNote').textContent = `${formatCOP(price)} COP por unidad · ${selectedVariant ? selectedVariant.label : stock === 1 ? '1 unidad disponible' : 'elige la cantidad que deseas'}`;
+        const message = `Hola, quiero hablar con un asesor sobre ${currentName()}. Cantidad: ${quantity}. Total: ${formatCOP(price * quantity)} COP. ¿Me ayudan a confirmar disponibilidad y entrega?`;
         advisorButton.href = `https://wa.me/573159638526?text=${encodeURIComponent(message)}`;
       }
 
@@ -444,15 +495,16 @@
 
       function addCurrentProductToCart() {
         const cart = readCart();
-        const existing = cart.find(item => item.id === productId);
-        const available = Math.max(0, product.stock - (existing?.quantity || 0));
+        const stock = currentStock();
+        const existing = cart.find(item => item.id === activeProductId);
+        const available = Math.max(0, stock - (existing?.quantity || 0));
         const amountToAdd = Math.min(quantity, available);
         if (!amountToAdd) {
-          feedback.textContent = `Ya tienes en el carrito las ${product.stock} unidades disponibles de este producto.`;
+          feedback.textContent = `Ya tienes en el carrito las ${stock} unidades disponibles de esta variante.`;
           return;
         }
         if (existing) existing.quantity += amountToAdd;
-        else cart.push({ id: productId, quantity: amountToAdd });
+        else cart.push({ id: activeProductId, quantity: amountToAdd });
         try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
         catch (error) { feedback.textContent = 'No pudimos guardar el carrito en este navegador. Inténtalo de nuevo.'; return; }
         updateHeaderCartCount();
@@ -461,8 +513,17 @@
 
       previous.addEventListener('click', () => showSlide(activeIndex - 1));
       next.addEventListener('click', () => showSlide(activeIndex + 1));
+      if (selectedVariant) {
+        variantSelect.addEventListener('change', () => {
+          selectedVariant = product.variants.find(variant => variant.id === variantSelect.value) || product.variants[0];
+          activeProductId = selectedVariant.id;
+          quantity = Math.min(quantity, currentStock());
+          updateProductMetadata();
+          updateQuantity();
+        });
+      }
       quantityMinus.addEventListener('click', () => { quantity = Math.max(1, quantity - 1); updateQuantity(); });
-      quantityPlus.addEventListener('click', () => { quantity = Math.min(product.stock, quantity + 1); updateQuantity(); });
+      quantityPlus.addEventListener('click', () => { quantity = Math.min(currentStock(), quantity + 1); updateQuantity(); });
       addToCartButton.addEventListener('click', addCurrentProductToCart);
       window.addEventListener('storage', event => { if (event.key === CART_KEY) updateHeaderCartCount(); });
       updateHeaderCartCount();
