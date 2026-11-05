@@ -8,6 +8,7 @@ const CATALOG = Object.freeze({
   'mini-wall': { name: 'Soporte de pared para Mini', price: null, stock: 99 },
   'mini-travel': { name: 'Kit de viaje Mini', price: null, stock: 99 },
   'power-bank': { name: 'Power Bank Imenso IMS-618S de 60.000 mAh y 100W de potencia', price: 299900, stock: 99 },
+  'peakdo-linkpower-1': { name: 'Power Bank Peakdo Linkpower 1 27.500 mAh para Starlink Mini', price: 450000, stock: 99 },
   'apowking-r100': { name: 'Generador Solar Apowking de 200 W de Pico, 100 W de Potencia', price: 565518, stock: 99 },
   'ecoflow-river-2-max': { name: 'Estación de energía portátil EcoFlow RIVER 2 Max 500 W', price: 1500000, stock: 99 },
   'mini-fixed-mount': { name: 'Soporte de montaje fijo Starlink Mini con brazo largo ajustable para canal de acero, adaptador para pared y techo', price: 150000, stock: 99 },
