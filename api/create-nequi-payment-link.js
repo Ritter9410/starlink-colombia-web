@@ -1,7 +1,7 @@
 const { randomBytes } = require('node:crypto');
 
 const CATALOG = Object.freeze({
-  'standard-v4': { name: 'Starlink Standard v4', price: 1599000, stock: 1 },
+  'standard-v4': { name: 'Starlink Standard v4', price: 1199000, stock: 1 },
   'mini-x': { name: 'Starlink Mini X', price: 390000, stock: 99 },
   'standard-wall': { name: 'Soporte de pared para Standard v4', price: null, stock: 99 },
   'standard-pipe': { name: 'Adaptador de tubo para Standard v4', price: null, stock: 99 },
