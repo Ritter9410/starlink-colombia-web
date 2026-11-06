@@ -384,6 +384,9 @@
     .cart-total-row { display:flex;justify-content:space-between;gap:14px;align-items:baseline;font-size:11px;color:#c9c9c9; }
     .cart-total-row strong { color:#fff;font-size:20px; }
     .cart-pending { margin:7px 0 13px;color:#bbb;font-size:10px;line-height:1.5; }
+    .cart-bold-button { width:100%;min-height:54px;margin-top:14px;background:#101b36;color:#fff;box-shadow:0 10px 26px rgba(16,27,54,.28);font-size:14px; }
+    .cart-bold-button:hover { background:#1b2c51; }
+    .cart-bold-button:disabled { opacity:.48;cursor:not-allowed;transform:none;box-shadow:none; }
     .cart-advisor-button { width:100%;min-height:54px;margin-top:14px;border:1px solid #25d366;background:#25d366;color:#071a0e;box-shadow:0 10px 26px rgba(37,211,102,.18);font-size:14px; }
     .cart-advisor-button:hover { background:#32df73;box-shadow:0 14px 30px rgba(37,211,102,.25); }
     .cart-advisor-button svg { width:21px;height:21px; }
@@ -1161,11 +1164,12 @@
       <div class="cart-panel-foot">
         <div class="cart-total-row"><span>Total del carrito</span><strong id="cartTotal">$0</strong></div>
         <p id="cartPending" class="cart-pending" hidden></p>
+        <button class="button cart-bold-button" id="cartBoldButton" type="button" aria-label="Pagar con Bold">Pagar con Bold</button>
         <button class="button cart-advisor-button" id="cartAdvisorButton" type="button" aria-label="Hablar con un asesor por WhatsApp">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1 11.8a8.1 8.1 0 0 1-11.9 7.1L4 20l1.1-4a8.1 8.1 0 1 1 15-4.2Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.2c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4-.1.6.6 1.1 1.4 1.9 2.5 2.5.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .3-.2 1-.7 1.4-.5.5-1.2.7-1.9.6-1.1-.1-2.6-.8-4-2.1-1.5-1.4-2.4-3.1-2.5-4.1-.1-.8.3-1.5.7-1.9.2-.2.4-.1.5 0Z" fill="currentColor"/></svg>
           Hablar con un asesor
         </button>
-        <small class="cart-note">Se abrirá WhatsApp con el resumen de tu carrito para confirmar disponibilidad, precio y entrega.</small>
+        <small class="cart-note">Paga de forma segura con Bold o consulta disponibilidad, precio y entrega por WhatsApp.</small>
       </div>
     </section>
   </header>
@@ -1766,6 +1770,7 @@
     const cartCount = document.getElementById('cartCount');
     const cartTotalLabel = cartPanel.querySelector('.cart-total-row span');
     const cartAdvisorButton = document.getElementById('cartAdvisorButton');
+    const cartBoldButton = document.getElementById('cartBoldButton');
     const siteToast = document.getElementById('siteToast');
     const productLightbox = document.getElementById('productLightbox');
     const productLightboxPanel = productLightbox.querySelector('.product-lightbox-panel');
@@ -1927,6 +1932,25 @@
       siteToast.classList.add('show');
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => siteToast.classList.remove('show'), 4300);
+    }
+    let boldCheckoutScriptPromise;
+    function loadBoldCheckout() {
+      if (typeof window.BoldCheckout === 'function') return Promise.resolve();
+      if (boldCheckoutScriptPromise) return boldCheckoutScriptPromise;
+      boldCheckoutScriptPromise = new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://checkout.bold.co/library/boldPaymentButton.js';
+        script.async = true;
+        script.onload = () => typeof window.BoldCheckout === 'function'
+          ? resolve()
+          : reject(new Error('No pudimos cargar el checkout de Bold.'));
+        script.onerror = () => reject(new Error('No pudimos conectar con Bold. Revisa tu conexión e inténtalo de nuevo.'));
+        document.head.appendChild(script);
+      }).catch(error => {
+        boldCheckoutScriptPromise = null;
+        throw error;
+      });
+      return boldCheckoutScriptPromise;
     }
     function sendWhatsApp(message) {
       const phone = String(WHATSAPP_NUMBER || '').replace(/\D/g, '');
@@ -2223,6 +2247,8 @@
       pending.hidden = unknownCount === 0;
       pending.textContent = unknownCount ? `${unknownCount} artículo${unknownCount === 1 ? '' : 's'} requiere${unknownCount === 1 ? '' : 'n'} confirmar precio con el asesor por WhatsApp.` : '';
       cartAdvisorButton.disabled = count === 0;
+      cartBoldButton.disabled = count === 0 || unknownCount > 0;
+      cartBoldButton.title = unknownCount ? 'Consulta por WhatsApp los artículos sin precio publicado.' : '';
       saveCart();
     }
     function addCartItem(id) {
@@ -2275,6 +2301,39 @@
       const url = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(messageForCart());
       window.open(url, '_blank', 'noopener,noreferrer');
     });
+    cartBoldButton.addEventListener('click', async () => {
+      if (!cart.length) return;
+      if (cart.some(item => CATALOG[item.id]?.price === null)) {
+        showToast('El carrito tiene artículos sin precio publicado. Confírmalos por WhatsApp para continuar.');
+        return;
+      }
+      const previousLabel = cartBoldButton.textContent;
+      cartBoldButton.disabled = true;
+      cartAdvisorButton.disabled = true;
+      cartBoldButton.textContent = 'Preparando pago…';
+      try {
+        const response = await fetch('/api/create-bold-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: cart.map(item => ({ id: item.id, quantity: item.quantity })) }),
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(result.error || 'No pudimos preparar el pago. Inténtalo nuevamente.');
+        if (!result.checkout || typeof result.checkout !== 'object') throw new Error('Bold no devolvió los datos del pago. Inténtalo nuevamente.');
+        try {
+          sessionStorage.setItem('starlinkPendingBoldOrder', JSON.stringify({ orderId: result.orderId, amount: result.amount }));
+        } catch (error) { /* El checkout puede continuar aunque el navegador bloquee el almacenamiento de sesión. */ }
+        await loadBoldCheckout();
+        const checkout = new window.BoldCheckout(result.checkout);
+        checkout.open();
+      } catch (error) {
+        showToast(error.message || 'No pudimos iniciar el pago con Bold. Inténtalo nuevamente.');
+      } finally {
+        cartBoldButton.disabled = cart.length === 0 || cart.some(item => CATALOG[item.id]?.price === null);
+        cartAdvisorButton.disabled = cart.length === 0;
+        cartBoldButton.textContent = previousLabel;
+      }
+    });
     document.querySelectorAll('.add-to-cart').forEach(button => button.addEventListener('click', event => {
       event.stopPropagation();
       const card = button.closest('.product-card');
@@ -2308,6 +2367,43 @@
       if (!cartPanel.contains(event.target) && !cartButton.contains(event.target) && !event.target.closest('.add-to-cart')) closeCart();
     });
     renderCart();
+    async function handleBoldPaymentReturn() {
+      const params = new URLSearchParams(window.location.search);
+      const returnType = params.get('pago');
+      if (returnType === 'cancelado') {
+        showToast('El pago se canceló. Puedes volver al carrito e intentarlo de nuevo.');
+      } else if (returnType === 'resultado') {
+        const orderId = params.get('bold-order-id') || '';
+        let expectedOrder = null;
+        try { expectedOrder = JSON.parse(sessionStorage.getItem('starlinkPendingBoldOrder') || 'null'); } catch (error) { expectedOrder = null; }
+        if (!orderId || !expectedOrder || expectedOrder.orderId !== orderId) {
+          showToast('Regresaste de Bold. Revisa el comprobante de pago para confirmar el estado de tu compra.');
+        } else {
+          showToast('Estamos confirmando el pago con Bold…');
+          try {
+            const response = await fetch('/api/payment-status?orderId=' + encodeURIComponent(orderId), { cache: 'no-store' });
+            const result = await response.json().catch(() => ({}));
+            if (!response.ok) throw new Error(result.error || 'No pudimos consultar a Bold.');
+            const isVerified = result.reference_id === orderId && String(result.payment_status).toLowerCase() === 'approved' && Number(result.total) === Number(expectedOrder.amount);
+            showToast(isVerified
+              ? 'Pago confirmado por Bold. Gracias por tu compra.'
+              : 'Bold todavía no confirma el pago. Revisa el comprobante antes de volver a intentarlo.');
+            if (isVerified) sessionStorage.removeItem('starlinkPendingBoldOrder');
+          } catch (error) {
+            showToast('No pudimos confirmar el pago con Bold ahora. Revisa el comprobante o consulta con un asesor.');
+          }
+        }
+      } else {
+        return;
+      }
+      params.delete('pago');
+      params.delete('bold-order-id');
+      params.delete('bold-tx-status');
+      const remainingQuery = params.toString();
+      const cleanUrl = window.location.pathname + (remainingQuery ? '?' + remainingQuery : '') + window.location.hash;
+      window.history.replaceState(null, '', cleanUrl);
+    }
+    handleBoldPaymentReturn();
     if (new URLSearchParams(window.location.search).get('abrirCarrito') === '1') {
       openCart();
       const cleanUrl = new URL(window.location.href);
