@@ -400,13 +400,17 @@
     .cart-payment-copy strong { color:#17233c;font-size:13px;font-weight:800;line-height:1.2; }
     .cart-payment-copy small { color:#697487;font-size:9px;font-weight:550;line-height:1.35; }
     .cart-payment-arrow { display:grid;width:30px;height:30px;place-items:center;border-radius:50%;background:#edf1f8;color:#283a60;transition:transform .2s ease,background .2s ease; }
-    .cart-payment-button:hover .cart-payment-arrow { transform:translateX(2px);background:#e0e8f8; }
+    .cart-payment-button:hover .cart-payment-arrow,.cart-advisor-button:hover .cart-payment-arrow { transform:translateX(2px);background:#e0e8f8; }
     .cart-payment-arrow svg { width:15px;height:15px; }
     .cart-payment-button--nequi .cart-payment-arrow { background:#fae5f1;color:#9e155f; }
     .cart-payment-button--nequi:hover .cart-payment-arrow { background:#f6d4e7; }
-    .cart-advisor-button { width:100%;min-height:54px;margin-top:14px;border:1px solid #25d366;background:#25d366;color:#071a0e;box-shadow:0 10px 26px rgba(37,211,102,.18);font-size:14px; }
-    .cart-advisor-button:hover { background:#32df73;box-shadow:0 14px 30px rgba(37,211,102,.25); }
-    .cart-advisor-button svg { width:21px;height:21px; }
+    .cart-panel .cart-advisor-button { display:grid;grid-template-columns:70px minmax(0,1fr) 32px;align-items:center;justify-content:initial;gap:12px;width:100%;min-height:76px;margin-top:14px;padding:11px 13px;border:1px solid #bfe6ca;border-radius:17px;color:#15213b!important;background:linear-gradient(140deg,#fff,#f0fbf3);box-shadow:0 8px 22px rgba(0,0,0,.2);font-size:14px;text-align:left;transition:transform .2s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease; }
+    .cart-panel .cart-advisor-button:hover { transform:translateY(-2px);border-color:#8fcda0;background:linear-gradient(140deg,#fff,#e9f8ed);box-shadow:0 13px 26px rgba(0,0,0,.28); }
+    .cart-panel .cart-advisor-button:focus-visible { outline:3px solid rgba(142,193,255,.6);outline-offset:3px; }
+    .cart-advisor-icon { display:grid;width:44px;height:44px;place-items:center;border-radius:14px;background:linear-gradient(145deg,#25d366,#128c4a);color:#fff;box-shadow:0 5px 12px rgba(18,140,74,.2); }
+    .cart-advisor-icon svg { width:23px;height:23px; }
+    .cart-advisor-arrow { background:#e0f5e6;color:#128044; }
+    .cart-advisor-button:hover .cart-advisor-arrow { background:#d0efd9; }
     .cart-advisor-button:disabled { opacity:.48;cursor:not-allowed;transform:none;box-shadow:none; }
 .cart-note { display:block;margin-top:9px;line-height:1.5; }
     .cart-note { display:block;margin-top:9px;line-height:1.5; }
@@ -1195,8 +1199,9 @@
           </button>
         </div>
         <button class="button cart-advisor-button" id="cartAdvisorButton" type="button" aria-label="Hablar con un asesor por WhatsApp">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1 11.8a8.1 8.1 0 0 1-11.9 7.1L4 20l1.1-4a8.1 8.1 0 1 1 15-4.2Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.2c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4-.1.6.6 1.1 1.4 1.9 2.5 2.5.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .3-.2 1-.7 1.4-.5.5-1.2.7-1.9.6-1.1-.1-2.6-.8-4-2.1-1.5-1.4-2.4-3.1-2.5-4.1-.1-.8.3-1.5.7-1.9.2-.2.4-.1.5 0Z" fill="currentColor"/></svg>
-          Hablar con un asesor
+          <span class="cart-advisor-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20.1 11.8a8.1 8.1 0 0 1-11.9 7.1L4 20l1.1-4a8.1 8.1 0 1 1 15-4.2Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.2c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4-.1.6.6 1.1 1.4 1.9 2.5 2.5.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .3-.2 1-.7 1.4-.5.5-1.2.7-1.9.6-1.1-.1-2.6-.8-4-2.1-1.5-1.4-2.4-3.1-2.5-4.1-.1-.8.3-1.5.7-1.9.2-.2.4-.1.5 0Z" fill="currentColor"/></svg></span>
+          <span class="cart-payment-copy"><strong>Hablar con un asesor</strong><small>Atención directa por WhatsApp</small></span>
+          <span class="cart-payment-arrow cart-advisor-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </button>
         <small class="cart-note">Los pagos con Nequi se procesan mediante un link seguro de Bold. También puedes consultar por WhatsApp.</small>
       </div>
