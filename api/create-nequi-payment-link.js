@@ -14,6 +14,8 @@ const CATALOG = Object.freeze({
   'mini-fixed-mount': { name: 'Soporte de montaje fijo Starlink Mini con brazo largo ajustable para canal de acero, adaptador para pared y techo', price: 150000, stock: 99 },
   'starlink-mini-rv-mount': { name: 'Kit de Montaje para Starlink Mini para RV, Yate, Caravana - Soporte para Techo y Abrazadera para Poste con Tubo de Aleación de Aluminio', price: 150000, stock: 99 },
   'starlink-pivot-mount': { name: 'Soporte Giratorio Metálico Pivot Starlink V4 Gen 3 Gris Oscuro', price: 239900, stock: 99 },
+  'starlink-mini-roof-swivel': { name: 'Soporte Giratorio Starlink Mini Para Techo', price: 128690, stock: 99 },
+  'dc-extension-cable-55x21': { name: 'Cable de extensión de alimentación de CC de 5,5 mm x 2,1 mm, con conectores macho y hembra de cobre puro', price: 105000, stock: 99 },
   ventosa: { name: 'Soporte ventosa para Starlink Mini', price: 120000, stock: 99 },
   'ethernet-adapter': { name: 'Starlink Ethernet Satelital Red Adapter', price: 115000, stock: 99 },
   'starlink-router-mini-g4': { name: 'Starlink Router Mini G4 Doble Banda 2.4 Y 5 Ghz Blanco', price: 259900, stock: 99 },
