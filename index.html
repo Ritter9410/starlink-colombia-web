@@ -713,6 +713,10 @@
     main > section:not(.hero) .service-guide-icon,
     main > section:not(.hero) .fit-symbol,
     main > section:not(.hero) .step-num { color:#fff!important;background:#111!important;border-color:#111; }
+    main > section:not(.hero) .service-guide-icon svg,
+    main > section:not(.hero) .fit-symbol svg { color:#fff!important; }
+    main > section:not(.hero) .service-guide-icon svg *,
+    main > section:not(.hero) .fit-symbol svg * { color:#fff!important;stroke:#fff!important; }
     main > section:not(.hero) .product-gallery-arrow,
     main > section:not(.hero) .product-gallery-meta { color:#fff!important;background:#111!important;border-color:#111; }
     main > section:not(.hero) .product-gallery-meta * { color:#fff!important; }
@@ -1109,6 +1113,8 @@
     }
     @media(min-width:1100px) {
       #equipos .products { grid-template-columns:repeat(5,minmax(0,1fr)); }
+      #equipos .products > .featured-product-card { grid-column:span 3; }
+      #equipos .products > .product-card[data-catalog-category="kits"]:not(.featured-product-card) { grid-column:span 2; }
     }
     @media(max-width:680px) {
       #equipos { padding-top:50px;padding-bottom:54px; }
@@ -1141,15 +1147,131 @@
       #equipos .product-card[data-catalog-category="accesorios"] .product-actions .button,
       #equipos .product-card[data-catalog-category="baterias"] .product-actions .button { min-height:31px;padding:6px 4px;font-size:8px; }
     }
+    /* Portada editorial: fotografía envolvente, jerarquía tipográfica y un selector de cobertura claro. */
+    :root { --ink:#0b1118;--muted:#5e6770;--blue:#346d83;--blue-deep:#24566b;--paper:#f2f4f5;--line:#dfe3e6;--shadow:0 22px 55px rgba(8,18,27,.13); }
+    body { background:#f2f4f5;color:#101820; }
+    body::before { display:none; }
+    header { position:relative;z-index:20;background:rgba(7,12,18,.88)!important;border-bottom:1px solid rgba(255,255,255,.12);backdrop-filter:blur(18px); }
+    .nav { min-height:78px; }
+    .brand-header { color:#fff; }
+    .brand-official { max-width:125px;color:#d2d8dc;border-color:rgba(255,255,255,.28);font-size:9px; }
+    .nav-links { color:#e7ebee; }
+    .nav-links a { transition:color .18s ease; }
+    .nav-links a:hover { color:#a8d3df; }
+    .cart-link { border-color:rgba(255,255,255,.42);background:rgba(255,255,255,.07); }
+    .menu-toggle { background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.3);color:#fff; }
+    .hero { position:relative;isolation:isolate;display:flex;align-items:center;min-height:clamp(660px,calc(100svh - 78px),900px);padding:64px 0 72px;overflow:hidden;background:#04080d; }
+    .hero-orbit { position:absolute;z-index:-2;inset:0;overflow:hidden;background:#03070c; }
+    .hero-orbit img { position:absolute;inset:-4%;width:108%;height:108%;max-width:none;object-fit:cover;object-position:center 52%;transform:scale(1.035);animation:orbit-pan 48s ease-in-out infinite alternate;will-change:transform; }
+    @keyframes orbit-pan { from { transform:scale(1.035) translate3d(0,0,0); } to { transform:scale(1.13) translate3d(-1.5%,-1%,0); } }
+    .hero::after { position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(3,7,11,.34),rgba(3,7,11,.08) 56%,rgba(3,7,11,.24)),linear-gradient(0deg,rgba(3,8,13,.28),transparent 52%),radial-gradient(ellipse at 76% 48%,rgba(11,27,39,.04),rgba(4,10,16,.16) 63%,rgba(4,10,16,.33));content:"";pointer-events:none; }
+    .hero-grid.availability-only { display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,.74fr);align-items:center;gap:clamp(34px,6.5vw,92px); }
+    .hero-copy { grid-column:1;grid-row:1;max-width:620px; }
+    .hero-slogan { margin:0 0 15px;color:#d7e4e8;font-size:11px;font-weight:800;letter-spacing:.23em;text-align:left;text-transform:uppercase;text-shadow:none; }
+    .hero-copy h1 { max-width:10ch;margin:0;color:#fff;font-size:clamp(54px,7.4vw,98px);font-weight:650;letter-spacing:-.085em;line-height:.94;text-shadow:0 4px 32px rgba(0,0,0,.22); }
+    .hero-description { max-width:430px;margin:23px 0 0;color:rgba(255,255,255,.84);font-size:15px;line-height:1.7;text-shadow:0 2px 16px rgba(0,0,0,.24); }
+    .hero-actions { margin:26px 0 0;gap:10px; }
+    .hero .hero-actions .button { min-height:48px;padding:13px 19px;background:#fff;color:#101820;border:1px solid #fff;box-shadow:0 8px 24px rgba(0,0,0,.16); }
+    .hero .hero-actions .button:hover { background:#eaf0f2;color:#101820;transform:translateY(-2px); }
+    .hero .hero-actions .button.button-light { background:rgba(8,15,22,.22);border-color:rgba(255,255,255,.48);color:#fff;box-shadow:none;backdrop-filter:blur(8px); }
+    .hero .hero-actions .button.button-light:hover { background:rgba(255,255,255,.16);color:#fff; }
+    .hero-art { grid-column:2;grid-row:1;width:100%;min-height:0;aspect-ratio:auto;padding:0;border:0;border-radius:0;background:transparent;display:block; }
+    .availability-card { width:100%;max-width:440px;margin-left:auto;padding:27px;border:1px solid rgba(255,255,255,.82);border-radius:24px;background:rgba(250,251,252,.96);color:#111820;box-shadow:0 28px 78px rgba(0,0,0,.3),inset 0 1px 0 #fff;backdrop-filter:blur(22px) saturate(120%); }
+    .availability-icon { width:44px;height:44px;margin-bottom:18px;border-radius:14px;background:#101a23;color:#fff; }
+    .availability-heading .eyebrow { color:#5b7482; }
+    .availability-heading h2 { margin:10px 0 9px;color:#111820;font-size:clamp(27px,3vw,34px);letter-spacing:-.06em;line-height:1.02;text-shadow:none; }
+    .availability-heading p { margin:0 0 22px;color:#56616b;font-size:12px;line-height:1.65; }
+    .coverage-fields { gap:15px; }
+    .coverage-field { color:#39434c; }
+    .coverage-field span { color:#303a43; }
+    .coverage-field span::before { background:#356d83;box-shadow:0 0 0 4px rgba(53,109,131,.11); }
+    .coverage-field::before { display:none; }
+    .coverage-field select { height:56px;padding:0 46px 0 15px;border-color:#d8dde1;border-radius:12px;background:#fff;color:#151b20;color-scheme:light;box-shadow:inset 0 1px 2px rgba(14,24,33,.035);backdrop-filter:none; }
+    .coverage-field:hover select:not(:disabled) { transform:none;border-color:#7c9eab;background:#fff;box-shadow:0 0 0 3px rgba(53,109,131,.09); }
+    .coverage-field::after { bottom:21px;border-color:#354955; }
+    .coverage-field:has(select:focus-visible)::after { border-color:#24566b; }
+    .coverage-field select:focus-visible { border-color:#346d83;box-shadow:0 0 0 3px rgba(52,109,131,.14); }
+    .coverage-field option { background:#fff;color:#12181d; }
+    .hero .availability-card .coverage-submit { width:100%;min-height:50px;margin-top:18px;background:#101820;color:#fff;border-color:#101820;box-shadow:none; }
+    .hero .availability-card .coverage-submit:hover { background:#283944;color:#fff; }
+    .coverage-source { color:#65717b;font-size:9px; }
+    .coverage-source a { color:#1d485c;text-underline-offset:3px; }
+    #equipos { background:linear-gradient(180deg,#f2f4f5 0%,#edf0f2 54%,#f7f8f9 100%)!important;border-top:1px solid #dce1e4; }
+    #equipos .catalog-head h2 { max-width:14ch;font-size:clamp(34px,4.4vw,52px);line-height:1;letter-spacing:-.065em; }
+    #equipos .products { gap:16px; }
+    #equipos .product-card { border-radius:22px; }
+    #equipos .product-card .product-art { background:linear-gradient(145deg,#fff,#f0f3f5)!important; }
+    #community { background:linear-gradient(118deg,#0b1823 0%,#111d26 53%,#07131d 100%)!important;border-block:1px solid rgba(255,255,255,.11); }
+    main > #community *,main > #community *::before,main > #community *::after { color:inherit!important;text-shadow:none!important; }
+    #community { color:#f5f7f8!important; }
+    #community .band .eyebrow,#community .band-copy,#community .step p { color:#bac6ce!important; }
+    #community .step { border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.055); }
+    #community .step-num { color:#fff!important;background:rgba(255,255,255,.12)!important; }
+    #community .band:after { border-color:rgba(255,255,255,.08);box-shadow:0 0 0 36px rgba(255,255,255,.018),0 0 0 78px rgba(255,255,255,.012); }
+    #servicio,#blog,#faq { background:#f5f6f7!important; }
+    #contacto { background:#edf0f2!important; }
+    #contacto .cta-box { background:linear-gradient(120deg,#101a23,#182833)!important;border:1px solid rgba(17,31,41,.08)!important;box-shadow:0 18px 46px rgba(8,18,27,.14)!important; }
+    main > #contacto .cta-box,main > #contacto .cta-box * { color:#fff!important; }
+    #contacto .cta-box p { color:#c4d0d7!important; }
+    #contacto .cta-box .button { background:#fff!important;color:#101820!important;border-color:#fff!important; }
+    #contacto .cta-box .button:hover { background:#e8eef0!important; }
+    footer { background:#080e14!important;border-color:rgba(255,255,255,.12)!important; }
+    footer .brand,footer .brand *,footer .footer-main *,footer .footer-bottom * { color:#eef2f4!important;text-shadow:none!important; }
+    footer .brand small,footer .footer-copy,footer .footer-bottom { color:#aab5bd!important; }
+    footer .brand-mark { border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08)!important; }
+    footer .starlink-icon { filter:invert(1); }
+    footer .footer-links a:hover,footer .footer-email { color:#fff!important; }
+    footer .footer-bottom { border-color:rgba(255,255,255,.15); }
+    @media (max-width:900px) {
+      .hero-grid.availability-only { grid-template-columns:minmax(0,1fr) minmax(300px,.85fr);gap:26px; }
+      .hero-copy h1 { font-size:clamp(52px,7vw,76px); }
+      #equipos .products { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    }
+    @media (max-width:680px) {
+      .nav { min-height:66px; }
+      .brand-official { max-width:105px; }
+      .nav-links { background:rgba(7,12,18,.97)!important;border-color:rgba(255,255,255,.14);box-shadow:0 20px 30px rgba(0,0,0,.23); }
+      .nav-links a { color:#eef2f4!important; }
+      .nav-links .mobile-accessory-link { background:#fff;color:#101820!important; }
+      .hero { min-height:0;padding:44px 0 48px; }
+      .hero-orbit img { object-position:74% center; }
+      .hero-grid.availability-only { display:flex;flex-direction:column;align-items:stretch;gap:28px; }
+      .hero-copy { max-width:none; }
+      .hero-slogan { margin-bottom:12px;font-size:9px; }
+      .hero-copy h1 { max-width:10ch;font-size:clamp(51px,12vw,70px);line-height:.94; }
+      .hero-description { max-width:38ch;margin-top:16px;font-size:13px; }
+      .hero-actions { margin-top:19px;gap:8px; }
+      .hero .hero-actions .button { min-height:44px;padding:11px 14px;font-size:11px; }
+      .hero-art { width:100%;padding:0;min-height:0; }
+      .availability-card { max-width:none;margin:0;padding:20px;border-radius:20px; }
+      .availability-heading h2 { font-size:29px; }
+      .coverage-field select { height:53px; }
+      #equipos .products { grid-template-columns:repeat(2,minmax(0,1fr));gap:10px; }
+      #equipos .product-card { padding:11px;border-radius:17px; }
+      #equipos .product-card .product-art { aspect-ratio:1.45;margin:7px 0 10px; }
+      #equipos .product-card h3 { font-size:14px; }
+      #equipos .product-card p { font-size:10px; }
+      #equipos .product-card .product-actions .button { min-height:36px;padding:7px 4px;font-size:9px; }
+      #community .band-grid { gap:24px; }
+      #contacto .cta-box { border-radius:22px; }
+    }
+    @media (max-width:360px) {
+      .hero .hero-actions { align-items:stretch;flex-direction:column; }
+      #equipos .product-card .tag { font-size:7px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-orbit img { animation:none!important;transform:none!important; }
+    }
+    #equipos .catalog-category-heading { grid-column:1 / -1; }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap nav">
-      <a class="brand brand-header" href="#inicio" aria-label="Starlink Colombia, distribuidor oficial, inicio">
+      <a class="brand brand-header" href="#inicio" aria-label="Starlink Colombia, inicio">
         <img class="starlink-symbol starlink-icon" src="./starlink-icon.png" alt="" aria-hidden="true">
         <span class="brand-name"><span class="starlink-wordmark">STARLINK</span><span class="brand-region">COLOMBIA</span></span>
-        <span class="brand-official">Distribuidor oficial</span>
+        <span class="brand-official">Distribuidor</span>
       </a>
       <a class="mobile-equipment-link" href="#equipos" aria-label="Ver Kit Mini-Kit V4">Kit Mini-Kit V4</a>
       <nav class="nav-links" id="navLinks" aria-label="Navegación principal">
@@ -1178,8 +1300,11 @@
   </header>
   <main>
     <section class="hero" id="inicio">
+      <div class="hero-orbit" aria-hidden="true"><img src="./starlink-orbit-hero.jpg" alt="" fetchpriority="high" decoding="async"></div>
       <div class="wrap hero-grid availability-only">
-        <p class="hero-slogan">Starlink Colombia</p>
+        <div class="hero-copy">
+          <h1 class="hero-slogan">Starlink<br>Colombia</h1>
+        </div>
         <div class="hero-art">
           <form class="availability-card" id="coverageForm">
             <div class="availability-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.4 7-12a7 7 0 1 0-14 0c0 6.6 7 12 7 12Z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="9" r="2.4" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 19.5c2.2-1.5 5.1-2.2 8.5-2.2s6.3.7 8.5 2.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
@@ -1727,7 +1852,7 @@
   </main>
   <footer><div class="wrap">
     <div class="footer-main"><div><a class="brand" href="#inicio"><span class="brand-mark"><img class="starlink-icon" src="./starlink-icon.png" alt="" aria-hidden="true"></span><span>STARLINK<small>COLOMBIA</small></span></a><p class="footer-copy">Venta de antenas Starlink Mini X y Standard v4, más accesorios compatibles. Consulta disponibilidad, precio y entrega para tu ubicación.</p><a class="footer-email" href="mailto:ventas@starlink-colombia.co">ventas@starlink-colombia.co</a></div><nav class="footer-links" aria-label="Enlaces del pie de página"><a href="#equipos">Equipos</a><a href="#servicio">Servicio</a><a href="#community">Starlink Community</a><a href="#blog">Blog</a><a href="#faq">Preguntas frecuentes</a><a href="#contacto">Cotizar</a></nav></div>
-    <div class="footer-bottom"><span>© <span id="year"></span> Starlink Colombia</span><span>Distribuidor independiente. Starlink es una marca de SpaceX.</span></div>
+    <div class="footer-bottom"><span>© <span id="year"></span> Starlink Colombia</span><span>Distribuidor. Starlink es una marca de SpaceX.</span></div>
   </div></footer>
   <div class="modal-backdrop" id="quoteModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal"><button class="modal-close" id="modalClose" aria-label="Cerrar">×</button><div class="eyebrow">Hablemos de tu conexión</div><h2 id="modalTitle">Solicita tu cotización.</h2><p class="modal-intro">Déjanos tus datos y el equipo de tu interés. Te ayudaremos a confirmar disponibilidad, precio y entrega.</p>

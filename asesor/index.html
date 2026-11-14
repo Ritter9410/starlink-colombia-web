@@ -4,115 +4,134 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#081522">
-  <meta name="description" content="Consulta la ficha pública de un asesor de Starlink Colombia y usa los canales oficiales de atención.">
+  <meta name="theme-color" content="#111820">
+  <meta name="description" content="Consulta la ficha pública de un asesor de Starlink Colombia y usa los canales de atención.">
   <title>Ficha del asesor | Starlink Colombia</title>
   <style>
-    :root { color-scheme:light;--ink:#112943;--muted:#66788c;--blue:#176fc1;--line:#e3eaf1;--surface:#fff; }
+    :root { color-scheme:dark;--ink:#f5f9ff;--muted:#b5c7da;--accent:#42a5f5;--line:rgba(189,216,239,.18); }
     * { box-sizing:border-box; }
-    body { margin:0;min-height:100vh;background:#f3f6f8;color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    body { margin:0;min-height:100vh;background:radial-gradient(ellipse at 16% 0%,rgba(25,95,153,.3),transparent 38%),radial-gradient(ellipse at 100% 70%,rgba(32,89,136,.2),transparent 35%),#07121e;color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
     a { color:inherit; }
-    .page { width:min(100% - 40px,1100px);margin:0 auto;padding:24px 0 48px; }
-    .topbar { display:flex;align-items:center;justify-content:space-between;gap:18px;padding-bottom:18px; }
-    .brand { display:flex;align-items:center;gap:11px;color:#112943;text-decoration:none;font-size:14px;font-weight:850;letter-spacing:.13em; }
+    .page { width:min(100% - 40px,1000px);margin:0 auto;padding:22px 0 44px; }
+    .topbar { display:flex;align-items:center;justify-content:space-between;gap:18px;padding-bottom:21px; }
+    .brand { display:flex;align-items:center;gap:11px;color:#f5f9ff;text-decoration:none;font-size:14px;font-weight:850;letter-spacing:.13em; }
     .brand img { width:38px;height:38px;object-fit:contain; }
-    .brand small { display:block;margin-top:3px;color:#718296;font-size:9px;letter-spacing:.25em; }
-    .official-label { display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid #d8e2eb;border-radius:999px;background:#fff;color:#31516f;font-size:11px;font-weight:750; }
-    .official-label::before { width:8px;height:8px;border-radius:50%;background:#1eae78;content:""; }
-    .hero { position:relative;overflow:hidden;padding:42px 44px 126px;border-radius:23px;background:linear-gradient(112deg,#071b30 0%,#0c3153 58%,#164e78 100%);color:#fff;box-shadow:0 16px 34px rgba(15,41,67,.17); }
-    .hero::after { position:absolute;top:-184px;right:-40px;width:470px;height:470px;border:1px solid rgba(188,223,247,.16);border-radius:50%;background:radial-gradient(circle,transparent 45%,rgba(188,223,247,.08) 45.2%,transparent 45.7%,transparent 60%,rgba(188,223,247,.11) 60.2%,transparent 60.7%);content:"";pointer-events:none; }
-    .hero-copy { position:relative;z-index:1;max-width:650px; }
-    .eyebrow { margin:0 0 10px;color:#a9d7fa;font-size:10px;font-weight:850;letter-spacing:.18em;text-transform:uppercase; }
-    h1 { margin:0;color:#fff;font-size:clamp(34px,5vw,50px);line-height:1.04;letter-spacing:-.045em; }
-    .hero-description { max-width:590px;margin:13px 0 0;color:#d2e1ed;font-size:15px;line-height:1.65; }
-    .profile-card { position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(245px,320px);gap:28px;margin:-88px 34px 0;padding:30px;border:1px solid #e1e8ef;border-radius:22px;background:var(--surface);box-shadow:0 24px 58px rgba(23,48,73,.15); }
-    .profile-content { min-width:0;align-self:center; }
-    .profile-head { display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding-bottom:20px;border-bottom:1px solid var(--line); }
+    .brand small { display:block;margin-top:3px;color:#98aec3;font-size:9px;letter-spacing:.25em; }
+    .official-label { display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.045);color:#d4e4f2;font-size:10px;font-weight:750;letter-spacing:.05em; }
+    .official-label::before { width:7px;height:7px;border-radius:50%;background:#31c48d;content:""; }
+    .intro { margin:16px 0 21px; }
+    .eyebrow { margin:0 0 8px;color:#70b7f0;font-size:9px;font-weight:850;letter-spacing:.2em;text-transform:uppercase; }
+    h1 { margin:0;color:#f5f9ff;font-size:clamp(28px,4vw,38px);line-height:1.08;letter-spacing:-.04em; }
+    .intro p:last-child { max-width:650px;margin:10px 0 0;color:#aebfd0;font-size:13px;line-height:1.6; }
+    .credential { position:relative;overflow:hidden;border:1px solid rgba(143,190,224,.35);border-radius:21px;background:linear-gradient(130deg,#0d2033 0%,#0b1725 60%,#0b1c2d 100%);box-shadow:0 28px 72px rgba(0,0,0,.38); }
+    .credential::before { position:absolute;inset:0;background:radial-gradient(ellipse at 82% 0%,rgba(52,139,207,.15),transparent 40%);content:"";pointer-events:none; }
+    .credential-top,.credential-body,.credential-bottom { position:relative;z-index:1; }
+    .credential-top { display:flex;align-items:center;justify-content:space-between;gap:16px;padding:19px 25px;border-bottom:1px solid var(--line); }
+    .credential-brand { display:flex;align-items:center;gap:10px; }
+    .credential-brand img { width:30px;height:30px;object-fit:contain; }
+    .credential-brand span { display:block;color:#fff;font-size:11px;font-weight:850;letter-spacing:.16em; }
+    .credential-brand small { display:block;margin-top:3px;color:#91a9be;font-size:8px;letter-spacing:.24em; }
+    .credential-type { display:flex;align-items:center;gap:8px;color:#9eb4c8;font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase; }
+    .credential-type::before { width:6px;height:6px;border-radius:50%;background:#48a7f4;box-shadow:0 0 12px rgba(72,167,244,.8);content:""; }
+    .credential-body { display:grid;grid-template-columns:minmax(0,1fr) minmax(245px,300px);gap:32px;padding:28px 30px 26px; }
+    .credential-info { min-width:0;align-self:center; }
+    .profile-head { display:flex;align-items:flex-start;justify-content:space-between;gap:14px; }
     .profile-name { min-width:0; }
-    .profile-name h2 { margin:0;color:var(--ink);font-size:clamp(27px,4vw,36px);line-height:1.12;letter-spacing:-.04em; }
-    .profile-name p { margin:8px 0 0;color:#536d87;font-size:15px;font-weight:650; }
-    .profile-status { display:inline-flex;flex:none;align-items:center;gap:7px;margin-top:3px;padding:8px 11px;border:1px solid #dce8f1;border-radius:999px;background:#f5f9fc;color:#45627d;font-size:10px;font-weight:800;white-space:nowrap; }
-    .profile-status::before { width:7px;height:7px;border-radius:50%;background:#1eae78;content:""; }
-    .profile-summary { max-width:570px;margin:18px 0;color:#586d82;font-size:14px;line-height:1.7; }
-    .details { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;padding:0 0 20px; }
-    .detail { min-width:0;padding:13px 12px;border:1px solid #e8edf2;border-radius:12px;background:#f8fafc; }
-    .detail span { display:block;margin-bottom:7px;color:#7c8c9d;font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase; }
-    .detail strong { display:block;color:#203a54;font-size:12px;font-weight:750;line-height:1.45;overflow-wrap:anywhere; }
-    .portrait-pane { display:flex;flex-direction:column;gap:12px;align-self:center;padding:12px;border:1px solid #e4ebf1;border-radius:18px;background:linear-gradient(145deg,#f3f7fa,#e9f0f5); }
-    .avatar { display:grid;width:100%;aspect-ratio:1/1;place-items:center;overflow:hidden;border:1px solid #fff;border-radius:12px;background:#dceaf5;color:#1b5e99;font-size:48px;font-weight:800;box-shadow:0 8px 21px rgba(30,66,97,.12); }
+    .profile-name h2 { margin:5px 0 0;color:#fff;font-size:clamp(30px,4vw,42px);line-height:1.06;letter-spacing:-.045em; }
+    .profile-name p { margin:9px 0 0;color:#b8cce0;font-size:14px;font-weight:650; }
+    .profile-status { display:inline-flex;flex:none;align-items:center;gap:7px;margin-top:3px;padding:7px 10px;border:1px solid rgba(156,195,225,.25);border-radius:999px;background:rgba(255,255,255,.045);color:#d7e6f2;font-size:9px;font-weight:750;white-space:nowrap; }
+    .profile-status::before { width:6px;height:6px;border-radius:50%;background:#42c995;content:""; }
+    .profile-summary { max-width:560px;margin:17px 0 19px;color:#afc1d3;font-size:12px;line-height:1.7; }
+    .details { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px; }
+    .detail { min-width:0;padding:12px 11px;border:1px solid rgba(177,206,230,.15);border-radius:11px;background:rgba(255,255,255,.035); }
+    .detail span { display:block;margin-bottom:7px;color:#8ba3b9;font-size:8px;font-weight:800;letter-spacing:.12em;text-transform:uppercase; }
+    .detail strong { display:block;color:#f2f7fc;font-size:11px;font-weight:750;line-height:1.45;overflow-wrap:anywhere; }
+    .credential-visual { display:flex;flex-direction:column;gap:10px;align-self:center;padding:11px;border:1px solid rgba(177,206,230,.19);border-radius:16px;background:rgba(255,255,255,.045); }
+    .avatar { display:grid;width:100%;aspect-ratio:1/1;place-items:center;overflow:hidden;border:1px solid rgba(255,255,255,.24);border-radius:10px;background:#172d42;color:#86c6f7;font-size:46px;font-weight:800; }
     .avatar img { display:none;width:100%;height:100%;object-fit:cover; }
-    .portrait-caption { display:flex;justify-content:space-between;align-items:center;gap:10px;padding:0 3px 2px;color:#6c8195; }
-    .portrait-caption span { font-size:8px;font-weight:850;letter-spacing:.16em; }
-    .portrait-caption strong { color:#31506e;font-size:10px;font-weight:700; }
-    .setup-state { margin:7px 0 18px;padding:14px 16px;border:1px solid #f0dfb5;border-radius:13px;background:#fffaf0;color:#6c5625;font-size:12px;line-height:1.6; }
-    .setup-state strong { display:block;margin-bottom:4px;color:#4e3c12;font-size:13px; }
-    .actions { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px; }
-    .action { display:inline-flex;min-height:48px;align-items:center;justify-content:center;gap:9px;padding:12px 15px;border:1px solid #12365b;border-radius:11px;background:#12365b;color:#fff;text-align:center;text-decoration:none;font-size:12px;font-weight:800;transition:background .18s,border-color .18s,transform .18s; }
-    .action:hover { transform:translateY(-1px);border-color:#0b2948;background:#0b2948; }
-    .action.secondary { border-color:#d8e2eb;background:#fff;color:#25425e; }
-    .action.secondary:hover { border-color:#b8cde0;background:#f3f8fc; }
-    .action svg { width:17px;height:17px;flex:none; }
-    .contact-note { margin:12px 0 0;color:#8694a2;font-size:10px;line-height:1.5;text-align:center; }
-    .trust-note { display:flex;gap:11px;margin:16px 34px 0;padding:14px 17px;border:1px solid #dfe7ee;border-radius:13px;background:#fff;color:#596d80;font-size:11px;line-height:1.6; }
-    .trust-note svg { width:18px;height:18px;flex:none;color:#3979ad; }
-    footer { margin-top:21px;color:#8291a0;text-align:center;font-size:10px;line-height:1.6; }
-    footer a { color:#355f84;text-underline-offset:3px; }
+    .portrait-caption { display:flex;justify-content:space-between;align-items:center;gap:8px;padding:0 2px;color:#8299ad; }
+    .portrait-caption span { font-size:7px;font-weight:850;letter-spacing:.13em; }
+    .portrait-caption strong { color:#c5d5e3;font-size:9px;font-weight:700; }
+    .qr-panel { display:flex;align-items:center;gap:11px;margin-top:4px;padding:9px;border-radius:10px;background:#f6f9fc;color:#16314d; }
+    .qr-panel img { width:70px;height:70px;flex:none;border-radius:5px;background:#fff; }
+    .qr-panel strong { display:block;font-size:10px;font-weight:850; }
+    .qr-panel span { display:block;margin-top:4px;color:#60768c;font-size:8px;line-height:1.45; }
+    .setup-state { margin:16px 0 0;padding:13px 15px;border:1px solid rgba(245,200,100,.35);border-radius:11px;background:rgba(130,95,28,.16);color:#e4d4ac;font-size:11px;line-height:1.55; }
+    .setup-state strong { display:block;margin-bottom:4px;color:#fff0c9;font-size:12px; }
+    .credential-bottom { display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 25px;border-top:1px solid var(--line);color:#8ea6bb;font-size:8px;font-weight:800;letter-spacing:.12em;text-transform:uppercase; }
+    .credential-bottom strong { color:#cbdbe8;font-size:9px; }
+    .actions { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0 0; }
+    .action { display:inline-flex;min-height:47px;align-items:center;justify-content:center;gap:9px;padding:11px 14px;border:1px solid #1683d4;border-radius:10px;background:#1479c2;color:#fff;text-align:center;text-decoration:none;font-size:11px;font-weight:800;transition:background .18s,border-color .18s,transform .18s; }
+    .action:hover { transform:translateY(-1px);border-color:#36a0ed;background:#1988d1; }
+    .action.secondary { border-color:rgba(185,211,233,.22);background:rgba(255,255,255,.045);color:#dbe8f3; }
+    .action.secondary:hover { border-color:rgba(185,211,233,.45);background:rgba(255,255,255,.09); }
+    .action svg { width:16px;height:16px;flex:none; }
+    .contact-note { margin:10px 0 0;color:#8298ac;font-size:9px;line-height:1.5;text-align:center; }
+    .trust-note { display:flex;gap:10px;margin-top:15px;padding:13px 15px;border:1px solid rgba(177,206,230,.13);border-radius:11px;background:rgba(255,255,255,.025);color:#aebfd0;font-size:10px;line-height:1.6; }
+    .trust-note svg { width:17px;height:17px;flex:none;color:#72b7ed; }
+    footer { margin-top:19px;color:#8196aa;text-align:center;font-size:9px;line-height:1.6; }
+    footer a { color:#d7e6f2;text-underline-offset:3px; }
     [hidden] { display:none!important; }
-    @media (max-width:760px) {
-      .page { width:min(100% - 28px,620px);padding-top:18px; }
-      .hero { padding:32px 25px 112px;border-radius:19px; }
-      .hero::after { top:-135px;right:-225px;width:400px;height:400px; }
-      .profile-card { grid-template-columns:1fr;margin:-75px 12px 0;padding:19px;gap:19px; }
-      .portrait-pane { grid-row:1;display:grid;grid-template-columns:minmax(120px,190px) 1fr;align-items:end;gap:14px;padding:10px; }
-      .portrait-caption { display:flex;flex-direction:column;align-items:flex-start;padding-bottom:6px; }
-      .profile-content { grid-row:2; }
-      .trust-note { margin-right:12px;margin-left:12px; }
+    @media (max-width:720px) {
+      .page { width:min(100% - 28px,600px);padding-top:17px; }
+      .credential-body { grid-template-columns:1fr;gap:21px;padding:20px; }
+      .credential-visual { width:min(100%,290px);justify-self:center; }
+      .profile-head { flex-direction:column;gap:10px; }
+      .credential-bottom { padding:13px 20px; }
     }
     @media (max-width:480px) {
-      .page { width:min(100% - 22px,620px); }
-      .topbar { padding-bottom:14px; }
-      .official-label { padding:8px 9px;font-size:9px; }
-      .hero { padding:29px 20px 103px; }
-      .hero-description { font-size:13px; }
-      .profile-card { margin-right:4px;margin-left:4px;padding:15px;gap:17px; }
-      .portrait-pane { grid-template-columns:minmax(120px,150px) 1fr;gap:10px;padding:8px; }
-      .portrait-caption span { font-size:7px; }
-      .portrait-caption strong { font-size:9px; }
-      .profile-head { flex-direction:column;gap:12px;padding-bottom:15px; }
-      .profile-name h2 { font-size:28px; }
+      .page { width:min(100% - 22px,600px); }
+      .topbar { padding-bottom:15px; }
+      .official-label { padding:8px 9px;font-size:8px; }
+      .intro { margin:10px 0 17px; }
+      .intro p:last-child { font-size:12px; }
+      .credential { border-radius:16px; }
+      .credential-top { padding:15px 16px; }
+      .credential-body { padding:17px 15px;gap:17px; }
+      .credential-type { font-size:7px;letter-spacing:.1em; }
+      .profile-name h2 { font-size:32px; }
       .details { grid-template-columns:repeat(2,minmax(0,1fr));gap:7px; }
-      .detail { padding:11px 9px; }
-      .detail strong { font-size:11px; }
+      .detail { padding:10px 9px; }
+      .credential-bottom { padding:12px 15px;font-size:7px; }
+      .credential-bottom strong { font-size:8px; }
       .actions { grid-template-columns:1fr; }
-      .trust-note { margin-right:4px;margin-left:4px;padding:12px; }
+      .trust-note { padding:11px; }
     }
   </style>
+  <link rel="stylesheet" href="../public-polish.css">
 </head>
-<body>
+<body class="advisor-page">
   <main class="page">
     <header class="topbar">
       <a class="brand" href="/" aria-label="Starlink Colombia, inicio">
         <img src="../starlink-icon.png" alt="">
         <span>STARLINK<small>COLOMBIA</small></span>
       </a>
-      <span class="official-label">Canales oficiales</span>
+      <span class="official-label">Canales de atención</span>
     </header>
 
-    <section class="hero" aria-labelledby="pageTitle">
-      <div class="hero-copy">
-        <p class="eyebrow">Directorio comercial</p>
-        <h1 id="pageTitle">Conoce a tu asesor Starlink.</h1>
-        <p class="hero-description">Consulta su perfil profesional y escríbele por los canales oficiales de atención.</p>
-      </div>
+    <section class="intro" aria-labelledby="pageTitle">
+      <p class="eyebrow">Directorio comercial · Ficha digital</p>
+      <h1 id="pageTitle">Perfil del asesor</h1>
+      <p>Consulta la información del asesor y comunícate por los canales de atención de Starlink Colombia.</p>
     </section>
 
-    <section class="profile-card" aria-label="Perfil público del asesor">
-      <div class="profile-content">
+    <section class="credential" aria-label="Ficha digital del asesor">
+      <div class="credential-top">
+        <div class="credential-brand">
+          <img src="../starlink-icon.png" alt="">
+          <div><span>STARLINK</span><small>COLOMBIA</small></div>
+        </div>
+        <span class="credential-type">Credencial comercial</span>
+      </div>
+      <div class="credential-body">
+      <div class="credential-info">
+        <p class="eyebrow">Asesoría comercial</p>
       <div class="profile-head">
         <div class="profile-name"><h2 id="advisorName">Equipo de asesoría</h2><p id="advisorRole">Atención comercial · Starlink Colombia</p></div>
-        <span class="profile-status" id="profileStatus">Canal institucional</span>
+        <span class="profile-status" id="profileStatus">Canal de atención</span>
       </div>
-      <p class="profile-summary">Asesoría comercial sobre equipos y soluciones de conectividad Starlink, con atención directa por canales institucionales.</p>
+      <p class="profile-summary">Asesoría comercial sobre equipos y soluciones de conectividad Starlink, con atención directa.</p>
       <div class="details" id="profileDetails" hidden>
         <div class="detail"><span>Empresa</span><strong>Starlink Colombia</strong></div>
         <div class="detail"><span>Código del asesor</span><strong id="detailCode"></strong></div>
@@ -122,19 +141,28 @@
         <strong id="setupTitle">Ficha individual pendiente</strong>
         <span id="setupMessage">Esta página ya está preparada para recibir el QR. Falta registrar los datos del asesor para que el escaneo muestre su nombre, cargo y código interno.</span>
       </div>
+      </div>
+      <div class="credential-visual">
+        <div class="avatar" id="avatar"><span id="initials">SC</span><img id="photo" alt=""></div>
+        <div class="portrait-caption"><span>STARLINK COLOMBIA</span><strong id="portraitCaption">Perfil del asesor</strong></div>
+        <div class="qr-panel">
+          <img src="qr-ramiro-rojas.png" alt="Código QR para abrir la ficha del asesor">
+          <div><strong>Abre esta ficha</strong><span>Escanea el código QR para consultar este perfil digital.</span></div>
+        </div>
+      </div>
+      </div>
+      <div class="credential-bottom"><span>Ficha digital · Atención Colombia</span><strong>STARLINK COLOMBIA</strong></div>
+    </section>
+
+    <section class="contact-section" aria-label="Canales de contacto">
       <div class="actions">
         <a class="action" id="whatsappLink" href="https://wa.me/573159638526" target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1 11.8a8.1 8.1 0 0 1-11.9 7.1L4 20l1.1-4a8.1 8.1 0 1 1 15-4.2Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 8.2c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.7c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4-.1.6.6 1.1 1.4 1.9 2.5 2.5.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .3-.2 1-.7 1.4-.5.5-1.2.7-1.9.6-1.1-.1-2.6-.8-4-2.1-1.5-1.4-2.4-3.1-2.5-4.1-.1-.8.3-1.5.7-1.9.2-.2.4-.1.5 0Z" fill="currentColor"/></svg>
           Contactar por WhatsApp
         </a>
-        <a class="action secondary" href="mailto:ventas@starlink-colombia.co">Escribir al correo oficial</a>
+        <a class="action secondary" href="mailto:ventas@starlink-colombia.co">Escribir por correo</a>
       </div>
-      <p class="contact-note">Atención por los canales oficiales de Starlink Colombia.</p>
-      </div>
-      <div class="portrait-pane">
-        <div class="avatar" id="avatar"><span id="initials">SC</span><img id="photo" alt=""></div>
-        <div class="portrait-caption"><span>STARLINK COLOMBIA</span><strong id="portraitCaption">Perfil del asesor</strong></div>
-      </div>
+      <p class="contact-note">Atención por los canales de Starlink Colombia.</p>
     </section>
 
     <aside class="trust-note">
@@ -142,7 +170,7 @@
       <span>Si los datos del documento no coinciden con esta ficha, confirma la identidad con nuestro equipo antes de compartir información o realizar un pago.</span>
     </aside>
 
-    <footer>Starlink Colombia · <a href="https://www.starlink-colombia.co/">Volver al sitio oficial</a></footer>
+    <footer>Starlink Colombia · <a href="https://www.starlink-colombia.co/">Volver al sitio</a></footer>
   </main>
   <script>
     // Agrega cada asesor aquí y usa su código en el QR: /asesor/?id=CODIGO
@@ -181,7 +209,7 @@
     } else if (advisorId) {
       document.getElementById('profileStatus').textContent = 'Código no encontrado';
       document.getElementById('setupTitle').textContent = 'No encontramos esta ficha';
-      document.getElementById('setupMessage').textContent = 'Verifica el QR o confirma el código con Starlink Colombia. Puedes contactarnos por los canales oficiales de esta página.';
+      document.getElementById('setupMessage').textContent = 'Verifica el QR o confirma el código con Starlink Colombia. Puedes contactarnos por los canales de atención de esta página.';
     }
   </script>
 </body>
