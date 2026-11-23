@@ -26,6 +26,7 @@ const CATALOG = Object.freeze({
   'cable-starlink-gen3-100m': { name: 'Cable Starlink Gen 3 100m estándar 4/4X/V3/V4/V5/Mini', price: 495000, stock: 99 },
   'vantisan-car-charger': { name: 'Vantisan Cargador Coche Cable 12-48v Para Starlink Mini 5mts', price: 46400, stock: 99 },
   'starlink-mini-ac-adapter': { name: 'Adaptador de CA para cargador de pared Starlink Mini, fuente de alimentación de 110–240 V AC a 30 V DC compatible con Starlink Mini 12 V', price: 120000, stock: 99 },
+  'starlink-mini-router-utr251-9v-adapter': { name: 'Adaptador AC-DC para cargar Starlink Mini Router UTR-251 Extensor WiFi 9VDC 9V 9.0 voltios Cable adaptador de fuente de alimentación', price: 88000, stock: 99 },
   'starlink-mini-backpack': { name: 'Mini mochila Starlink, estuche protector de carcasa dura y organizador de accesorios con cerradura TSA y puertos de carga', price: 240000, stock: 99 },
   'starlink-mini-magnetic-mount': { name: 'Soporte Magnético para Starlink Mini, accesorios para montaje en techo de auto, kit de montaje para techo solar', price: 240000, stock: 99 },
   'starlink-mini-battery-cable-5m': { name: 'Cable de Alimentación para Batería Starlink Mini de 5 m, adaptador 12–24 V con anillo de sellado, fusible e interruptor', price: 70000, stock: 99 },
