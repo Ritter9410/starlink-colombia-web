@@ -145,8 +145,8 @@
       <div class="credential-visual">
         <div class="avatar" id="avatar"><span id="initials">SC</span><img id="photo" alt=""></div>
         <div class="portrait-caption"><span>STARLINK COLOMBIA</span><strong id="portraitCaption">Perfil del asesor</strong></div>
-        <div class="qr-panel">
-          <img src="qr-ramiro-rojas.png" alt="Código QR para abrir la ficha del asesor">
+        <div class="qr-panel" id="qrPanel" hidden>
+          <img id="advisorQr" alt="">
           <div><strong>Abre esta ficha</strong><span>Escanea el código QR para consultar este perfil digital.</span></div>
         </div>
       </div>
@@ -180,7 +180,15 @@
         role: 'Asesor Starlink',
         code: 'ST1291821',
         region: 'Agente virtual',
-        photo: 'ramiro-rojas-square.jpg'
+        photo: 'ramiro-rojas-square.jpg',
+        qr: 'qr-ramiro-rojas.png'
+      },
+      ST1298540: {
+        name: 'Sara Higuera',
+        role: 'Administradora',
+        code: 'ST1298540',
+        photo: 'sara-higuera-square.png',
+        qr: 'qr-sara-higuera.png'
       }
     });
     const advisorId = new URLSearchParams(location.search).get('id');
@@ -190,7 +198,7 @@
       const initials = fullName.split(/\s+/).filter(Boolean).slice(0, 2).map(part => part[0]).join('').toUpperCase() || 'SC';
       document.getElementById('advisorName').textContent = fullName || 'Asesor Starlink Colombia';
       document.getElementById('advisorRole').textContent = advisor.role || 'Asesor comercial · Starlink Colombia';
-      document.getElementById('profileStatus').textContent = 'Asesor comercial';
+      document.getElementById('profileStatus').textContent = advisor.role || 'Asesor comercial';
       document.getElementById('initials').textContent = initials;
       document.getElementById('profileDetails').hidden = false;
       document.getElementById('setupState').hidden = true;
@@ -203,6 +211,12 @@
         photo.alt = `Foto de ${fullName}`;
         photo.style.display = 'block';
         document.getElementById('initials').hidden = true;
+      }
+      if (advisor.qr) {
+        const qr = document.getElementById('advisorQr');
+        qr.src = advisor.qr;
+        qr.alt = `Código QR para abrir la ficha de ${fullName}`;
+        document.getElementById('qrPanel').hidden = false;
       }
       const contactName = fullName || 'un asesor';
       document.getElementById('whatsappLink').href = `https://wa.me/573159638526?text=${encodeURIComponent(`Hola, estoy consultando la ficha de ${contactName} (${advisor.code || advisorId}).`)}`;
